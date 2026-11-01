@@ -41,6 +41,7 @@ diagnostico-hoja-maiz-api/
 ├── pruebas/
 │   ├── test_api.py        pruebas automáticas de los endpoints (pytest)
 │   ├── probar_api.py      cliente que consume la API y guarda la evidencia
+│   ├── verificar_contenedor.py  comprueba la imagen y el contenedor (19 comprobaciones)
 │   └── fotos_ejemplo.json fotos de prueba de la Actividad 5 que usa el cliente
 ├── evidencias/
 │   ├── local/             la API corriendo con uvicorn en Windows
@@ -145,6 +146,23 @@ Para repetir las pruebas de integración contra el contenedor (desde la computad
 python pruebas/probar_api.py --url http://localhost:8000 --salida evidencias/contenedor
 ```
 
+Para comprobar la imagen y el contenedor de una sola vez:
+
+```bash
+python pruebas/verificar_contenedor.py
+```
+
+Tarda menos de un minuto. Levanta contenedores desechables en los puertos 8101 y 8103, así que no toca el contenedor principal, y revisa siete cosas:
+1. La imagen: usuario, puerto, HEALTHCHECK y configuración por defecto.
+2. Las dependencias dentro de la imagen: Python 3.10, las mismas versiones de `requirements.txt` y `pip check`.
+3. El arranque normal y los endpoints, con un diagnóstico igual al de local.
+4. El funcionamiento **sin internet**.
+5. El cambio de umbral con `-e`.
+6. Que se niegue a arrancar con un umbral inválido.
+7. El reinicio.
+
+Deja el resultado en `evidencias/contenedor/verificacion.md` y termina con error si algo falla.
+
 ### 5. Cambiar la configuración
 
 Sin reconstruir la imagen, con variables de entorno:
@@ -191,7 +209,22 @@ docker rmi diagnostico-hoja-maiz-api:0.2.0   # borra la imagen, si ya no se nece
 
 ### Validación del contenedor
 
-Corrí `probar_api.py` contra el contenedor y comparé sus respuestas con las de la API corriendo en Windows: las 8 fotos de ejemplo dieron el mismo diagnóstico y las mismas probabilidades (diferencia 0 con 4 decimales), y los errores 413 y 415 también salieron igual. La evidencia está en `evidencias/contenedor/`, junto con el log completo de `docker build`.
+Corrí `probar_api.py` contra el contenedor y comparé sus respuestas con las de la API corriendo en Windows: las 8 fotos de ejemplo dieron el mismo diagnóstico y las mismas probabilidades (diferencia 0 con 4 decimales), y los errores 413 y 415 también salieron igual.
+
+`verificar_contenedor.py` pasó las 19 comprobaciones:
+- El contenedor arranca en unos 11 segundos.
+- Sin internet (`--network none`) da el mismo diagnóstico.
+- Con `UMBRAL_ENFERMA=0.40`, la hoja m0859 (P(enferma) 0.38) pasa de Mancha gris a Sana sin reconstruir la imagen.
+- Con un umbral inválido se detiene con un mensaje claro, en vez de diagnosticar mal.
+
+Probé también `docker compose`, con los valores por defecto y con otro puerto y otro umbral. Lo último fue seguir este manual desde un clon recién bajado de GitHub: construyó, arrancó y dio el mismo resultado.
+
+Todo está en `evidencias/contenedor/`:
+- `docker_build.txt`: el log completo de la construcción.
+- `docker_estado.txt`: `docker version`, `images`, `ps`, `history` y `logs`.
+- `verificacion.md`: el resultado de las 19 comprobaciones.
+- `docker_compose.txt`: la prueba de Compose.
+- Las respuestas de la API y las capturas.
 
 ## Cómo correrlo en local (sin contenedor)
 
