@@ -36,13 +36,20 @@ diagnostico-hoja-maiz-api/
 │   ├── MLmodel            metadatos originales de MLflow
 │   └── ficha_modelo.json  origen, huella sha256, umbral y métricas de prueba
 ├── scripts/
-│   └── exportar_modelo.py copia el modelo desde el MLflow de la Actividad 5 y lo verifica
+│   ├── exportar_modelo.py      copia el modelo desde el MLflow de la Actividad 5 y lo verifica
+│   └── descargar_extractor.py  baja MobileNetV2 al construir la imagen
 ├── pruebas/
 │   ├── test_api.py        pruebas automáticas de los endpoints (pytest)
 │   ├── probar_api.py      cliente que consume la API y guarda la evidencia
 │   └── fotos_ejemplo.json fotos de prueba de la Actividad 5 que usa el cliente
-├── evidencias/            respuestas, capturas y resultados de las pruebas
-├── requirements.txt       dependencias del servicio (versiones fijas)
+├── evidencias/
+│   ├── local/             la API corriendo con uvicorn en Windows
+│   └── contenedor/        la API corriendo en Docker, con el log de la construcción
+├── Dockerfile             receta de la imagen
+├── .dockerignore          lo que no entra a la imagen
+├── docker-compose.yml     levantar el servicio con la configuración de .env
+├── requirements.txt       dependencias directas del servicio (versiones fijas)
+├── constraints.txt        las 60 dependencias que se instalan en Linux con Python 3.10, todas fijas
 ├── requirements-dev.txt   dependencias para pruebas
 └── .env.example           variables de configuración
 ```
@@ -80,6 +87,112 @@ curl -F "foto=@hoja.jpg" http://localhost:8000/api/diagnostico
 
 Errores que regresa `POST /api/diagnostico`: **415** si el archivo no es una imagen, **413** si pesa más de 10 MB y **422** si no se manda el campo `foto`.
 
+## Manual de despliegue con Docker
+
+Es la forma recomendada: la imagen trae Linux, Python 3.10, las dependencias con sus versiones exactas, el extractor y el modelo, así que no hay que instalar nada más y el resultado es el mismo en cualquier máquina.
+
+### Requisitos
+
+- **Docker.** En Windows o Mac, Docker Desktop; en Windows además necesita WSL 2 (Docker Desktop lo instala, y puede pedir reiniciar). En Linux basta Docker Engine. Lo probé con Docker Desktop 4.97 (motor 29.9.2) en Windows 11.
+- Unos **3 GB libres** en disco (la imagen pesa cerca de 2 GB).
+- **Internet solo para construir** la imagen. Ya construida, el contenedor funciona sin conexión.
+- El **puerto 8000** libre (o cualquier otro, ver más abajo).
+
+Antes de empezar, `docker version` debe mostrar dos bloques, `Client` y `Server`. Si solo sale `Client` con un error, el motor de Docker no está corriendo (ver *Problemas comunes*).
+
+### 1. Bajar el código
+
+```bash
+git clone https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api.git
+cd diagnostico-hoja-maiz-api
+```
+
+### 2. Construir la imagen
+
+```bash
+docker build -t diagnostico-hoja-maiz-api:0.2.0 .
+```
+
+La primera vez tarda unos 3 minutos, porque descarga las dependencias (1.4 GB, casi todo es PyTorch) y el extractor MobileNetV2. Si después solo cambia el código, Docker reutiliza esas capas y tarda segundos. Al final debe decir `naming to docker.io/library/diagnostico-hoja-maiz-api:0.2.0`.
+
+### 3. Arrancar el contenedor
+
+```bash
+docker run -d --name diagnostico-hoja-maiz -p 8000:8000 diagnostico-hoja-maiz-api:0.2.0
+```
+
+- `-d` lo deja corriendo en segundo plano.
+- `-p 8000:8000` publica el puerto 8000 del contenedor en el 8000 de la computadora. Para usar otro, se cambia el primero: `-p 8080:8000` y se abre http://localhost:8080.
+
+### 4. Comprobar que funciona
+
+```bash
+docker ps
+```
+
+La columna `STATUS` debe decir `Up ... (healthy)`. El contenedor se revisa solo cada 30 segundos llamando a `/api/salud`; los primeros segundos dice `(health: starting)` mientras carga el modelo.
+
+```bash
+curl http://localhost:8000/api/salud          # en Windows PowerShell: curl.exe
+# {"estado":"ok","modelo":"clasificador-hoja-maiz v1","version_api":"0.2.0"}
+```
+
+Después se abre http://localhost:8000 para la página web y http://localhost:8000/docs para la documentación de la API.
+
+Para repetir las pruebas de integración contra el contenedor (desde la computadora, con Python 3.10 y `pip install -r requirements-dev.txt`):
+
+```bash
+python pruebas/probar_api.py --url http://localhost:8000 --salida evidencias/contenedor
+```
+
+### 5. Cambiar la configuración
+
+Sin reconstruir la imagen, con variables de entorno:
+
+```bash
+docker run -d --name diagnostico-hoja-maiz -p 8000:8000 -e UMBRAL_ENFERMA=0.20 diagnostico-hoja-maiz-api:0.2.0
+```
+
+O con Docker Compose, que lee el archivo `.env`:
+
+```bash
+cp .env.example .env          # en cmd de Windows: copy .env.example .env
+docker compose up -d --build  # construye y arranca
+docker compose down           # detiene y borra el contenedor
+```
+
+### 6. Ver los registros, detener y borrar
+
+```bash
+docker logs -f diagnostico-hoja-maiz     # cada diagnóstico queda registrado con su P(enferma) y su tiempo
+docker stop diagnostico-hoja-maiz
+docker rm diagnostico-hoja-maiz
+docker rmi diagnostico-hoja-maiz-api:0.2.0   # borra la imagen, si ya no se necesita
+```
+
+### Problemas comunes
+
+| Mensaje | Qué pasa | Solución |
+|---|---|---|
+| `failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine` | Docker Desktop no está abierto o su motor no arrancó | Abrir Docker Desktop y esperar a que diga *Engine running*. A mí me pasó justo después de instalar WSL, y se arregló reiniciando la PC |
+| `docker` no se reconoce como comando | La terminal se abrió antes de instalar Docker | Cerrarla y abrir otra |
+| `Bind for 0.0.0.0:8000 failed: port is already allocated` | Otro programa usa el puerto 8000 (por ejemplo, la API corriendo con uvicorn) | Detener ese programa o usar `-p 8080:8000` |
+| `Conflict. The container name "/diagnostico-hoja-maiz" is already in use` | Ya existe un contenedor con ese nombre | `docker rm -f diagnostico-hoja-maiz` y volver a correr |
+| El contenedor sale `unhealthy` o se detiene | El servicio no arrancó | `docker logs diagnostico-hoja-maiz`. Si dice que `model.skops` no coincide con la huella, el archivo del modelo cambió o se dañó y hay que bajarlo otra vez del repositorio |
+
+### Qué hace el Dockerfile
+
+- **Base `python:3.10-slim`**, la misma versión de Python con la que se entrenó el modelo.
+- **Las dependencias se instalan primero**, con `requirements.txt` y `constraints.txt`, para que esa capa se reutilice cuando solo cambia el código. PyTorch va en su versión solo-CPU, porque la de PyPI trae CUDA y pesa varios GB más.
+- **El extractor se descarga al construir** en la revisión fija de la ficha, y luego se activa `HF_HUB_OFFLINE=1`: el contenedor no depende de internet ni de que el modelo siga publicado en Hugging Face.
+- **Corre con un usuario sin privilegios** (`servicio`), no como root.
+- **`HEALTHCHECK`** llama a `/api/salud` cada 30 segundos.
+- **La configuración entra por variables de entorno** (`UMBRAL_ENFERMA`, `TAMANO_MAX_MB`) con los valores de la Actividad 6 por defecto.
+
+### Validación del contenedor
+
+Corrí `probar_api.py` contra el contenedor y comparé sus respuestas con las de la API corriendo en Windows: las 8 fotos de ejemplo dieron el mismo diagnóstico y las mismas probabilidades (diferencia 0 con 4 decimales), y los errores 413 y 415 también salieron igual. La evidencia está en `evidencias/contenedor/`, junto con el log completo de `docker build`.
+
 ## Cómo correrlo en local (sin contenedor)
 
 Requiere Python 3.10.
@@ -110,7 +223,7 @@ python -m pytest pruebas -v                                     # pruebas autom�
 python pruebas/probar_api.py --url http://localhost:8000        # cliente contra la API levantada
 ```
 
-`probar_api.py` llama a todos los endpoints, manda las 8 fotos de ejemplo (2 por clase, de la prueba de la Actividad 5) y dos archivos con error, y guarda en `evidencias/local/` las respuestas JSON, un CSV con cada petición y un `resumen.md`. Las capturas de la documentación y de la página web están en `evidencias/local/capturas/`.
+`probar_api.py` llama a todos los endpoints, manda las 8 fotos de ejemplo (2 por clase, de la prueba de la Actividad 5) y dos archivos con error, y guarda las respuestas JSON, un CSV con cada petición y un `resumen.md`. Por defecto escribe en `evidencias/local/`; con `--salida evidencias/contenedor` guarda la corrida contra Docker. Cada carpeta tiene en `capturas/` las imágenes de la documentación y de la página web.
 
 ## Origen del modelo
 

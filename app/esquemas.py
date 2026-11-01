@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 class Salud(BaseModel):
     estado: str = Field(examples=["ok"])
     modelo: str = Field(examples=["clasificador-hoja-maiz v1"])
-    version_api: str = Field(examples=["0.1.0"])
+    version_api: str = Field(examples=["0.2.0"])
 
 
 class ImagenRecibida(BaseModel):

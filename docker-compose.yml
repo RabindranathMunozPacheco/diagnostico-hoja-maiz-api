@@ -1,0 +1,14 @@
+# Levanta el servicio con la configuración de .env (si existe) o con los valores por defecto.
+#   docker compose up --build        construir y arrancar
+#   docker compose down              detener
+services:
+  api:
+    build: .
+    image: diagnostico-hoja-maiz-api:0.2.0
+    container_name: diagnostico-hoja-maiz
+    ports:
+      - "${PUERTO:-8000}:8000"
+    environment:
+      UMBRAL_ENFERMA: ${UMBRAL_ENFERMA:-0.2494}
+      TAMANO_MAX_MB: ${TAMANO_MAX_MB:-10}
+    restart: unless-stopped
