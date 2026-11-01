@@ -1,0 +1,5 @@
+# Finales de línea fijos: el Dockerfile y los scripts se usan en Linux, y la ficha lleva el sha256 del modelo
+* text=auto eol=lf
+*.skops binary
+*.png binary
+*.jpg binary

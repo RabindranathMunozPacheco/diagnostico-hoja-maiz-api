@@ -1,0 +1,42 @@
+{
+  "nombre": "clasificador-hoja-maiz",
+  "version_registrada": 1,
+  "alias": "candidato",
+  "algoritmo": "StandardScaler + LogisticRegression(C=0.1)",
+  "archivo": "model.skops",
+  "sha256": "e970088398c7da4113cbdc263f1b9fd033c13b16ee5f9e3f130153e034f14748",
+  "clases": [
+    "Mancha gris",
+    "Roya común",
+    "Sana",
+    "Tizón"
+  ],
+  "extractor": {
+    "repositorio": "linkanjarad/mobilenet_v2_1.0_224-plant-disease-identification",
+    "revision": "c1861579a670fb6232258805b801cd4137cb7176",
+    "salida": "pooler_output (1,280 características)",
+    "tamano_entrada": "224x224 RGB"
+  },
+  "umbral_enferma": {
+    "valor": 0.2494,
+    "origen": "Actividad 6, corrida ajuste_umbral",
+    "criterio": "umbral más alto con 5 % o menos de enfermas reportadas como sanas en validación fuera de fold"
+  },
+  "origen": {
+    "repositorio": "https://github.com/RabindranathMunozPacheco/Actividad-5",
+    "version_publicada": "v0.5.0",
+    "git_commit_entrenamiento": "1246811138cfe6b32ef476c28260bfeda99894d8",
+    "mlflow_run_id": "89185e000d974c4ebcad2ade865ce8c7",
+    "mlflow_model_id": "m-e3218129acbf45f0a97ca866498e38d5",
+    "datos_sha256": "13f23b88f9a05678"
+  },
+  "metricas_prueba": {
+    "n_fotos": 221,
+    "f1_macro": 0.7212,
+    "exactitud": 0.7511,
+    "enferma_como_sana": 0.1136,
+    "sana_como_enferma": 0.3778,
+    "con_umbral_enferma_como_sana": 0.0795,
+    "con_umbral_sana_como_enferma": 0.5556
+  }
+}
