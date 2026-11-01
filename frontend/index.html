@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diagnóstico de hoja de maíz</title>
+  <link rel="stylesheet" href="/static/estilos.css">
+</head>
+<body>
+  <header>
+    <div class="titulo">
+      <h1>Diagnóstico de hoja de maíz</h1>
+      <p>Sube la foto de una hoja y el modelo indica si está sana o qué enfermedad tiene.</p>
+    </div>
+    <span id="estado-api" class="estado">Conectando con la API…</span>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>1. Foto de la hoja</h2>
+      <label id="zona" class="zona" for="foto">
+        <input id="foto" type="file" accept="image/jpeg,image/png">
+        <img id="vista" alt="" hidden>
+        <span id="zona-texto">Arrastra una foto aquí o haz clic para elegirla<br><small>JPG o PNG, hasta 10 MB</small></span>
+      </label>
+      <button id="enviar" disabled>Diagnosticar</button>
+    </section>
+
+    <section class="panel">
+      <h2>2. Resultado</h2>
+      <p id="sin-resultado" class="tenue">Todavía no hay diagnóstico.</p>
+      <div id="resultado" hidden>
+        <div class="diagnostico">
+          <span id="r-estado" class="etiqueta"></span>
+          <strong id="r-clase"></strong>
+        </div>
+        <div class="medidor">
+          <div class="medidor-texto">
+            <span>Probabilidad de que esté enferma</span><span id="r-penferma"></span>
+          </div>
+          <div class="barra"><div id="r-barra-enferma"></div><i id="r-marca-umbral"></i></div>
+          <small class="tenue" id="r-umbral"></small>
+        </div>
+        <p id="r-aviso" class="aviso" hidden></p>
+        <h3>Probabilidad por clase</h3>
+        <ul id="r-clases" class="clases"></ul>
+        <small class="tenue" id="r-tiempo"></small>
+        <details>
+          <summary>Ver la respuesta JSON de la API</summary>
+          <pre id="r-json"></pre>
+        </details>
+      </div>
+      <p id="error" class="error" hidden></p>
+    </section>
+
+    <section class="panel ancho">
+      <h2>Sobre el modelo</h2>
+      <dl id="modelo" class="ficha"></dl>
+      <p class="tenue">El modelo solo conoce cuatro clases (Sana, Mancha gris, Tizón y Roya común). Si la foto no es
+        de una hoja de maíz, igual va a responder una de ellas, así que el resultado es un apoyo y no reemplaza la
+        revisión de un agrónomo.</p>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

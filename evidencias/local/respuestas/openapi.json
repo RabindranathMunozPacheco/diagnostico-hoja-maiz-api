@@ -1,0 +1,380 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Diagnóstico de hoja de maíz",
+    "description": "Clasifica una foto de hoja de maíz en Sana, Mancha gris, Tizón o Roya común.",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/salud": {
+      "get": {
+        "tags": [
+          "servicio"
+        ],
+        "summary": "Estado del servicio",
+        "operationId": "salud_api_salud_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Salud"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/modelo": {
+      "get": {
+        "tags": [
+          "servicio"
+        ],
+        "summary": "Ficha del modelo en uso",
+        "operationId": "modelo_api_modelo_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/diagnostico": {
+      "post": {
+        "tags": [
+          "diagnóstico"
+        ],
+        "summary": "Diagnosticar la foto de una hoja",
+        "operationId": "diagnostico_api_diagnostico_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_diagnostico_api_diagnostico_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Diagnostico"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Archivo demasiado grande",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "El archivo no es una imagen",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Body_diagnostico_api_diagnostico_post": {
+        "properties": {
+          "foto": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "Foto",
+            "description": "Foto de la hoja (JPG o PNG)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "foto"
+        ],
+        "title": "Body_diagnostico_api_diagnostico_post"
+      },
+      "Diagnostico": {
+        "properties": {
+          "archivo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archivo",
+            "examples": [
+              "hoja.jpg"
+            ]
+          },
+          "diagnostico": {
+            "type": "string",
+            "title": "Diagnostico",
+            "description": "Enfermedad detectada o 'Sana'",
+            "examples": [
+              "Mancha gris"
+            ]
+          },
+          "estado": {
+            "type": "string",
+            "title": "Estado",
+            "description": "'enferma' o 'sana'",
+            "examples": [
+              "enferma"
+            ]
+          },
+          "probabilidad_enferma": {
+            "type": "number",
+            "title": "Probabilidad Enferma",
+            "description": "1 - P(Sana)",
+            "examples": [
+              0.93
+            ]
+          },
+          "umbral_enferma": {
+            "type": "number",
+            "title": "Umbral Enferma",
+            "description": "Si probabilidad_enferma >= umbral, se reporta enferma",
+            "examples": [
+              0.2494
+            ]
+          },
+          "clase_mas_probable": {
+            "type": "string",
+            "title": "Clase Mas Probable",
+            "examples": [
+              "Mancha gris"
+            ]
+          },
+          "decidido_por_umbral": {
+            "type": "boolean",
+            "title": "Decidido Por Umbral",
+            "description": "True si el umbral cambió la clase más probable (Sana) a enferma"
+          },
+          "probabilidades": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Probabilidades",
+            "examples": [
+              {
+                "Mancha gris": 0.81,
+                "Roya común": 0.02,
+                "Sana": 0.07,
+                "Tizón": 0.1
+              }
+            ]
+          },
+          "imagen": {
+            "$ref": "#/components/schemas/ImagenRecibida"
+          },
+          "tiempo_ms": {
+            "type": "number",
+            "title": "Tiempo Ms",
+            "description": "Tiempo de preparación e inferencia",
+            "examples": [
+              45.2
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "archivo",
+          "diagnostico",
+          "estado",
+          "probabilidad_enferma",
+          "umbral_enferma",
+          "clase_mas_probable",
+          "decidido_por_umbral",
+          "probabilidades",
+          "imagen",
+          "tiempo_ms"
+        ],
+        "title": "Diagnostico"
+      },
+      "Error": {
+        "properties": {
+          "detail": {
+            "type": "string",
+            "title": "Detail",
+            "examples": [
+              "el archivo no es una imagen válida"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "detail"
+        ],
+        "title": "Error"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ImagenRecibida": {
+        "properties": {
+          "formato": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Formato",
+            "examples": [
+              "JPEG"
+            ]
+          },
+          "modo": {
+            "type": "string",
+            "title": "Modo",
+            "examples": [
+              "RGB"
+            ]
+          },
+          "ancho": {
+            "type": "integer",
+            "title": "Ancho",
+            "examples": [
+              224
+            ]
+          },
+          "alto": {
+            "type": "integer",
+            "title": "Alto",
+            "examples": [
+              224
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "formato",
+          "modo",
+          "ancho",
+          "alto"
+        ],
+        "title": "ImagenRecibida"
+      },
+      "Salud": {
+        "properties": {
+          "estado": {
+            "type": "string",
+            "title": "Estado",
+            "examples": [
+              "ok"
+            ]
+          },
+          "modelo": {
+            "type": "string",
+            "title": "Modelo",
+            "examples": [
+              "clasificador-hoja-maiz v1"
+            ]
+          },
+          "version_api": {
+            "type": "string",
+            "title": "Version Api",
+            "examples": [
+              "0.1.0"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "estado",
+          "modelo",
+          "version_api"
+        ],
+        "title": "Salud"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "descripcion": "Primeras 2 fotos de cada clase de la prueba de la Actividad 5 (el modelo no las vio al entrenar). Las fotos no se suben al repositorio porque el dataset no declara licencia; se descargan del origen.",
+  "repositorio": "muAtarist/maize_foliar_diseases",
+  "tipo": "dataset",
+  "revision": "448bec6c7abe18fe87917e443368c63ed3786119",
+  "fotos": [
+    {
+      "id": "m0243",
+      "clase": "Mancha gris",
+      "ruta": "train/GreyLeafSpot/1003_222_CIMG3959_1-239-2_GLS.jpg",
+      "sha256": "52bb2d7296c77052486b4618ef4571d2f5707f07921aef70b4903f0a39d26ae2"
+    },
+    {
+      "id": "m0247",
+      "clase": "Mancha gris",
+      "ruta": "train/GreyLeafSpot/1007_37_CIMG3772_1-364-2_GLS.jpg",
+      "sha256": "481bb269001bc8dd705f7ca83a3bba2c8ac5e4a84b78f2cc8551730407dcb392"
+    },
+    {
+      "id": "m0000",
+      "clase": "Roya común",
+      "ruta": "train/CommonRust/104_2019-03-13--Cedara-DKB-DSC_0308_CR.jpg",
+      "sha256": "cdce83c8e260358a13c469ec6de5eb5906ef14d6e63ebba3d4d9db7fbab08764"
+    },
+    {
+      "id": "m0005",
+      "clase": "Roya común",
+      "ruta": "train/CommonRust/131_2019-03-13--Cedara-DKB-DSC_0313_CR.jpg",
+      "sha256": "77e3d26c0f170e1df1e81adc147cb6786e1202bb52d4813d10ee35040ad3ff26"
+    },
+    {
+      "id": "m0855",
+      "clase": "Sana",
+      "ruta": "train/NoFoliarSymptoms/1036_229_CIMG3966_1-387-1_NoFoliarSymptoms.jpg",
+      "sha256": "6595b19facee753af878a9ebc65768f95998aee13e14fca8b4afe13ae589b587"
+    },
+    {
+      "id": "m0859",
+      "clase": "Sana",
+      "ruta": "train/NoFoliarSymptoms/1223_IMG_3681_NoFoliarSymptoms.jpg",
+      "sha256": "ee6a1517903927f465d2c90be09060c93310022ad926629e3815dc5fdb815df0"
+    },
+    {
+      "id": "m0111",
+      "clase": "Tizón",
+      "ruta": "train/CornLeafBlight/1246_IMG_3803_NCLB.jpg",
+      "sha256": "cd940dad4aea963d47e70f2844bbdde8f4a38e7531f89c195b148b9534ab091c"
+    },
+    {
+      "id": "m0112",
+      "clase": "Tizón",
+      "ruta": "train/CornLeafBlight/1258_IMG_3805_NCLB.jpg",
+      "sha256": "d9c0fb64ec96eb40ca546da0766097811e2bafe3c83c839efbbbfe6e15140d57"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+# Dependencias del servicio (las mismas versiones con las que se entrenó y validó el modelo).
+# torch se instala en su versión solo-CPU desde el índice de PyTorch: la de PyPI trae CUDA y pesa varios GB.
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# Modelo: extractor de características y clasificador
+torch==2.13.0+cpu
+transformers==5.20.1
+huggingface-hub==1.33.0
+scikit-learn==1.7.2
+skops==0.16.0
+numpy==2.2.6
+pandas==2.3.3
+scipy==1.15.3
+Pillow==12.3.0
+
+# API
+fastapi==0.146.0
+starlette==1.7.0
+pydantic==2.13.4
+uvicorn==0.54.0
+python-multipart==0.0.32

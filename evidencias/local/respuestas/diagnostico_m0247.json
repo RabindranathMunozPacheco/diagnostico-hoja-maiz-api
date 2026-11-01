@@ -1,0 +1,22 @@
+{
+  "archivo": "1007_37_CIMG3772_1-364-2_GLS.jpg",
+  "diagnostico": "Mancha gris",
+  "estado": "enferma",
+  "probabilidad_enferma": 0.9948,
+  "umbral_enferma": 0.2494,
+  "clase_mas_probable": "Mancha gris",
+  "decidido_por_umbral": false,
+  "probabilidades": {
+    "Mancha gris": 0.9947,
+    "Sana": 0.0052,
+    "Roya común": 0.0,
+    "Tizón": 0.0
+  },
+  "imagen": {
+    "formato": "JPEG",
+    "modo": "RGB",
+    "ancho": 224,
+    "alto": 224
+  },
+  "tiempo_ms": 40.2
+}

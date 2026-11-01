@@ -1,0 +1,4 @@
+# Para correr las pruebas y el script de evidencias (no se instalan en el contenedor)
+-r requirements.txt
+pytest==8.4.2        # la 9.x falla con un error interno en Python 3.10.0
+httpx==0.28.1

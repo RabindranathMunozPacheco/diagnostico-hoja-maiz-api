@@ -1,0 +1,22 @@
+{
+  "archivo": "1036_229_CIMG3966_1-387-1_NoFoliarSymptoms.jpg",
+  "diagnostico": "Mancha gris",
+  "estado": "enferma",
+  "probabilidad_enferma": 0.9143,
+  "umbral_enferma": 0.2494,
+  "clase_mas_probable": "Mancha gris",
+  "decidido_por_umbral": false,
+  "probabilidades": {
+    "Mancha gris": 0.91,
+    "Sana": 0.0857,
+    "Tizón": 0.0041,
+    "Roya común": 0.0001
+  },
+  "imagen": {
+    "formato": "JPEG",
+    "modo": "RGB",
+    "ancho": 224,
+    "alto": 224
+  },
+  "tiempo_ms": 39.7
+}

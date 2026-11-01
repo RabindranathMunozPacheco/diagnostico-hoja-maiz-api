@@ -1,0 +1,17 @@
+============================= test session starts =============================
+platform win32 -- Python 3.10.0, pytest-8.4.2, pluggy-1.7.0 -- C:\Users\rabin\AppData\Local\Programs\Python\Python310\python.exe
+rootdir: C:\Users\rabin\OneDrive\Documentos\MAESTRIA\proyecto fase 2\diagnostico-hoja-maiz-api
+plugins: anyio-4.13.0, platformdirs-4.12.4
+collecting ... collected 9 items
+
+pruebas/test_api.py::test_salud PASSED                                   [ 11%]
+pruebas/test_api.py::test_modelo_es_el_de_la_ficha PASSED                [ 22%]
+pruebas/test_api.py::test_diagnostico_responde[JPEG-RGB] PASSED          [ 33%]
+pruebas/test_api.py::test_diagnostico_responde[PNG-RGBA] PASSED          [ 44%]
+pruebas/test_api.py::test_diagnostico_responde[PNG-L] PASSED             [ 55%]
+pruebas/test_api.py::test_archivo_que_no_es_imagen PASSED                [ 66%]
+pruebas/test_api.py::test_archivo_demasiado_grande PASSED                [ 77%]
+pruebas/test_api.py::test_sin_archivo PASSED                             [ 88%]
+pruebas/test_api.py::test_pagina_web PASSED                              [100%]
+
+============================== 9 passed in 8.31s ==============================

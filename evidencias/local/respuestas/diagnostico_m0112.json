@@ -1,0 +1,22 @@
+{
+  "archivo": "1258_IMG_3805_NCLB.jpg",
+  "diagnostico": "Mancha gris",
+  "estado": "enferma",
+  "probabilidad_enferma": 1.0,
+  "umbral_enferma": 0.2494,
+  "clase_mas_probable": "Mancha gris",
+  "decidido_por_umbral": false,
+  "probabilidades": {
+    "Mancha gris": 0.9901,
+    "Tizón": 0.008,
+    "Roya común": 0.0018,
+    "Sana": 0.0
+  },
+  "imagen": {
+    "formato": "JPEG",
+    "modo": "RGB",
+    "ancho": 224,
+    "alto": 224
+  },
+  "tiempo_ms": 30.0
+}
