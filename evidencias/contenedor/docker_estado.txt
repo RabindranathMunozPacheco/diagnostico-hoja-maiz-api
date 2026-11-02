@@ -1,4 +1,4 @@
-# Estado del contenedor (2026-11-01 16:08)
+# Estado del contenedor (2026-11-01 17:49)
 
 $ docker version
 Client:
@@ -31,16 +31,17 @@ Server: Docker Desktop 4.97.0 (244584)
 
 $ docker images diagnostico-hoja-maiz-api
 IMAGE                             ID             DISK USAGE   CONTENT SIZE   EXTRA
-diagnostico-hoja-maiz-api:0.2.0   73496c58d906          2GB          434MB   U    
+diagnostico-hoja-maiz-api:0.2.0   73496c58d906          2GB          434MB        
+diagnostico-hoja-maiz-api:0.3.0   fc422577bd02          2GB          434MB   U    
 
 $ docker ps
-CONTAINER ID   IMAGE                             COMMAND                  CREATED              STATUS                        PORTS                                         NAMES
-1ded6688ab5d   diagnostico-hoja-maiz-api:0.2.0   "uvicorn app.main:ap…"   About a minute ago   Up About a minute (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp   diagnostico-hoja-maiz
+CONTAINER ID   IMAGE                             COMMAND                  CREATED          STATUS                    PORTS                                         NAMES
+7682746ccde1   diagnostico-hoja-maiz-api:0.3.0   "uvicorn app.main:ap…"   13 minutes ago   Up 13 minutes (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp   diagnostico-hoja-maiz
 
-$ docker inspect (salud)
-healthy | usuario=servicio | 0 0 0 
+$ docker inspect (salud y usuario)
+healthy | usuario=servicio
 
-$ docker history diagnostico-hoja-maiz-api:0.2.0
+$ docker history diagnostico-hoja-maiz-api:0.3.0
 SIZE      CREATED BY
 0B        CMD ["uvicorn" "app.main:app" "--host" "0.0.…
 0B        HEALTHCHECK {Test:[CMD-SHELL python -c "impo…
@@ -70,56 +71,44 @@ SIZE      CREATED BY
 0B        ENV PATH=/usr/local/bin:/usr/local/sbin:/usr…
 87.7MB    # debian.sh --arch 'amd64' out/ 'trixie' '@1…
 
-$ docker logs diagnostico-hoja-maiz
-INFO:     Started server process [1]
-INFO:     Waiting for application startup.
-[transformers] [1mMobileNetV2Model LOAD REPORT[0m from: linkanjarad/mobilenet_v2_1.0_224-plant-disease-identification
-Key               | Status     |  | 
-------------------+------------+--+-
-classifier.weight | UNEXPECTED |  | 
-classifier.bias   | UNEXPECTED |  | 
-
-Notes:
-- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
-2026-11-01 23:06:39,215 INFO diagnostico: Modelo clasificador-hoja-maiz v1 cargado (umbral P(enferma) >= 0.2494)
-INFO:     Application startup complete.
-INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     127.0.0.1:57448 - "GET /api/salud HTTP/1.1" 200 OK
-INFO:     172.17.0.1:42580 - "GET /openapi.json HTTP/1.1" 200 OK
-INFO:     172.17.0.1:42580 - "GET /api/salud HTTP/1.1" 200 OK
-INFO:     172.17.0.1:42580 - "GET /api/modelo HTTP/1.1" 200 OK
-2026-11-01 23:06:54,636 INFO diagnostico: 1003_222_CIMG3959_1-239-2_GLS.jpg -> Mancha gris (P(enferma) = 1.000, 180 ms)
-INFO:     172.17.0.1:42580 - "POST /api/diagnostico HTTP/1.1" 200 OK
-2026-11-01 23:06:54,690 INFO diagnostico: 1007_37_CIMG3772_1-364-2_GLS.jpg -> Mancha gris (P(enferma) = 0.995, 41 ms)
-INFO:     172.17.0.1:42580 - "POST /api/diagnostico HTTP/1.1" 200 OK
-2026-11-01 23:06:54,727 INFO diagnostico: 104_2019-03-13--Cedara-DKB-DSC_0308_CR.jpg -> Mancha gris (P(enferma) = 0.896, 31 ms)
-INFO:     172.17.0.1:42580 - "POST /api/diagnostico HTTP/1.1" 200 OK
-2026-11-01 23:06:54,801 INFO diagnostico: 131_2019-03-13--Cedara-DKB-DSC_0313_CR.jpg -> Roya común (P(enferma) = 0.999, 27 ms)
-INFO:     172.17.0.1:42580 - "POST /api/diagnostico HTTP/1.1" 200 OK
-2026-11-01 23:06:54,888 INFO diagnostico: 1036_229_CIMG3966_1-387-1_NoFoliarSymptoms.jpg -> Mancha gris (P(enferma) = 0.914, 38 ms)
-INFO:     172.17.0.1:42580 - "POST /api/diagnostico HTTP/1.1" 200 OK
-2026-11-01 23:06:54,954 INFO diagnostico: 1223_IMG_3681_NoFoliarSymptoms.jpg -> Mancha gris (P(enferma) = 0.380, 54 ms)
-INFO:     172.17.0.1:42580 - "POST /api/diagnostico HTTP/1.1" 200 OK
-2026-11-01 23:06:55,001 INFO diagnostico: 1246_IMG_3803_NCLB.jpg -> Mancha gris (P(enferma) = 1.000, 37 ms)
-INFO:     172.17.0.1:42580 - "POST /api/diagnostico HTTP/1.1" 200 OK
-2026-11-01 23:06:55,032 INFO diagnostico: 1258_IMG_3805_NCLB.jpg -> Mancha gris (P(enferma) = 1.000, 26 ms)
-INFO:     172.17.0.1:42580 - "POST /api/diagnostico HTTP/1.1" 200 OK
-2026-11-01 23:06:55,092 WARNING diagnostico: Rechazada notas.txt: el archivo no es una imagen válida
-INFO:     172.17.0.1:42580 - "POST /api/diagnostico HTTP/1.1" 415 Unsupported Media Type
-INFO:     172.17.0.1:42580 - "POST /api/diagnostico HTTP/1.1" 413 Request Entity Too Large
-INFO:     127.0.0.1:59656 - "GET /api/salud HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51130 - "GET /api/salud HTTP/1.1" 200 OK
-INFO:     172.17.0.1:44022 - "GET /docs HTTP/1.1" 200 OK
-INFO:     172.17.0.1:44040 - "GET /openapi.json HTTP/1.1" 200 OK
-INFO:     172.17.0.1:44042 - "GET / HTTP/1.1" 200 OK
-INFO:     172.17.0.1:44050 - "GET /static/app.js HTTP/1.1" 200 OK
-INFO:     172.17.0.1:44042 - "GET /static/estilos.css HTTP/1.1" 200 OK
-INFO:     172.17.0.1:44050 - "GET /api/modelo HTTP/1.1" 200 OK
-INFO:     172.17.0.1:44042 - "GET /api/salud HTTP/1.1" 200 OK
-INFO:     172.17.0.1:44042 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-2026-11-01 23:08:04,337 INFO diagnostico: 131_2019-03-13--Cedara-DKB-DSC_0313_CR.jpg -> Roya común (P(enferma) = 0.999, 31 ms)
-INFO:     172.17.0.1:44062 - "POST /api/diagnostico HTTP/1.1" 200 OK
-INFO:     172.17.0.1:44070 - "GET /api/modelo HTTP/1.1" 200 OK
-INFO:     172.17.0.1:44062 - "GET /api/salud HTTP/1.1" 200 OK
-2026-11-01 23:08:05,864 INFO diagnostico: 1223_IMG_3681_NoFoliarSymptoms.jpg -> Mancha gris (P(enferma) = 0.380, 78 ms)
-INFO:     172.17.0.1:44062 - "POST /api/diagnostico HTTP/1.1" 200 OK
+$ docker logs diagnostico-hoja-maiz (últimas 40 líneas)
+2026-11-02 00:37:29,430 INFO diagnostico: 1003_222_CIMG3959_1-239-2_GLS.jpg -> Mancha gris (P(enferma) = 1.000, 392 ms)
+INFO:     172.17.0.1:33792 - "POST /api/diagnostico HTTP/1.1" 200 OK
+2026-11-02 00:37:29,437 INFO diagnostico: 1007_37_CIMG3772_1-364-2_GLS.jpg -> Mancha gris (P(enferma) = 0.995, 399 ms)
+INFO:     172.17.0.1:33738 - "POST /api/diagnostico HTTP/1.1" 200 OK
+INFO:     172.17.0.1:33710 - "POST /api/diagnostico HTTP/1.1" 200 OK
+2026-11-02 00:37:29,452 INFO diagnostico: 104_2019-03-13--Cedara-DKB-DSC_0308_CR.jpg -> Mancha gris (P(enferma) = 0.896, 384 ms)
+INFO:     172.17.0.1:33818 - "POST /api/diagnostico HTTP/1.1" 200 OK
+2026-11-02 00:37:29,462 INFO diagnostico: 131_2019-03-13--Cedara-DKB-DSC_0313_CR.jpg -> Roya común (P(enferma) = 0.999, 345 ms)
+2026-11-02 00:37:29,468 INFO diagnostico: 1036_229_CIMG3966_1-387-1_NoFoliarSymptoms.jpg -> Mancha gris (P(enferma) = 0.914, 346 ms)
+INFO:     172.17.0.1:33804 - "POST /api/diagnostico HTTP/1.1" 200 OK
+INFO:     172.17.0.1:33770 - "POST /api/diagnostico HTTP/1.1" 200 OK
+2026-11-02 00:37:29,483 INFO diagnostico: 1223_IMG_3681_NoFoliarSymptoms.jpg -> Mancha gris (P(enferma) = 0.380, 307 ms)
+INFO:     172.17.0.1:33698 - "POST /api/diagnostico HTTP/1.1" 200 OK
+2026-11-02 00:37:29,489 INFO diagnostico: 1246_IMG_3803_NCLB.jpg -> Mancha gris (P(enferma) = 1.000, 312 ms)
+INFO:     172.17.0.1:33754 - "POST /api/diagnostico HTTP/1.1" 200 OK
+2026-11-02 00:37:29,495 INFO diagnostico: 1258_IMG_3805_NCLB.jpg -> Mancha gris (P(enferma) = 1.000, 304 ms)
+INFO:     172.17.0.1:33806 - "POST /api/diagnostico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56396 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49554 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40206 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43462 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48054 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52284 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36776 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55564 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45288 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53748 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58224 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49704 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40168 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56298 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50670 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57866 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38368 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46262 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60068 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55862 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53004 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43012 - "GET /api/salud HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35752 - "GET /api/salud HTTP/1.1" 200 OK

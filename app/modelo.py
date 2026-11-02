@@ -7,7 +7,9 @@ Al final se aplica el umbral de la Actividad 6: la hoja se reporta como enferma 
 aunque "Sana" sea la clase más probable, porque reportar sana una hoja enferma es el error más caro.
 
 La foto se prepara exactamente como en el entrenamiento (RGB y 224x224 con LANCZOS); si se cambia este
-paso, las características ya no son las mismas con las que aprendió el modelo.
+paso, las características ya no son las mismas con las que aprendió el modelo. Antes se endereza según su
+etiqueta EXIF de orientación (fotos de celular tomadas de lado); las 1,078 fotos del entrenamiento no traen esa
+etiqueta, así que para ellas no cambia nada.
 """
 import hashlib
 import io
@@ -17,15 +19,26 @@ import numpy as np
 import pandas as pd
 import skops.io as sio
 import torch
-from PIL import Image
+from PIL import Image, ImageOps
 from transformers import MobileNetV2ImageProcessorPil, MobileNetV2Model
 
 TAMANO = (224, 224)
-Image.MAX_IMAGE_PIXELS = 50_000_000          # más de ~50 megapíxeles se rechaza (protege la memoria)
+LIMITE_PIXELES = 50_000_000                  # más de 50 megapíxeles se rechaza (protege la memoria)
+# Pillow solo lanza el error arriba del doble de este valor; entre 1x y 2x solo avisa, por eso además se
+# revisa el tamaño a mano en abrir_imagen (lo encontró la prueba de casos extremos A7)
+Image.MAX_IMAGE_PIXELS = LIMITE_PIXELES
 
 
 class ImagenInvalida(ValueError):
     """El archivo no se pudo abrir como imagen."""
+
+
+def enderezar(im):
+    """Aplica la orientación EXIF; si la etiqueta viene dañada, deja la imagen como llegó."""
+    try:
+        return ImageOps.exif_transpose(im)
+    except Exception:                          # noqa: BLE001 - una etiqueta rara no debe tumbar el diagnóstico
+        return im
 
 
 def abrir_imagen(contenido):
@@ -33,7 +46,9 @@ def abrir_imagen(contenido):
     try:
         with Image.open(io.BytesIO(contenido)) as im:
             original = {"formato": im.format, "modo": im.mode, "ancho": im.width, "alto": im.height}
-            im = im.convert("RGB")
+            if im.width * im.height > LIMITE_PIXELES:
+                raise ImagenInvalida("la imagen tiene demasiados píxeles")
+            im = enderezar(im).convert("RGB")
             return (im if im.size == TAMANO else im.resize(TAMANO, Image.LANCZOS)), original
     except Image.DecompressionBombError as e:
         raise ImagenInvalida("la imagen tiene demasiados píxeles") from e

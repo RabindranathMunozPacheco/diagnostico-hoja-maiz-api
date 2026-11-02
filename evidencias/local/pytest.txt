@@ -1,17 +1,26 @@
 ============================= test session starts =============================
 platform win32 -- Python 3.10.0, pytest-8.4.2, pluggy-1.7.0 -- C:\Users\rabin\AppData\Local\Programs\Python\Python310\python.exe
+cachedir: .pytest_cache
 rootdir: C:\Users\rabin\OneDrive\Documentos\MAESTRIA\proyecto fase 2\diagnostico-hoja-maiz-api
 plugins: anyio-4.13.0, platformdirs-4.12.4
-collecting ... collected 9 items
+collecting ... collected 11 items
 
-pruebas/test_api.py::test_salud PASSED                                   [ 11%]
-pruebas/test_api.py::test_modelo_es_el_de_la_ficha PASSED                [ 22%]
-pruebas/test_api.py::test_diagnostico_responde[JPEG-RGB] PASSED          [ 33%]
-pruebas/test_api.py::test_diagnostico_responde[PNG-RGBA] PASSED          [ 44%]
-pruebas/test_api.py::test_diagnostico_responde[PNG-L] PASSED             [ 55%]
-pruebas/test_api.py::test_archivo_que_no_es_imagen PASSED                [ 66%]
-pruebas/test_api.py::test_archivo_demasiado_grande PASSED                [ 77%]
-pruebas/test_api.py::test_sin_archivo PASSED                             [ 88%]
+pruebas/test_api.py::test_salud PASSED                                   [  9%]
+pruebas/test_api.py::test_modelo_es_el_de_la_ficha PASSED                [ 18%]
+pruebas/test_api.py::test_diagnostico_responde[JPEG-RGB] PASSED          [ 27%]
+pruebas/test_api.py::test_diagnostico_responde[PNG-RGBA] PASSED          [ 36%]
+pruebas/test_api.py::test_diagnostico_responde[PNG-L] PASSED             [ 45%]
+pruebas/test_api.py::test_archivo_que_no_es_imagen PASSED                [ 54%]
+pruebas/test_api.py::test_archivo_demasiado_grande PASSED                [ 63%]
+pruebas/test_api.py::test_sin_archivo PASSED                             [ 72%]
+pruebas/test_api.py::test_imagen_con_demasiados_pixeles PASSED           [ 81%]
+pruebas/test_api.py::test_foto_de_celular_con_orientacion_exif PASSED    [ 90%]
 pruebas/test_api.py::test_pagina_web PASSED                              [100%]
 
-============================== 9 passed in 8.31s ==============================
+============================== warnings summary ===============================
+pruebas/test_api.py::test_imagen_con_demasiados_pixeles
+  C:\Users\rabin\AppData\Local\Programs\Python\Python310\lib\site-packages\PIL\Image.py:3578: DecompressionBombWarning: Image size (64000000 pixels) exceeds limit of 50000000 pixels, could be decompression bomb DOS attack.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 11 passed, 1 warning in 18.80s ========================

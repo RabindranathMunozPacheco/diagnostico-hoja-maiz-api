@@ -4,7 +4,7 @@
 services:
   api:
     build: .
-    image: diagnostico-hoja-maiz-api:0.2.0
+    image: diagnostico-hoja-maiz-api:0.3.0
     container_name: diagnostico-hoja-maiz
     ports:
       - "${PUERTO:-8000}:8000"

@@ -9,6 +9,7 @@ Uso:
 import hashlib
 import io
 
+import numpy as np
 import pytest
 from fastapi.testclient import TestClient
 from PIL import Image
@@ -67,6 +68,26 @@ def test_archivo_demasiado_grande(cliente):
 
 def test_sin_archivo(cliente):
     assert cliente.post("/api/diagnostico").status_code == 422
+
+
+def test_imagen_con_demasiados_pixeles(cliente):
+    # 64 megapíxeles: pasa el límite de 50 aunque comprimida pese poco (caso extremo A7)
+    r = cliente.post("/api/diagnostico", files={"foto": ("64mp.png", imagen("PNG", tamano=(8000, 8000)), "image/png")})
+    assert r.status_code == 415
+
+
+def test_foto_de_celular_con_orientacion_exif(cliente):
+    # Imagen asimétrica: de lado + etiqueta EXIF que la endereza debe dar lo mismo que derecha (caso extremo B7)
+    yy, xx = np.mgrid[0:224, 0:224]
+    derecha = Image.fromarray(np.stack([xx, yy, 255 - xx], -1).astype(np.uint8))
+    exif = Image.Exif()
+    exif[0x0112] = 8                         # el visor la gira 90 grados para mostrarla derecha
+    de_lado, normal = io.BytesIO(), io.BytesIO()
+    derecha.rotate(-90).save(de_lado, "PNG", exif=exif.tobytes())
+    derecha.save(normal, "PNG")
+    a = cliente.post("/api/diagnostico", files={"foto": ("de_lado.png", de_lado.getvalue(), "image/png")}).json()
+    b = cliente.post("/api/diagnostico", files={"foto": ("derecha.png", normal.getvalue(), "image/png")}).json()
+    assert a["probabilidades"] == pytest.approx(b["probabilidades"], abs=1e-4)
 
 
 def test_pagina_web(cliente):

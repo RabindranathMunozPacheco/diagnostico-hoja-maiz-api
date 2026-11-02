@@ -1,0 +1,33 @@
+caso,grupo,entrada,esperado,codigo_http,diagnostico,detalle,probabilidad_enferma,clase_mas_probable,probabilidad_maxima,imagen_recibida,tiempo_ms,cambio_p_enferma_vs_original,cumple
+A1,A. Archivos que no son una foto válida,Archivo de texto con extensión .jpg,"415, no es una imagen",415,,el archivo no es una imagen válida,,,,,,,sí
+A2,A. Archivos que no son una foto válida,Archivo vacío (0 bytes),"415, no es una imagen",415,,el archivo no es una imagen válida,,,,,,,sí
+A3,A. Archivos que no son una foto válida,JPEG cortado a la mitad (descarga incompleta),"415, imagen dañada",415,,el archivo no es una imagen válida,,,,,,,sí
+A4,A. Archivos que no son una foto válida,Documento PDF,"415, no es una imagen",415,,el archivo no es una imagen válida,,,,,,,sí
+A5,A. Archivos que no son una foto válida,Imagen real de 11.5 MB (límite 10 MB),"413, demasiado grande",413,,la foto pesa más de 10 MB,,,,,,,sí
+A6,A. Archivos que no son una foto válida,PNG de 110 megapíxeles (0.3 MB comprimido),"415, demasiados píxeles",415,,la imagen tiene demasiados píxeles,,,,,,,sí
+A7,A. Archivos que no son una foto válida,PNG de 64 megapíxeles (0.2 MB comprimido),"415, pasa el límite de 50 megapíxeles",415,,la imagen tiene demasiados píxeles,,,,,,,sí
+A8,A. Archivos que no son una foto válida,Petición sin archivo,"422, falta el campo foto",422,,"[{""type"": ""missing"", ""loc"": [""body"", ""foto""], ""msg"": ""Field required"", ""input"": null}]",,,,,,,sí
+A9,A. Archivos que no son una foto válida,Foto en un campo con otro nombre (imagen),"422, falta el campo foto",422,,"[{""type"": ""missing"", ""loc"": [""body"", ""foto""], ""msg"": ""Field required"", ""input"": null}]",,,,,,,sí
+A10,A. Archivos que no son una foto válida,GET en lugar de POST,"405, método no permitido",405,,Method Not Allowed,,,,,,,sí
+A11,A. Archivos que no son una foto válida,Ruta que no existe,404,404,,Not Found,,,,,,,sí
+B1,B. Fotos válidas en condiciones raras,La misma foto en PNG,200 y las mismas probabilidades que el JPG,200,Roya común,,0.9992,Roya común,0.9788,224x224 PNG RGB,58.9,0.0,sí
+B2,B. Fotos válidas en condiciones raras,La misma foto en BMP,200 y las mismas probabilidades que el JPG,200,Roya común,,0.9992,Roya común,0.9788,224x224 BMP RGB,50.9,0.0,sí
+B3,B. Fotos válidas en condiciones raras,La misma foto en WebP sin pérdida,200 y las mismas probabilidades que el JPG,200,Roya común,,0.9992,Roya común,0.9788,224x224 WEBP RGB,51.2,0.0,sí
+B4,B. Fotos válidas en condiciones raras,La misma foto en GIF (solo 256 colores),"200, diagnóstico igual o muy parecido",200,Roya común,,0.9991,Roya común,0.9559,224x224 GIF P,49.8,0.0001,sí
+B5,B. Fotos válidas en condiciones raras,La misma foto en JPEG CMYK (modo de imprenta),"200, diagnóstico igual",200,Roya común,,0.9992,Roya común,0.9815,224x224 JPEG CMYK,51.1,0.0,sí
+B6,B. Fotos válidas en condiciones raras,PNG con transparencia (alfa al 50 %),"200, la API ignora la transparencia",200,Roya común,,0.9992,Roya común,0.9788,224x224 PNG RGBA,51.3,0.0,sí
+B7,B. Fotos válidas en condiciones raras,Foto de celular guardada de lado con etiqueta EXIF de orientación,200 y el mismo diagnóstico que la foto derecha,200,Roya común,,0.9992,Roya común,0.9728,224x224 JPEG RGB,51.6,0.0,sí
+B8,B. Fotos válidas en condiciones raras,La misma foto girada 90 grados (sin EXIF),"200, diagnóstico igual",200,Mancha gris,,0.9908,Mancha gris,0.5595,224x224 PNG RGB,50.8,0.0084,no
+B9,B. Fotos válidas en condiciones raras,La foto reducida a 16×16 píxeles,200; con tan poca información el diagnóstico no es confiable,200,Roya común,,0.2593,Sana,0.7407,16x16 PNG RGB,55.5,0.7399,sí
+B10,B. Fotos válidas en condiciones raras,La foto ampliada a 4000×4000 píxeles,"200, diagnóstico igual (la API la reduce a 224×224)",200,Roya común,,0.9961,Roya común,0.9727,4000x4000 JPEG RGB,244.3,0.0031,sí
+B11,B. Fotos válidas en condiciones raras,Recorte con proporción 4:3 de celular (224×168),200; la API la estira a 224×224 igual que en el entrenamiento,200,Roya común,,0.9988,Roya común,0.9885,224x168 JPEG RGB,50.2,0.0004,sí
+C1,C. Imágenes que no son hojas de maíz,Imagen verde lisa,200 con alguna de las 4 clases: el modelo no tiene la opción 'no es una hoja',200,Roya común,,0.9693,Roya común,0.7316,224x224 PNG RGB,50.3,,sí
+C2,C. Imágenes que no son hojas de maíz,Imagen negra,200 con alguna de las 4 clases: el modelo no tiene la opción 'no es una hoja',200,Mancha gris,,1.0,Mancha gris,0.9999,224x224 PNG RGB,51.2,,sí
+C3,C. Imágenes que no son hojas de maíz,Imagen blanca,200 con alguna de las 4 clases: el modelo no tiene la opción 'no es una hoja',200,Roya común,,0.4408,Sana,0.5592,224x224 PNG RGB,50.8,,sí
+C4,C. Imágenes que no son hojas de maíz,Ruido aleatorio,200 con alguna de las 4 clases: el modelo no tiene la opción 'no es una hoja',200,Roya común,,1.0,Roya común,0.866,224x224 PNG RGB,50.1,,sí
+C5,C. Imágenes que no son hojas de maíz,Degradado de colores,200 con alguna de las 4 clases: el modelo no tiene la opción 'no es una hoja',200,Roya común,,0.9519,Roya común,0.9245,224x224 PNG RGB,51.3,,sí
+C6,C. Imágenes que no son hojas de maíz,Tablero de ajedrez,200 con alguna de las 4 clases: el modelo no tiene la opción 'no es una hoja',200,Sana,,0.1598,Sana,0.8402,224x224 PNG RGB,51.4,,sí
+C7,C. Imágenes que no son hojas de maíz,Captura de pantalla de la documentación /docs,200 con alguna de las 4 clases: el modelo no tiene la opción 'no es una hoja',200,Roya común,,0.9336,Roya común,0.93,1400x1042 PNG RGB,68.2,,sí
+C8,C. Imágenes que no son hojas de maíz,Captura de pantalla de la propia página web,200 con alguna de las 4 clases: el modelo no tiene la opción 'no es una hoja',200,Mancha gris,,0.9729,Mancha gris,0.898,1400x1181 PNG RGB,92.9,,sí
+D1,D. Consistencia,La misma foto 20 veces seguidas,20 respuestas idénticas,200,Roya común,20 de 20 idénticas,0.9992,Roya común,0.9788,224x224 JPEG RGB,76.5,,sí
+D2,D. Consistencia,"Las 8 fotos de ejemplo, 32 peticiones con 8 en paralelo",Cada respuesta corresponde a su foto (no se mezclan),200,,32 de 32 iguales a la respuesta en serie,,,,,,,sí

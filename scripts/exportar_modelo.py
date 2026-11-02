@@ -70,7 +70,22 @@ def prueba_act5(act5):
     _, idx = next(cv.split(datos, datos["clase"], datos["grupo"]))
     prueba = datos.iloc[idx]
     columnas = [c for c in prueba.columns if c.startswith("f") and c[1:].isdigit()]
-    return prueba[columnas], prueba["clase"].to_numpy()
+    return prueba[columnas], prueba["clase"].to_numpy(), prueba[["id", "clase", "sesion", "ruta", "sha256"]]
+
+
+def guardar_manifiesto_prueba(fotos):
+    """Lista de las fotos de prueba (sin las fotos) para que pruebas/validar_modelo.py las mande a la API."""
+    manifiesto = {
+        "descripcion": "Las 221 fotos de prueba de la Actividad 5 (primer fold de StratifiedGroupKFold(5), semilla 42, "
+                       "por grupo). Las fotos no se suben al repositorio porque el dataset no declara licencia; "
+                       "se descargan del origen en esta revisión y se comprueban con su sha256.",
+        "repositorio": "muAtarist/maize_foliar_diseases", "tipo": "dataset",
+        "revision": "448bec6c7abe18fe87917e443368c63ed3786119",
+        "fotos": [{"id": r.id, "clase": r.clase, "sesion": str(r.sesion), "ruta": r.ruta, "sha256": r.sha256}
+                  for r in fotos.itertuples()],
+    }
+    (RAIZ / "pruebas" / "prueba_act5.json").write_text(json.dumps(manifiesto, ensure_ascii=False, indent=2) + "\n",
+                                                       encoding="utf-8")
 
 
 def decidir(proba, clases, umbral):
@@ -94,7 +109,8 @@ def main():
         shutil.copy2(reg["carpeta"] / archivo, DESTINO / archivo)
 
     modelo = sio.load(DESTINO / "model.skops")             # sin tipos "no confiables": StandardScaler + LogReg
-    X, y = prueba_act5(act5)
+    X, y, fotos = prueba_act5(act5)
+    guardar_manifiesto_prueba(fotos)
     proba = modelo.predict_proba(X)
     pred = modelo.classes_[proba.argmax(1)]
     pred_umbral = decidir(proba, modelo.classes_, UMBRAL)

@@ -3,7 +3,7 @@
   "info": {
     "title": "Diagnóstico de hoja de maíz",
     "description": "Clasifica una foto de hoja de maíz en Sana, Mancha gris, Tizón o Roya común.",
-    "version": "0.2.0"
+    "version": "0.3.0"
   },
   "paths": {
     "/api/salud": {
@@ -323,7 +323,7 @@
             "type": "string",
             "title": "Version Api",
             "examples": [
-              "0.2.0"
+              "0.3.0"
             ]
           }
         },

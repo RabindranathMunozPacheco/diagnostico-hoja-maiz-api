@@ -1,0 +1,20 @@
+# Prueba del Procfile (2026-11-01 17:48)
+
+Simula cómo arranca la aplicación un PaaS sin Docker: toma el comando de la línea 'web' del Procfile
+y lo ejecuta con el puerto que asigna la plataforma en la variable PORT (aquí 8300).
+
+$ cat Procfile
+web: uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+
+$ PORT=8300 bash -c "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"
+INFO:     Started server process [17448]
+INFO:     Waiting for application startup.
+2026-11-01 17:48:30,394 INFO diagnostico: Modelo clasificador-hoja-maiz v1 cargado (umbral P(enferma) >= 0.2494)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8300 (Press CTRL+C to quit)
+
+$ curl http://localhost:8300/api/salud
+{"estado":"ok","modelo":"clasificador-hoja-maiz v1","version_api":"0.3.0"}
+
+$ curl -F "foto=@m0005.jpg" http://localhost:8300/api/diagnostico   (diagnostico y P(enferma))
+Roya común 0.9992

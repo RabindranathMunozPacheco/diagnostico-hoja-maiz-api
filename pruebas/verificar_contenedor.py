@@ -14,7 +14,7 @@ Requisitos: Docker corriendo, la imagen ya construida (docker build) y pip insta
 
 Uso:
     python pruebas/verificar_contenedor.py
-    python pruebas/verificar_contenedor.py --imagen diagnostico-hoja-maiz-api:0.2.0
+    python pruebas/verificar_contenedor.py --imagen diagnostico-hoja-maiz-api:0.3.0
 """
 import argparse
 import json
@@ -94,7 +94,7 @@ def igual_a_local(respuesta, id_foto):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--imagen", default="diagnostico-hoja-maiz-api:0.2.0")
+    parser.add_argument("--imagen", default="diagnostico-hoja-maiz-api:0.3.0")
     parser.add_argument("--docker", default=shutil.which("docker") or "docker")
     parser.add_argument("--salida", type=Path, default=RAIZ / "evidencias" / "contenedor" / "verificacion.md")
     args = parser.parse_args()

@@ -1,6 +1,6 @@
 # Imagen del servicio de diagnóstico de hoja de maíz: API (FastAPI) + página web + modelo.
-# Construir:  docker build -t diagnostico-hoja-maiz-api:0.2.0 .
-# Ejecutar:   docker run --rm -p 8000:8000 diagnostico-hoja-maiz-api:0.2.0
+# Construir:  docker build -t diagnostico-hoja-maiz-api:0.3.0 .
+# Ejecutar:   docker run --rm -p 8000:8000 diagnostico-hoja-maiz-api:0.3.0
 FROM python:3.10-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \

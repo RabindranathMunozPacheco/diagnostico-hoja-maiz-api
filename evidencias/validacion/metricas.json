@@ -1,0 +1,201 @@
+{
+  "registradas_vs_api": {
+    "n_fotos": [
+      221,
+      221
+    ],
+    "f1_macro": [
+      0.7212,
+      0.7212
+    ],
+    "exactitud": [
+      0.7511,
+      0.7511
+    ],
+    "enferma_como_sana": [
+      0.1136,
+      0.1136
+    ],
+    "con_umbral_enferma_como_sana": [
+      0.0795,
+      0.0795
+    ],
+    "con_umbral_sana_como_enferma": [
+      0.5556,
+      0.5556
+    ]
+  },
+  "iguales_a_las_registradas": true,
+  "por_variante": {
+    "original": {
+      "n_fotos": 221,
+      "f1_macro": 0.7212,
+      "exactitud": 0.7511,
+      "f1_por_clase": {
+        "Mancha gris": 0.8145,
+        "Roya común": 0.88,
+        "Sana": 0.6022,
+        "Tizón": 0.5882
+      },
+      "enferma_como_sana": 0.1136,
+      "con_umbral_enferma_como_sana": 0.0795,
+      "con_umbral_sana_como_enferma": 0.5556,
+      "tiempo_ms_mediana": 121.2,
+      "mismo_diagnostico_que_original": 1.0,
+      "cambio_medio_p_enferma": 0.0
+    },
+    "oscura": {
+      "n_fotos": 221,
+      "f1_macro": 0.4152,
+      "exactitud": 0.5475,
+      "f1_por_clase": {
+        "Mancha gris": 0.6852,
+        "Roya común": 0.3226,
+        "Sana": 0.5032,
+        "Tizón": 0.15
+      },
+      "enferma_como_sana": 0.4034,
+      "con_umbral_enferma_como_sana": 0.3068,
+      "con_umbral_sana_como_enferma": 0.2444,
+      "tiempo_ms_mediana": 121.9,
+      "mismo_diagnostico_que_original": 0.5701,
+      "cambio_medio_p_enferma": 0.3061
+    },
+    "sobreexpuesta": {
+      "n_fotos": 221,
+      "f1_macro": 0.5123,
+      "exactitud": 0.6244,
+      "f1_por_clase": {
+        "Mancha gris": 0.7299,
+        "Roya común": 0.5366,
+        "Sana": 0.4828,
+        "Tizón": 0.3
+      },
+      "enferma_como_sana": 0.1193,
+      "con_umbral_enferma_como_sana": 0.0568,
+      "con_umbral_sana_como_enferma": 0.6222,
+      "tiempo_ms_mediana": 121.9,
+      "mismo_diagnostico_que_original": 0.6606,
+      "cambio_medio_p_enferma": 0.1854
+    },
+    "borrosa": {
+      "n_fotos": 221,
+      "f1_macro": 0.3303,
+      "exactitud": 0.3891,
+      "f1_por_clase": {
+        "Mancha gris": 0.4545,
+        "Roya común": 0.1429,
+        "Sana": 0.36,
+        "Tizón": 0.3636
+      },
+      "enferma_como_sana": 0.4432,
+      "con_umbral_enferma_como_sana": 0.3239,
+      "con_umbral_sana_como_enferma": 0.6222,
+      "tiempo_ms_mediana": 123.4,
+      "mismo_diagnostico_que_original": 0.4253,
+      "cambio_medio_p_enferma": 0.3886
+    },
+    "comprimida": {
+      "n_fotos": 221,
+      "f1_macro": 0.4109,
+      "exactitud": 0.6199,
+      "f1_por_clase": {
+        "Mancha gris": 0.7599,
+        "Roya común": 0.3784,
+        "Sana": 0.5053,
+        "Tizón": 0.0
+      },
+      "enferma_como_sana": 0.1477,
+      "con_umbral_enferma_como_sana": 0.0852,
+      "con_umbral_sana_como_enferma": 0.6222,
+      "tiempo_ms_mediana": 123.0,
+      "mismo_diagnostico_que_original": 0.6516,
+      "cambio_medio_p_enferma": 0.189
+    },
+    "girada_90": {
+      "n_fotos": 221,
+      "f1_macro": 0.6555,
+      "exactitud": 0.7285,
+      "f1_por_clase": {
+        "Mancha gris": 0.806,
+        "Roya común": 0.5641,
+        "Sana": 0.6118,
+        "Tizón": 0.64
+      },
+      "enferma_como_sana": 0.0795,
+      "con_umbral_enferma_como_sana": 0.0114,
+      "con_umbral_sana_como_enferma": 0.5556,
+      "tiempo_ms_mediana": 124.1,
+      "mismo_diagnostico_que_original": 0.7466,
+      "cambio_medio_p_enferma": 0.1336
+    },
+    "volteada": {
+      "n_fotos": 221,
+      "f1_macro": 0.7502,
+      "exactitud": 0.7738,
+      "f1_por_clase": {
+        "Mancha gris": 0.832,
+        "Roya común": 0.92,
+        "Sana": 0.6087,
+        "Tizón": 0.64
+      },
+      "enferma_como_sana": 0.108,
+      "con_umbral_enferma_como_sana": 0.0455,
+      "con_umbral_sana_como_enferma": 0.5556,
+      "tiempo_ms_mediana": 123.5,
+      "mismo_diagnostico_que_original": 0.8643,
+      "cambio_medio_p_enferma": 0.0662
+    },
+    "gris": {
+      "n_fotos": 221,
+      "f1_macro": 0.5843,
+      "exactitud": 0.6787,
+      "f1_por_clase": {
+        "Mancha gris": 0.7773,
+        "Roya común": 0.619,
+        "Sana": 0.6296,
+        "Tizón": 0.3111
+      },
+      "enferma_como_sana": 0.1648,
+      "con_umbral_enferma_como_sana": 0.0909,
+      "con_umbral_sana_como_enferma": 0.3778,
+      "tiempo_ms_mediana": 124.9,
+      "mismo_diagnostico_que_original": 0.7511,
+      "cambio_medio_p_enferma": 0.1324
+    },
+    "recortada": {
+      "n_fotos": 221,
+      "f1_macro": 0.7033,
+      "exactitud": 0.7285,
+      "f1_por_clase": {
+        "Mancha gris": 0.7863,
+        "Roya común": 0.8163,
+        "Sana": 0.6531,
+        "Tizón": 0.5574
+      },
+      "enferma_como_sana": 0.1193,
+      "con_umbral_enferma_como_sana": 0.0852,
+      "con_umbral_sana_como_enferma": 0.4,
+      "tiempo_ms_mediana": 123.5,
+      "mismo_diagnostico_que_original": 0.6968,
+      "cambio_medio_p_enferma": 0.1563
+    },
+    "ruido": {
+      "n_fotos": 221,
+      "f1_macro": 0.2264,
+      "exactitud": 0.4389,
+      "f1_por_clase": {
+        "Mancha gris": 0.6667,
+        "Roya común": 0.1765,
+        "Sana": 0.0,
+        "Tizón": 0.0625
+      },
+      "enferma_como_sana": 0.0114,
+      "con_umbral_enferma_como_sana": 0.0,
+      "con_umbral_sana_como_enferma": 1.0,
+      "tiempo_ms_mediana": 123.0,
+      "mismo_diagnostico_que_original": 0.4796,
+      "cambio_medio_p_enferma": 0.212
+    }
+  }
+}

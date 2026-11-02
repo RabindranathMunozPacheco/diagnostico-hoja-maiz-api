@@ -1,51 +1,47 @@
-# Prueba de docker compose (2026-11-01 16:57)
+# Prueba de docker compose (2026-11-01 17:35)
 
 $ docker compose up -d
- Network diagnostico-hoja-maiz-api_default Creating 
- Network diagnostico-hoja-maiz-api_default Creating 
- Network diagnostico-hoja-maiz-api_default Created 
- Network diagnostico-hoja-maiz-api_default Created 
- Container diagnostico-hoja-maiz Creating 
  Container diagnostico-hoja-maiz Created 
- Container diagnostico-hoja-maiz Starting 
+ Container diagnostico-hoja-maiz Creating 
  Container diagnostico-hoja-maiz Started 
+ Container diagnostico-hoja-maiz Starting 
+ Network diagnostico-hoja-maiz-api_default Created 
+ Network diagnostico-hoja-maiz-api_default Creating 
 
 $ docker compose ps
 NAME                    IMAGE                             COMMAND                  SERVICE   CREATED         STATUS                   PORTS
-diagnostico-hoja-maiz   diagnostico-hoja-maiz-api:0.2.0   "uvicorn app.main:ap…"   api       6 seconds ago   Up 5 seconds (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+diagnostico-hoja-maiz   diagnostico-hoja-maiz-api:0.3.0   "uvicorn app.main:ap…"   api       6 seconds ago   Up 5 seconds (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
 
 $ curl http://localhost:8000/api/salud
-{"estado":"ok","modelo":"clasificador-hoja-maiz v1","version_api":"0.2.0"}
+{"estado":"ok","modelo":"clasificador-hoja-maiz v1","version_api":"0.3.0"}
 
 $ docker compose down
- Container diagnostico-hoja-maiz Stopping 
- Container diagnostico-hoja-maiz Stopped 
- Container diagnostico-hoja-maiz Removing 
  Container diagnostico-hoja-maiz Removed 
- Network diagnostico-hoja-maiz-api_default Removing 
+ Container diagnostico-hoja-maiz Removing 
+ Container diagnostico-hoja-maiz Stopped 
+ Container diagnostico-hoja-maiz Stopping 
  Network diagnostico-hoja-maiz-api_default Removed 
+ Network diagnostico-hoja-maiz-api_default Removing 
 
 $ PUERTO=8200 UMBRAL_ENFERMA=0.3 docker compose up -d   (variables como las pondría el archivo .env)
- Network diagnostico-hoja-maiz-api_default Creating 
- Network diagnostico-hoja-maiz-api_default Creating 
- Network diagnostico-hoja-maiz-api_default Created 
- Network diagnostico-hoja-maiz-api_default Created 
- Container diagnostico-hoja-maiz Creating 
  Container diagnostico-hoja-maiz Created 
- Container diagnostico-hoja-maiz Starting 
+ Container diagnostico-hoja-maiz Creating 
  Container diagnostico-hoja-maiz Started 
+ Container diagnostico-hoja-maiz Starting 
+ Network diagnostico-hoja-maiz-api_default Created 
+ Network diagnostico-hoja-maiz-api_default Creating 
 
 $ docker compose ps
 NAME                    IMAGE                             COMMAND                  SERVICE   CREATED         STATUS                   PORTS
-diagnostico-hoja-maiz   diagnostico-hoja-maiz-api:0.2.0   "uvicorn app.main:ap…"   api       7 seconds ago   Up 7 seconds (healthy)   0.0.0.0:8200->8000/tcp, [::]:8200->8000/tcp
+diagnostico-hoja-maiz   diagnostico-hoja-maiz-api:0.3.0   "uvicorn app.main:ap…"   api       7 seconds ago   Up 6 seconds (healthy)   0.0.0.0:8200->8000/tcp, [::]:8200->8000/tcp
 
 $ curl http://localhost:8200/api/modelo   (umbral_en_uso)
 umbral_en_uso = 0.3
 
 $ docker compose down
- Container diagnostico-hoja-maiz Stopping 
- Container diagnostico-hoja-maiz Stopped 
- Container diagnostico-hoja-maiz Removing 
  Container diagnostico-hoja-maiz Removed 
- Network diagnostico-hoja-maiz-api_default Removing 
+ Container diagnostico-hoja-maiz Removing 
+ Container diagnostico-hoja-maiz Stopped 
+ Container diagnostico-hoja-maiz Stopping 
  Network diagnostico-hoja-maiz-api_default Removed 
+ Network diagnostico-hoja-maiz-api_default Removing 

@@ -1,0 +1,230 @@
+{
+  "memoria_en_reposo_mb": 587.1,
+  "carga": [
+    {
+      "concurrencia": 1,
+      "peticiones": 40,
+      "errores": 0,
+      "latencia_p50_ms": 65.6,
+      "latencia_p95_ms": 189.6,
+      "latencia_max_ms": 224.3,
+      "peticiones_por_segundo": 13.6,
+      "memoria_max_mb": 587.5
+    },
+    {
+      "concurrencia": 2,
+      "peticiones": 40,
+      "errores": 0,
+      "latencia_p50_ms": 64.8,
+      "latencia_p95_ms": 213.8,
+      "latencia_max_ms": 224.0,
+      "peticiones_por_segundo": 26.9,
+      "memoria_max_mb": 623.2
+    },
+    {
+      "concurrencia": 4,
+      "peticiones": 40,
+      "errores": 0,
+      "latencia_p50_ms": 134.0,
+      "latencia_p95_ms": 169.1,
+      "latencia_max_ms": 181.0,
+      "peticiones_por_segundo": 28.5,
+      "memoria_max_mb": 692.7
+    },
+    {
+      "concurrencia": 8,
+      "peticiones": 80,
+      "errores": 0,
+      "latencia_p50_ms": 240.8,
+      "latencia_p95_ms": 263.6,
+      "latencia_max_ms": 282.4,
+      "peticiones_por_segundo": 32.8,
+      "memoria_max_mb": 836.3
+    },
+    {
+      "concurrencia": 16,
+      "peticiones": 160,
+      "errores": 0,
+      "latencia_p50_ms": 511.2,
+      "latencia_p95_ms": 572.3,
+      "latencia_max_ms": 621.4,
+      "peticiones_por_segundo": 30.8,
+      "memoria_max_mb": 1132.5
+    }
+  ],
+  "planes": [
+    {
+      "plan": "256 MB, 1 CPU",
+      "memoria": "256m",
+      "cpus": "1",
+      "variables": [],
+      "arranque_s": 4.3,
+      "estado": "se detuvo (sin memoria, OOMKilled)",
+      "memoria_max_mb": 146.6
+    },
+    {
+      "plan": "512 MB, 1 CPU",
+      "memoria": "512m",
+      "cpus": "1",
+      "variables": [],
+      "arranque_s": 5.4,
+      "estado": "healthy",
+      "una_a_la_vez": {
+        "concurrencia": 1,
+        "peticiones": 16,
+        "errores": 0,
+        "latencia_p50_ms": 503.8,
+        "latencia_p95_ms": 921.8,
+        "latencia_max_ms": 1000.1,
+        "peticiones_por_segundo": 1.8
+      },
+      "cuatro_a_la_vez": {
+        "concurrencia": 4,
+        "peticiones": 32,
+        "errores": 0,
+        "latencia_p50_ms": 792.1,
+        "latencia_p95_ms": 1057.6,
+        "latencia_max_ms": 1180.9,
+        "peticiones_por_segundo": 4.9
+      },
+      "estado_final": "running, healthy",
+      "memoria_max_mb": 416.5
+    },
+    {
+      "plan": "512 MB, 0.5 CPU",
+      "memoria": "512m",
+      "cpus": "0.5",
+      "variables": [],
+      "arranque_s": 12.8,
+      "estado": "healthy",
+      "una_a_la_vez": {
+        "concurrencia": 1,
+        "peticiones": 16,
+        "errores": 0,
+        "latencia_p50_ms": 1578.3,
+        "latencia_p95_ms": 4978.8,
+        "latencia_max_ms": 7322.7,
+        "peticiones_por_segundo": 0.5
+      },
+      "cuatro_a_la_vez": {
+        "concurrencia": 4,
+        "peticiones": 32,
+        "errores": 0,
+        "latencia_p50_ms": 1897.6,
+        "latencia_p95_ms": 3038.6,
+        "latencia_max_ms": 3297.3,
+        "peticiones_por_segundo": 1.9
+      },
+      "estado_final": "running, healthy",
+      "memoria_max_mb": 412.7
+    },
+    {
+      "plan": "512 MB, 0.5 CPU, 1 hilo",
+      "memoria": "512m",
+      "cpus": "0.5",
+      "variables": [
+        "OMP_NUM_THREADS=1"
+      ],
+      "arranque_s": 12.9,
+      "estado": "healthy",
+      "una_a_la_vez": {
+        "concurrencia": 1,
+        "peticiones": 16,
+        "errores": 0,
+        "latencia_p50_ms": 96.9,
+        "latencia_p95_ms": 169.0,
+        "latencia_max_ms": 188.5,
+        "peticiones_por_segundo": 9.6
+      },
+      "cuatro_a_la_vez": {
+        "concurrencia": 4,
+        "peticiones": 32,
+        "errores": 0,
+        "latencia_p50_ms": 700.4,
+        "latencia_p95_ms": 1250.0,
+        "latencia_max_ms": 1290.0,
+        "peticiones_por_segundo": 4.9
+      },
+      "estado_final": "running, healthy",
+      "memoria_max_mb": 397.6
+    },
+    {
+      "plan": "512 MB, 0.1 CPU",
+      "memoria": "512m",
+      "cpus": "0.1",
+      "variables": [],
+      "arranque_s": 149.6,
+      "estado": "healthy",
+      "una_a_la_vez": {
+        "concurrencia": 1,
+        "peticiones": 3,
+        "errores": 0,
+        "latencia_p50_ms": 74292.6,
+        "latencia_p95_ms": 76265.3,
+        "latencia_max_ms": 76484.5,
+        "peticiones_por_segundo": 0.0
+      },
+      "nota": "demasiado lento: solo 3 peticiones en serie, sin prueba en paralelo",
+      "estado_final": "running, unhealthy",
+      "memoria_max_mb": 378.5
+    },
+    {
+      "plan": "512 MB, 0.1 CPU, 1 hilo",
+      "memoria": "512m",
+      "cpus": "0.1",
+      "variables": [
+        "OMP_NUM_THREADS=1"
+      ],
+      "arranque_s": 182.3,
+      "estado": "healthy",
+      "una_a_la_vez": {
+        "concurrencia": 1,
+        "peticiones": 16,
+        "errores": 0,
+        "latencia_p50_ms": 602.3,
+        "latencia_p95_ms": 728.0,
+        "latencia_max_ms": 795.4,
+        "peticiones_por_segundo": 1.6
+      },
+      "cuatro_a_la_vez": {
+        "concurrencia": 4,
+        "peticiones": 32,
+        "errores": 0,
+        "latencia_p50_ms": 5796.0,
+        "latencia_p95_ms": 8291.3,
+        "latencia_max_ms": 9598.7,
+        "peticiones_por_segundo": 0.7
+      },
+      "estado_final": "running, healthy",
+      "memoria_max_mb": 414.9
+    },
+    {
+      "plan": "1 GB, 1 CPU",
+      "memoria": "1g",
+      "cpus": "1",
+      "variables": [],
+      "arranque_s": 5.3,
+      "estado": "healthy",
+      "una_a_la_vez": {
+        "concurrencia": 1,
+        "peticiones": 16,
+        "errores": 0,
+        "latencia_p50_ms": 458.6,
+        "latencia_p95_ms": 1319.9,
+        "latencia_max_ms": 1379.4,
+        "peticiones_por_segundo": 1.7
+      },
+      "cuatro_a_la_vez": {
+        "concurrencia": 4,
+        "peticiones": 32,
+        "errores": 0,
+        "latencia_p50_ms": 1388.4,
+        "latencia_p95_ms": 2106.1,
+        "latencia_max_ms": 2206.4,
+        "peticiones_por_segundo": 2.9
+      },
+      "estado_final": "running, healthy",
+      "memoria_max_mb": 422.2
+    }
+  ]
+}

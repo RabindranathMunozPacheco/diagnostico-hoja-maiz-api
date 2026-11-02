@@ -1,0 +1,1555 @@
+{
+  "descripcion": "Las 221 fotos de prueba de la Actividad 5 (primer fold de StratifiedGroupKFold(5), semilla 42, por grupo). Las fotos no se suben al repositorio porque el dataset no declara licencia; se descargan del origen en esta revisión y se comprueban con su sha256.",
+  "repositorio": "muAtarist/maize_foliar_diseases",
+  "tipo": "dataset",
+  "revision": "448bec6c7abe18fe87917e443368c63ed3786119",
+  "fotos": [
+    {
+      "id": "m0000",
+      "clase": "Roya común",
+      "sesion": "20190313",
+      "ruta": "train/CommonRust/104_2019-03-13--Cedara-DKB-DSC_0308_CR.jpg",
+      "sha256": "cdce83c8e260358a13c469ec6de5eb5906ef14d6e63ebba3d4d9db7fbab08764"
+    },
+    {
+      "id": "m0005",
+      "clase": "Roya común",
+      "sesion": "20190313",
+      "ruta": "train/CommonRust/131_2019-03-13--Cedara-DKB-DSC_0313_CR.jpg",
+      "sha256": "77e3d26c0f170e1df1e81adc147cb6786e1202bb52d4813d10ee35040ad3ff26"
+    },
+    {
+      "id": "m0006",
+      "clase": "Roya común",
+      "sesion": "20190313",
+      "ruta": "train/CommonRust/138_2019-03-13--Cedara-DKB-DSC_0311_CR.jpg",
+      "sha256": "a771c7400befb14b0f340a557d562dea682bf65ef4808ab7d2656ec044717e39"
+    },
+    {
+      "id": "m0008",
+      "clase": "Roya común",
+      "sesion": "20190313",
+      "ruta": "train/CommonRust/164_2019-03-13--Cedara-DKB-DSC_0187_CR.jpg",
+      "sha256": "18d8bb4c39701d3f85f113d90ca000335a935a1679a592dd5d8e995e0342bf6e"
+    },
+    {
+      "id": "m0010",
+      "clase": "Roya común",
+      "sesion": "20190313",
+      "ruta": "train/CommonRust/186_2019-03-13--Cedara-DKB-DSC_0310_CR.jpg",
+      "sha256": "9e8e283ef6cc90bc27a7a3cb7701365336042f88f2f13f4a2151d50ce1ffe2c0"
+    },
+    {
+      "id": "m0014",
+      "clase": "Roya común",
+      "sesion": "20190313",
+      "ruta": "train/CommonRust/218_2019-03-13--Cedara-DKB-DSC_0314_CR.jpg",
+      "sha256": "81ba1a585556ef3bfc6ca65e43b68104fd40f31cddb88dc5e3518e380c3e063b"
+    },
+    {
+      "id": "m0016",
+      "clase": "Roya común",
+      "sesion": "20190313",
+      "ruta": "train/CommonRust/230_2019-03-13--Cedara-DKB-DSC_0036_CR.jpg",
+      "sha256": "c4c2a0cb53047c7a5a1095739b4412ee6aeedae6ec6fd6d161d64ba5ca804e04"
+    },
+    {
+      "id": "m0017",
+      "clase": "Roya común",
+      "sesion": "20190313",
+      "ruta": "train/CommonRust/259_2019-03-13--Cedara-DKB-DSC_0315_CR.jpg",
+      "sha256": "f4015ab15b0ef26e5d23af3a2c1fd11ad83314d44247f3792a185ac244887be8"
+    },
+    {
+      "id": "m0023",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/315_IMG_20190316_091643_CR.jpg",
+      "sha256": "72934e95d0e1ef21fb7951f7f552d6409c22332662a9ac522d548cc33627940d"
+    },
+    {
+      "id": "m0027",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/332_IMG_20190316_091251_CR.jpg",
+      "sha256": "e3958b640267a9228abd932e8ccc94c5d07e5eba83b3e05690a1b0f52764cf81"
+    },
+    {
+      "id": "m0033",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/349_IMG_20190316_080852_CR.jpg",
+      "sha256": "ce4c799f9f363b14b47c24ce65998f3b92e1c51a25e0441ef7a3fe960694179b"
+    },
+    {
+      "id": "m0034",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/350_IMG_20190316_090911_CR.jpg",
+      "sha256": "8e69ce15e1881a91bea0871603c5b5f1585ab4ef3c4184c61b8ff257c30e8b31"
+    },
+    {
+      "id": "m0042",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/395_IMG_20190316_085559_CR.jpg",
+      "sha256": "46c8010b804078e42a9e958110560c1e176aae42f0571c74118a28ab6d0142ed"
+    },
+    {
+      "id": "m0047",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/414_IMG_20190316_092010_CR.jpg",
+      "sha256": "aa712cd70dfcd3b1b7d9d0c9a133d41560528fa64647f8508a517048e0fd41b1"
+    },
+    {
+      "id": "m0050",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/435_IMG_20190316_090913_CR.jpg",
+      "sha256": "3a725c45c8a605aee8b671c5e8ccad5c6db063e134ea81c44ad6399ea67bfdfe"
+    },
+    {
+      "id": "m0054",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/452_IMG_20190316_092149_CR.jpg",
+      "sha256": "bcc25fa4d3b7b0b5833e07ba6d1b4b7fd550eaec7e314eafb1059922bc8b95b0"
+    },
+    {
+      "id": "m0059",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/504_IMG_20190316_085151_CR.jpg",
+      "sha256": "361b4644e49677d45d4f2efc1608db7e5278d65235664a2644aadc4efc42dd43"
+    },
+    {
+      "id": "m0065",
+      "clase": "Roya común",
+      "sesion": "20190313",
+      "ruta": "train/CommonRust/593_20190313_145528_CR.jpg",
+      "sha256": "4b5fd3057588203b2a47a0bf90ba1f66863c801fdc85b3510d2960f872716722"
+    },
+    {
+      "id": "m0069",
+      "clase": "Roya común",
+      "sesion": "20190313",
+      "ruta": "train/CommonRust/694_20190313_153357_CR.jpg",
+      "sha256": "b851b1625e1f4f1f1eaff5a324c77830656ad82b8002c8f9ab5a40ec07bd9060"
+    },
+    {
+      "id": "m0075",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/814_IMG_20190316_093028_CR.jpg",
+      "sha256": "38dc997b1cb212dbb73509cf70b002085440dae741a43bc643afa921eaaf09a5"
+    },
+    {
+      "id": "m0078",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/819_IMG_20190316_090408_CR.jpg",
+      "sha256": "e22cc9be0ca07059bde150713d61a27a3483c4bed56f6a196360e53449570238"
+    },
+    {
+      "id": "m0089",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/863_IMG_20190316_084546_CR.jpg",
+      "sha256": "b702ad7a43832799abd79475070cc425393a676141bac7c6a587701aa253cab4"
+    },
+    {
+      "id": "m0093",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/882_IMG_20190316_090323_CR.jpg",
+      "sha256": "f7db0f32fe757a6f3bc66073380e1fa776eeb3ad73f28e85c8ed9e51ca9e117e"
+    },
+    {
+      "id": "m0096",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/900_IMG_20190316_080643_CR.jpg",
+      "sha256": "4c3c0a0cb97532e41fb01d1efd5daf06b4870782d5160ea8ee9b07b944250b30"
+    },
+    {
+      "id": "m0102",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/934_IMG_20190316_094039_CR.jpg",
+      "sha256": "a67852ce068107ad37a97de5ecf2d4789eedf10b424d0dcf55a7c0ddd5212d12"
+    },
+    {
+      "id": "m0107",
+      "clase": "Roya común",
+      "sesion": "20190316",
+      "ruta": "train/CommonRust/993_IMG_20190316_090810_CR.jpg",
+      "sha256": "3abe16b2c120f2f07745e4c4ae15bd0012f79b65b0a0191e6eba1d3f8216392f"
+    },
+    {
+      "id": "m0111",
+      "clase": "Tizón",
+      "sesion": "IMG",
+      "ruta": "train/CornLeafBlight/1246_IMG_3803_NCLB.jpg",
+      "sha256": "cd940dad4aea963d47e70f2844bbdde8f4a38e7531f89c195b148b9534ab091c"
+    },
+    {
+      "id": "m0112",
+      "clase": "Tizón",
+      "sesion": "IMG",
+      "ruta": "train/CornLeafBlight/1258_IMG_3805_NCLB.jpg",
+      "sha256": "d9c0fb64ec96eb40ca546da0766097811e2bafe3c83c839efbbbfe6e15140d57"
+    },
+    {
+      "id": "m0115",
+      "clase": "Tizón",
+      "sesion": "IMG",
+      "ruta": "train/CornLeafBlight/1274_IMG_3700_NCLB.jpg",
+      "sha256": "a148fcd41ebd7522d5cd378d5a04d83f9d2679e5634602f2fe36a692c3e67990"
+    },
+    {
+      "id": "m0117",
+      "clase": "Tizón",
+      "sesion": "IMG",
+      "ruta": "train/CornLeafBlight/1280_IMG_3798_NCLB.jpg",
+      "sha256": "222bbaa3b3087b47fe04fe956eaa21513dd82416198b025dfe45b8407a3e9195"
+    },
+    {
+      "id": "m0119",
+      "clase": "Tizón",
+      "sesion": "IMG",
+      "ruta": "train/CornLeafBlight/1283_IMG_3794_NCLB.jpg",
+      "sha256": "18276e92ac3bfbd6b2b0b1f6d064bc000e26d20e536f925bc3c0712f8b233a2f"
+    },
+    {
+      "id": "m0121",
+      "clase": "Tizón",
+      "sesion": "IMG",
+      "ruta": "train/CornLeafBlight/1318_IMG_3650_NCLB.jpg",
+      "sha256": "bdf18acf817234bc15daf8361bb036aaeaa32bf1ae32489d10db9b56dee937a7"
+    },
+    {
+      "id": "m0123",
+      "clase": "Tizón",
+      "sesion": "IMG",
+      "ruta": "train/CornLeafBlight/1349_IMG_3802_NCLB.jpg",
+      "sha256": "e0b6c9dcc438737e6b12b466ac64264fa07623f2c4089cdd6ecc8e1399099420"
+    },
+    {
+      "id": "m0129",
+      "clase": "Tizón",
+      "sesion": "IMG",
+      "ruta": "train/CornLeafBlight/1407_IMG_3852_NCLB.jpg",
+      "sha256": "601ef07b85d1f7fffa56ac15ea088cbca82266f741f7080a49a8bbb36246961c"
+    },
+    {
+      "id": "m0132",
+      "clase": "Tizón",
+      "sesion": "20190227",
+      "ruta": "train/CornLeafBlight/1484_IMG_20190227_103909_NCLB.jpg",
+      "sha256": "d981337404c7d78be9b1e7604e7b29013fa8268e43df8b80f856b42b428515fc"
+    },
+    {
+      "id": "m0137",
+      "clase": "Tizón",
+      "sesion": "20190227",
+      "ruta": "train/CornLeafBlight/1502_IMG_20190227_112759_NCLB.jpg",
+      "sha256": "b24181538c48a401bc38a4b59757ae1b4d52e7ccb4c07f57a104fec4b2b67e72"
+    },
+    {
+      "id": "m0141",
+      "clase": "Tizón",
+      "sesion": "20190313",
+      "ruta": "train/CornLeafBlight/163_2019-03-13--Cedara-DKB-DSC_0109_NCLB.jpg",
+      "sha256": "41125766f30035c0891d1e8765fca72243a7217758c43b93f1cc85fa315e03a6"
+    },
+    {
+      "id": "m0147",
+      "clase": "Tizón",
+      "sesion": "20200309",
+      "ruta": "train/CornLeafBlight/1982_20200309_091753_NCLB.jpg",
+      "sha256": "a73f607f0c2f3d648bbf597341de84d5653f127e479040f719cf0f8bf896b6a0"
+    },
+    {
+      "id": "m0152",
+      "clase": "Tizón",
+      "sesion": "20200309",
+      "ruta": "train/CornLeafBlight/2046_20200309_102202_NCLB.jpg",
+      "sha256": "2a1ffec55712525e0f6532e655758a44122ca8d73488ec3c7b8675cb9b9bc54e"
+    },
+    {
+      "id": "m0155",
+      "clase": "Tizón",
+      "sesion": "20200309",
+      "ruta": "train/CornLeafBlight/2074_20200309_102118_NCLB.jpg",
+      "sha256": "ad41b1ee2b62b7caf79fdb905e32b58f87fbc3739e48110f1f4ae26fc37d717d"
+    },
+    {
+      "id": "m0163",
+      "clase": "Tizón",
+      "sesion": "20200309",
+      "ruta": "train/CornLeafBlight/2152_20200309_102227_NCLB.jpg",
+      "sha256": "4bcd5fd5898def7087c333010a0a3cef1bb6d104ce0b6a3bd6d630d9f3bc8741"
+    },
+    {
+      "id": "m0167",
+      "clase": "Tizón",
+      "sesion": "20200226",
+      "ruta": "train/CornLeafBlight/2283_IMG_20200226_084625_NCLB.jpg",
+      "sha256": "f84af9d1eea6ac4466e82951d62eeeffccaeec2bde040dcb002084ffc872ebd3"
+    },
+    {
+      "id": "m0174",
+      "clase": "Tizón",
+      "sesion": "20200226",
+      "ruta": "train/CornLeafBlight/2317_IMG_20200226_084347_NCLB.jpg",
+      "sha256": "71aad2bb296813000cc17c6ef23e3e787859bd627d7ec5137e180a7346f6b79c"
+    },
+    {
+      "id": "m0177",
+      "clase": "Tizón",
+      "sesion": "20200226",
+      "ruta": "train/CornLeafBlight/2334_IMG_20200226_084345_NCLB.jpg",
+      "sha256": "ad82b9b06cdf95ccd2c0feadebfb61eba3ce38babcd9a97401ce1c9db4edb241"
+    },
+    {
+      "id": "m0183",
+      "clase": "Tizón",
+      "sesion": "20200302",
+      "ruta": "train/CornLeafBlight/2366_IMG_20200302_111634_NCLB.jpg",
+      "sha256": "cb5ffd812bb031a8fe445f258bd0196ebd9300f191a8d74cba052d01250bca6b"
+    },
+    {
+      "id": "m0185",
+      "clase": "Tizón",
+      "sesion": "20190313",
+      "ruta": "train/CornLeafBlight/248_2019-03-13--Cedara-DKB-DSC_0296_NCLB.jpg",
+      "sha256": "d21a0f74145357584458a0671e79d4ae929362183e988aaad3aa4fc65355e9f4"
+    },
+    {
+      "id": "m0190",
+      "clase": "Tizón",
+      "sesion": "20190313",
+      "ruta": "train/CornLeafBlight/287_2019-03-13--Cedara-DKB-DSC_0183_NCLB.jpg",
+      "sha256": "baebbac6b0c996f0e9bc50859e138e07b7664cd0332a06fbbeb06649f4b23fba"
+    },
+    {
+      "id": "m0195",
+      "clase": "Tizón",
+      "sesion": "20190316",
+      "ruta": "train/CornLeafBlight/326_IMG_20190316_084956_NCLB.jpg",
+      "sha256": "357902e6519f6d02982026b5448ec7af4af29b87565108bb39c4d862285ec6e4"
+    },
+    {
+      "id": "m0202",
+      "clase": "Tizón",
+      "sesion": "20190316",
+      "ruta": "train/CornLeafBlight/391_IMG_20190316_084349_NCLB.jpg",
+      "sha256": "2858490c621dd2223ea6688a4cc227c030c4e7559cc7a02b8fc13cc387da19e7"
+    },
+    {
+      "id": "m0209",
+      "clase": "Tizón",
+      "sesion": "20190316",
+      "ruta": "train/CornLeafBlight/464_IMG_20190316_074046_NCLB.jpg",
+      "sha256": "97ab18d4373bcf76d7f56f779bf492c375fee297d6e66aff46ad7eb0afdfde9e"
+    },
+    {
+      "id": "m0214",
+      "clase": "Tizón",
+      "sesion": "20190313",
+      "ruta": "train/CornLeafBlight/587_20190313_141853_NCLB.jpg",
+      "sha256": "8609c90fb5038a7b58339ab65e85a175c07b1d5b40d9e88fa74ef62de18395fb"
+    },
+    {
+      "id": "m0217",
+      "clase": "Tizón",
+      "sesion": "20190313",
+      "ruta": "train/CornLeafBlight/635_20190313_120606_NCLB.jpg",
+      "sha256": "8ec69a6a4a52be2770a45b0f425520acb5d9074b0dfeaeff5dacc41fb71ac7bd"
+    },
+    {
+      "id": "m0222",
+      "clase": "Tizón",
+      "sesion": "20190313",
+      "ruta": "train/CornLeafBlight/702_20190313_142258_NCLB.jpg",
+      "sha256": "b2b8e81ed3af34265809e0a633ee496885a1fc6ea8174ce3bc7a9bcbcfd7066b"
+    },
+    {
+      "id": "m0227",
+      "clase": "Tizón",
+      "sesion": "20190316",
+      "ruta": "train/CornLeafBlight/811_IMG_20190316_081751_NCLB.jpg",
+      "sha256": "eaa80d8528a3d3e180391cae97a090b2cc815780b7786133943df8ce9fa695fc"
+    },
+    {
+      "id": "m0232",
+      "clase": "Tizón",
+      "sesion": "20190316",
+      "ruta": "train/CornLeafBlight/893_IMG_20190316_091233_NCLB.jpg",
+      "sha256": "53db83b12f5f33d2e5904d81a0b21c3fcac93b6695f7c2bb56a218a3bbbad94d"
+    },
+    {
+      "id": "m0237",
+      "clase": "Tizón",
+      "sesion": "20190316",
+      "ruta": "train/CornLeafBlight/959_IMG_20190316_092523_NCLB.jpg",
+      "sha256": "b3d9c1d8f173c2057ee883c6ac7e5ff711fae0f960f4ebe14916b09ecefb3e67"
+    },
+    {
+      "id": "m0243",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1003_222_CIMG3959_1-239-2_GLS.jpg",
+      "sha256": "52bb2d7296c77052486b4618ef4571d2f5707f07921aef70b4903f0a39d26ae2"
+    },
+    {
+      "id": "m0247",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1007_37_CIMG3772_1-364-2_GLS.jpg",
+      "sha256": "481bb269001bc8dd705f7ca83a3bba2c8ac5e4a84b78f2cc8551730407dcb392"
+    },
+    {
+      "id": "m0252",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1014_73_CIMG3808_1-50-2_GLS.jpg",
+      "sha256": "f22655ced7bf1611b2bed57c2584876226d012f3d0c13fc3ecacbe7e70d87f69"
+    },
+    {
+      "id": "m0257",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1021_43_CIMG3778_1-238-2_GLS.jpg",
+      "sha256": "da5fadfc7c1d4f338886d08e62c15791b6edb1e8caaf72c5c029e9c485353e43"
+    },
+    {
+      "id": "m0262",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1027_186_CIMG3922_1-194-1_GLS.jpg",
+      "sha256": "c48d570e4c6449274bbb3dd9f9c93ce380d71d8d503ab1b92d1073da70e89a4c"
+    },
+    {
+      "id": "m0267",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1033_139_CIMG3875_1-187-2_GLS.jpg",
+      "sha256": "ad207e7c9fb2e4444e615a4540100bda096b2dda70fee2a3b068e1ce8b91c050"
+    },
+    {
+      "id": "m0272",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1041_157_CIMG3893_1-29-1_GLS.jpg",
+      "sha256": "d9ed96934f1d713bc5f0e251115c39f91ccf47fe3f7ce9fc638d6e3ed971865e"
+    },
+    {
+      "id": "m0278",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1047_154_CIMG3890_1-318-2_GLS.jpg",
+      "sha256": "f04b647b8b5fc0a4f216ec0b2594ddf80ac881d95964c360639434cd7a3cfe21"
+    },
+    {
+      "id": "m0282",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1053_10_CIMG3744_1-40-1_GLS.jpg",
+      "sha256": "9396381b858e0f21ea3e9852e9b22e6882bc9455fbbe228a5afd06223e57ee1e"
+    },
+    {
+      "id": "m0289",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1062_165_CIMG3901_1-134-1_GLS.jpg",
+      "sha256": "858715e16e0e5756fa0f50bd362f3b6dd26ca85dad55c3ad83a15cbd347fe63a"
+    },
+    {
+      "id": "m0292",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1066_132_CIMG3868_1-95-2_GLS.jpg",
+      "sha256": "7848dd8d6c16e6b5166133ac7a6659e1c3f6118a33cfca0b2eb5631e35447e06"
+    },
+    {
+      "id": "m0300",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1073_134_CIMG3870_1-113-2_GLS.jpg",
+      "sha256": "0f83974cad93cf8890d7ebb30cd56e1440cde9bcd29a49d427e4c1dc6bd10f21"
+    },
+    {
+      "id": "m0307",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1080_38_CIMG3773_1-362-1_GLS.jpg",
+      "sha256": "39ece48a408d95dc6fc275207b1a6f25027dabab3a02b706705b0ce7825e5de5"
+    },
+    {
+      "id": "m0311",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1084_35_CIMG3770_1-CML-1_GLS.jpg",
+      "sha256": "2afde119db0a66d851279f2ee1b4092503347ee9ba61af5df28537e2b16be485"
+    },
+    {
+      "id": "m0315",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1090_9-CIMG3743_1_150-2_GLS.jpg",
+      "sha256": "d31d341673060681ab6cf1450dd957796e000fa8084e3bf9621baae51ae45589"
+    },
+    {
+      "id": "m0316",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1093_192_CIMG3928_1-116-2_GLS.jpg",
+      "sha256": "a2a8fded4bb6cbde67326b3fbcec8041f66514bf912c9a3f91a6ad538a84af49"
+    },
+    {
+      "id": "m0323",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1101_34_CIMG3769_1-CML-1_GLS.jpg",
+      "sha256": "daf94c53c99baa43e640509cb7d79d6e2239c8f2e286913fca217314ca20416e"
+    },
+    {
+      "id": "m0328",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1106_31_CIMG3766_1-207-2_GLS.jpg",
+      "sha256": "9f33f85f4e9fb1638c1d32d944632ef7c2a339d8b40ae19dd781a045db75b5f6"
+    },
+    {
+      "id": "m0334",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1113_169_CIMG3905_1-284-2_GLS.jpg",
+      "sha256": "d81c4c746e9a3921c8522a25c7feb978cc2784d3d3a656d10d25e4f51f5c52dd"
+    },
+    {
+      "id": "m0338",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1117_52_CIMG3787_1-8-1_GLS.jpg",
+      "sha256": "2d29fd2b5859e8a7e5a240622b093d59bdfdf6982ec6c15bec49f3f0d563c306"
+    },
+    {
+      "id": "m0343",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1123_113_CIMG3849_1-203-2_GLS.jpg",
+      "sha256": "bc3903e57cafa747f9c5efcaba799a124406c1d1a7427e8c38072c990eebcfab"
+    },
+    {
+      "id": "m0349",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1130_75_CIMG3810_1-337-2_GLS.jpg",
+      "sha256": "d9da37bbf32f2fe858553c8b2fa7a1ac211c3f5776b8323e9bbfe1af5d309558"
+    },
+    {
+      "id": "m0354",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1135_219_CIMG3956_1-317-1_GLS.jpg",
+      "sha256": "45ebbc9ae0d9a951e11455f4f96ff9bc7b00ea6776c5ecf5c8b876925615f9c1"
+    },
+    {
+      "id": "m0356",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1139_40_CIMG3775_1-288-1_GLS.jpg",
+      "sha256": "950241f24e8069afdce259842b88b3072159a315aa5e1a19805746c05c1c523c"
+    },
+    {
+      "id": "m0363",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1147_56_CIMG3791_1-390-1_GLS.jpg",
+      "sha256": "5942e1420802877f85919c63eb5fc06cc044752cd43ce9b2316863fd44d57e07"
+    },
+    {
+      "id": "m0366",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1150_184_CIMG3920_1-86-1_GLS.jpg",
+      "sha256": "5220954ac99e83c896fa306df8342063d0b8ec8922690f4b189ab395b8081c19"
+    },
+    {
+      "id": "m0373",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1159_176_CIMG3912_1-190-2_GLS.jpg",
+      "sha256": "100b09e5e13709c5ae2ddc0a8aad78dd2987a67dbfdc277d1ffed7fe6e66a475"
+    },
+    {
+      "id": "m0379",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1165_160_CIMG3896_1-392-2_GLS.jpg",
+      "sha256": "0ea30a444989db99ef45c3637c58e20c2853df1e6bb2ca3bafd52b88a947a2a3"
+    },
+    {
+      "id": "m0383",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1169_67_CIMG3802_1-160-2_GLS.jpg",
+      "sha256": "1af9c32742b7002d32d9ab5b4faa195ee32b4b05015eaaea2e825a8da7e3048c"
+    },
+    {
+      "id": "m0385",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1171_138_CIMG3874_1-187-1_GLS.jpg",
+      "sha256": "fcfe116e3186bca52225eb40c14cc88ca04b463c6fd7b9858161f56d81174246"
+    },
+    {
+      "id": "m0394",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1180_147_CIMG3883_1-107-2_GLS.jpg",
+      "sha256": "ef44e34d5e2f5ee75887cd5864dfcc7bff8387974f6b147567c00cc612fb5b9b"
+    },
+    {
+      "id": "m0397",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1189_146_CIMG3882_1-107-1_GLS.jpg",
+      "sha256": "fd7b9e47bc9005ba509875e11ade45a2d7d3f20fede3e4600c66b3dbe5b0abbc"
+    },
+    {
+      "id": "m0404",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1199_60_CIMG3795_1-341-1_GLS.jpg",
+      "sha256": "887ea5b188a807e7f18ad6e876d6fbb32fcdea5540d10a81b0133b003dcaeec3"
+    },
+    {
+      "id": "m0408",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1207_100_CIMG3835_1-135-2_GLS.jpg",
+      "sha256": "c76de586c540b2fc4d40380af20cba803ffa04f37e2388aa7dde53ae1ef4aa6b"
+    },
+    {
+      "id": "m0413",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1212_71_CIMG3806_1-259-2_GLS.jpg",
+      "sha256": "81ae5f92a5d2f044a2e9b90d1f7721a799ae9c6c832b44e74ccfc69d84fa98dc"
+    },
+    {
+      "id": "m0418",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/1218_172_CIMG3908_1-220-1_GLS.jpg",
+      "sha256": "b0712ae8e0be9f99f3d4d4d7878c6523c0b61c0facbc435e4c4f74858a7ed63b"
+    },
+    {
+      "id": "m0423",
+      "clase": "Mancha gris",
+      "sesion": "IMG",
+      "ruta": "train/GreyLeafSpot/1228_IMG_3668_GLS.jpg",
+      "sha256": "de762dd35578a0fa9eb5c1f67c585f846fdf4ee3c82af3b3f6a8283f48f60710"
+    },
+    {
+      "id": "m0428",
+      "clase": "Mancha gris",
+      "sesion": "IMG",
+      "ruta": "train/GreyLeafSpot/1245_IMG_3760_GLS.jpg",
+      "sha256": "772069282457f601faf908a80ce2167bc66f79dd4e204ecfe9fa7e1bba458e4a"
+    },
+    {
+      "id": "m0435",
+      "clase": "Mancha gris",
+      "sesion": "IMG",
+      "ruta": "train/GreyLeafSpot/1266_IMG_3662_GLS.jpg",
+      "sha256": "85ba53d34a83e088d31645080795318e845baa4609d23cf376f8eb5be2d720d0"
+    },
+    {
+      "id": "m0440",
+      "clase": "Mancha gris",
+      "sesion": "IMG",
+      "ruta": "train/GreyLeafSpot/1288_IMG_3661_GLS.jpg",
+      "sha256": "069aff54311044b2cda25ecd1c02ff865ff0b99cc0c038a7788861ea04624383"
+    },
+    {
+      "id": "m0447",
+      "clase": "Mancha gris",
+      "sesion": "IMG",
+      "ruta": "train/GreyLeafSpot/1313_IMG_3670_GLS.jpg",
+      "sha256": "267014964de0fd92771a3cc384bc1e88a0afe0fef712c9d2c48e674722bb4c64"
+    },
+    {
+      "id": "m0449",
+      "clase": "Mancha gris",
+      "sesion": "IMG",
+      "ruta": "train/GreyLeafSpot/1315_IMG_3837_GLS.jpg",
+      "sha256": "605db2c40da247c165919ebe833b0a0aead00aa279f8f4c2694e1b8f647ebb85"
+    },
+    {
+      "id": "m0459",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/134_2019-03-13--Cedara-DKB-DSC_0157_GLS.jpg",
+      "sha256": "018fbaf46995945e3121a9e0928f4ff92d7e6ef6da98cbcea4434d8bfa9ca2c2"
+    },
+    {
+      "id": "m0461",
+      "clase": "Mancha gris",
+      "sesion": "IMG",
+      "ruta": "train/GreyLeafSpot/1359_IMG_3660_GLS.jpg",
+      "sha256": "3ca63e81d0c03a6a13e056393233f4d0b0e9c95943e73ab8352fe6de3904fcda"
+    },
+    {
+      "id": "m0468",
+      "clase": "Mancha gris",
+      "sesion": "IMG",
+      "ruta": "train/GreyLeafSpot/1377_IMG_3741_GLS.jpg",
+      "sha256": "90b5e4cbe74ecbd46db72546a03c6c7971ae563b10bb733d7df77d5f553c438b"
+    },
+    {
+      "id": "m0473",
+      "clase": "Mancha gris",
+      "sesion": "IMG",
+      "ruta": "train/GreyLeafSpot/1399_IMG_3838_GLS.jpg",
+      "sha256": "3c9b6583823c6d3d8133f47cab4fa60692b1fe4d2c5238b7f16cb2c5c980578e"
+    },
+    {
+      "id": "m0479",
+      "clase": "Mancha gris",
+      "sesion": "IMG",
+      "ruta": "train/GreyLeafSpot/1409_IMG_3742_GLS.jpg",
+      "sha256": "9cf94fe309f026a50f98c1665b269488c543afc6db6385b6ce2fa120f1312020"
+    },
+    {
+      "id": "m0481",
+      "clase": "Mancha gris",
+      "sesion": "IMG",
+      "ruta": "train/GreyLeafSpot/1448_IMG_3695_GLS.jpg",
+      "sha256": "a5a35061631080bb9318844a4766cbd24faca49dda3cb1aa9e54d866076ed756"
+    },
+    {
+      "id": "m0490",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1518_2012_03_DSC1935_maize_diverse-R-Pn-DK-28_GLS.jpg",
+      "sha256": "990e8c7ed4822a683a34ed20b6934614137fea06de8e2a698346f475ca1d5edd"
+    },
+    {
+      "id": "m0495",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1551_2012_03_DSC1922_maize_diverse-R-Pn-DK-28_GLS.jpg",
+      "sha256": "8b551c3e0716055c9a204fad7b8a91bf49dfe42b0eb5fc2d2441bc3a7540e6a6"
+    },
+    {
+      "id": "m0502",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1588_2012_03_DSC1775_maize_diverse-C-AC-DK-273_GLS.jpg",
+      "sha256": "5168c6409a605530a13e2fb266934cf3576c5c61a831f4a6c86690d3fd1be5f9"
+    },
+    {
+      "id": "m0505",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1597_2012_03_DSC1686_maize_diverse-C-AC-DK-273_GLS.jpg",
+      "sha256": "cd0fa5e71bb47aa28d25e19a9bbe1afb4dc637661778c4417a1ec2712ece1aec"
+    },
+    {
+      "id": "m0509",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1603_2012_03_DSC1695_maize_diverse-C-AC-DK-273_GLS.jpg",
+      "sha256": "446ce6c643c6446059ed5e06bfd13e161907e0c49b21a6bb19b19ea66a78fd7e"
+    },
+    {
+      "id": "m0516",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1626_2012_03_DSC1732_maize_diverse-C-AC-DK-273_GLS.jpg",
+      "sha256": "b49ed129aaaee194378550a5ef261e9f8fa17dd2ff2a65222f9a6627c2ba41f8"
+    },
+    {
+      "id": "m0520",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1647_2012_03_DSC1805_maize_diverse-C-AC-DK-273_GLS.jpg",
+      "sha256": "9fbd46d91ca29f140c44a8bfc7ad947b9b6d1df19ac1137091188c86dd31bc71"
+    },
+    {
+      "id": "m0526",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1668_2012_03_DSC1925_maize_diverse-R-Pn-DK-28_GLS.jpg",
+      "sha256": "50242224ec86a86f1748ce0f8ae7e270067cc5120d1e0db0bb4b1f9f1fc18500"
+    },
+    {
+      "id": "m0531",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1682_2012_03_DSC1799_maize_diverse-C-AC-DK-273_GLS.jpg",
+      "sha256": "9fc0ad833f0aa6bf1904522426fba6a8406120fef782b242d1571dd1f4d1f287"
+    },
+    {
+      "id": "m0535",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/168_2019-03-13--Cedara-DKB-DSC_0125_GLS.jpg",
+      "sha256": "e59dba4cf596ff527a0a44834135b308206b67906afc82c133b8032f3b163d00"
+    },
+    {
+      "id": "m0540",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/169_2019-03-13--Cedara-DKB-DSC_0051_GLS.jpg",
+      "sha256": "e133c9fc2c2cbbdfaeab2c2c7db7f68230e7afd11f884351749075e1493e1e31"
+    },
+    {
+      "id": "m0544",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1706_2012_03_IMG_6348_maize_diverse_JM_1-C-Ac_GLS.jpg",
+      "sha256": "70c2031dbcf3ef0b94f250687dd895ac220815e61f031561d435f0bb99ce05e1"
+    },
+    {
+      "id": "m0552",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1724_2012_03_IMG_6281_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "a77f798abb7307ee8dd7144cdedebea484d8846ab2367eafdfd37490c85913ff"
+    },
+    {
+      "id": "m0556",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1733_2012_03_IMG_6330_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "bbc148390cd8f158858a19a6fbb0445817edf7b877fef12755d7bf3393dfd9c4"
+    },
+    {
+      "id": "m0563",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1744_2012_03_IMG_6500_maize_diverse_JM-R-Pn_GLS.jpg",
+      "sha256": "22bb0927088ebb0730c06aae03d8a9601b235d20125fbffda620d855107ccfb9"
+    },
+    {
+      "id": "m0569",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1758_2012_03_IMG_6277_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "ec4470063d7d05e93d80f51320d60daa249ec9f439b20230714b6ddf09cd05e2"
+    },
+    {
+      "id": "m0572",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1761_2012_03_IMG_6273_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "7646ed432cb9b6505896c378d80fa4fa94c6c4e22b9c0325b0e1aa1ee8c9b844"
+    },
+    {
+      "id": "m0578",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1773_2012_03_IMG_6473_maize_diverse_JM-R-Pn_GLS.jpg",
+      "sha256": "3bff4e9caee5e7a4ce36dfd37353c62d15e363c93938f1fc2056ab0afd5705d1"
+    },
+    {
+      "id": "m0581",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1779_2012_03_IMG_6311_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "ccf860cb650df645ad532102c4f3c39d5cb5965c073af8047d6f556da34b3911"
+    },
+    {
+      "id": "m0588",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/178_2019-03-13--Cedara-DKB-DSC_0126_GLS.jpg",
+      "sha256": "550e8cb23cfc9606ec6396102877f5fdcb4d91bc8451dc7a8c4a2735adccd1aa"
+    },
+    {
+      "id": "m0593",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1810_2012_03_IMG_6391_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "9274c417ab01f439f19c9f08ca8be506a8857e48c57c2520efb5989db7a9344a"
+    },
+    {
+      "id": "m0596",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1816_2012_03_IMG_6396_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "fb094a141dbdadbaff5a3ae91a266406ac847be136291b6c25ddf0d19c022702"
+    },
+    {
+      "id": "m0601",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1835_2012_03_IMG_6342_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "2bd0a84f7259a47e1a9cd32cace06f3bc94c1e846917329e05f0fdd7c1fe23cc"
+    },
+    {
+      "id": "m0605",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1843_2012_03_IMG_6315_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "613c6c83df32350b4015d88aa99ee51b9461d7bd20e2a42cdfbe548b32ba3df7"
+    },
+    {
+      "id": "m0610",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1861_2012_03_IMG_6319_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "5847774994419ba48fe5431ef7b007302c93b79ccf528ac19d83aae52aec6d49"
+    },
+    {
+      "id": "m0616",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1879_2012_03_IMG_6299_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "48f94ade199d2dabe47bb91c89ec9372965683944f033663ba36ef854454e9f4"
+    },
+    {
+      "id": "m0619",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1883_2012_03_IMG_6295_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "722d64a0b6bbefe714aa3850f2457d2e13d993058e02c15270518db99c2fa91d"
+    },
+    {
+      "id": "m0625",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1895_2012_03_IMG_6403_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "4aea829a5eb79a146f908f01a92c0f1297ec72cd194372f6999c6878fdf8076a"
+    },
+    {
+      "id": "m0630",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1904_2012_03_IMG_6553_maize_diverse_JM-R-Pn_GLS.jpg",
+      "sha256": "d57c3f31beef469d55ee16d9c0400439a0bdccfe42d43ef7ffaaa78f24577bba"
+    },
+    {
+      "id": "m0635",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1917_2012_03_IMG_6364_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "1305d7aa279419ea4fc0cb87b142ebd0b810c547e18a67197d538a3d66de994a"
+    },
+    {
+      "id": "m0639",
+      "clase": "Mancha gris",
+      "sesion": "201203",
+      "ruta": "train/GreyLeafSpot/1923_2012_03_IMG_6359_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "72cba8b979194f8cd6e1d04686f574e39ab5961fd445aeeb98052397b3981308"
+    },
+    {
+      "id": "m0646",
+      "clase": "Mancha gris",
+      "sesion": "20200309",
+      "ruta": "train/GreyLeafSpot/1937_20200309_092955_GLS.jpg",
+      "sha256": "30f04617feb96099bbd62e6abf00f0b848f75be7f96f3905a60d9a8918c41328"
+    },
+    {
+      "id": "m0649",
+      "clase": "Mancha gris",
+      "sesion": "20200309",
+      "ruta": "train/GreyLeafSpot/1956_20200309_093410_GLS.jpg",
+      "sha256": "8907b8f0509f1973c25874eccb27e86ca47d6e34e7dc0108d94a4c28924fead2"
+    },
+    {
+      "id": "m0659",
+      "clase": "Mancha gris",
+      "sesion": "20200309",
+      "ruta": "train/GreyLeafSpot/2003_20200309_103346_GLS.jpg",
+      "sha256": "425b59ff5283cf3d99fc7e0521a26874bad5ef29d48607e56cea274a416fbc9b"
+    },
+    {
+      "id": "m0660",
+      "clase": "Mancha gris",
+      "sesion": "20200309",
+      "ruta": "train/GreyLeafSpot/2014_20200309_090624_GLS.jpg",
+      "sha256": "d9daaeb40f349ed8c0867613ae328d9384c88c4f08143c680e75416bc8dd3956"
+    },
+    {
+      "id": "m0664",
+      "clase": "Mancha gris",
+      "sesion": "20200309",
+      "ruta": "train/GreyLeafSpot/2030_20200309_093408_GLS.jpg",
+      "sha256": "3e3e4f94929151e61fc53709997b764b971445532b1913e4f40f0927bbf7a7cb"
+    },
+    {
+      "id": "m0670",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/206_2019-03-13--Cedara-DKB-DSC_0210_GLS.jpg",
+      "sha256": "b75196f8c6e6d7ce86b77cdab2d2abd0274ec7b00b4aa175efcd4fa7483f053b"
+    },
+    {
+      "id": "m0676",
+      "clase": "Mancha gris",
+      "sesion": "20200309",
+      "ruta": "train/GreyLeafSpot/2090_20200309_103112_GLS.jpg",
+      "sha256": "dde0a65aad9ec821d2d325c7caa5d895fd83c5dc005596b31098d250fb0392c1"
+    },
+    {
+      "id": "m0679",
+      "clase": "Mancha gris",
+      "sesion": "20200309",
+      "ruta": "train/GreyLeafSpot/2136_20200309_090528_GLS.jpg",
+      "sha256": "dd0062fa6c006b95052ac97a6b33e0ed9c6be8dca9ce1d4e9bacb53245c4d5ab"
+    },
+    {
+      "id": "m0684",
+      "clase": "Mancha gris",
+      "sesion": "20200309",
+      "ruta": "train/GreyLeafSpot/2176_20200309_090534_GLS.jpg",
+      "sha256": "c384718ed8d7194d05b214b4e7ffb97e2c6c4e10c5e42c1945608a58ea79a3b6"
+    },
+    {
+      "id": "m0687",
+      "clase": "Mancha gris",
+      "sesion": "20200309",
+      "ruta": "train/GreyLeafSpot/2186_20200309_103323_GLS.jpg",
+      "sha256": "38f8ca820e9dc07a6448e738fa3be3541fe0d980743d0cc2d7ec2167b708dad2"
+    },
+    {
+      "id": "m0694",
+      "clase": "Mancha gris",
+      "sesion": "20200309",
+      "ruta": "train/GreyLeafSpot/2201_20200309_092628_GLS.jpg",
+      "sha256": "32be15e88f67be729384fa00adc61510f150d4374584ce62a08fbaae855aa17c"
+    },
+    {
+      "id": "m0701",
+      "clase": "Mancha gris",
+      "sesion": "20200309",
+      "ruta": "train/GreyLeafSpot/2224_20200309_103212_GLS.jpg",
+      "sha256": "365c95af8e7efd33508bcf9372131a677afde8f9ae681060ae4ef517381d3779"
+    },
+    {
+      "id": "m0707",
+      "clase": "Mancha gris",
+      "sesion": "20200309",
+      "ruta": "train/GreyLeafSpot/2234_20200309_093457_GLS.jpg",
+      "sha256": "2803a58de366eefd0ae246d2aaff7b8c814121526a5ad3d1be88b88615aa6236"
+    },
+    {
+      "id": "m0709",
+      "clase": "Mancha gris",
+      "sesion": "20200309",
+      "ruta": "train/GreyLeafSpot/2239_20200309_093450_GLS.jpg",
+      "sha256": "218e0c6b12ffa2c847e07be921e24074d2fce646097e7a0878ce060743e279f0"
+    },
+    {
+      "id": "m0717",
+      "clase": "Mancha gris",
+      "sesion": "20200309",
+      "ruta": "train/GreyLeafSpot/2258_20200309_103516_GLS.jpg",
+      "sha256": "e48c91fa91ca0cb910cf1d942ab7f2b95a974ea43a6c5aea02c6e9b31d8c8c34"
+    },
+    {
+      "id": "m0723",
+      "clase": "Mancha gris",
+      "sesion": "20200323",
+      "ruta": "train/GreyLeafSpot/2274_IMG_20200323_104010_GLS.jpg",
+      "sha256": "fb5dc65bfb5f35c9d83690a625deb5e3d6999412d7e5dd003f7743cf5b04980f"
+    },
+    {
+      "id": "m0725",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/227_2019-03-13--Cedara-DKB-DSC_0062_GLS.jpg",
+      "sha256": "e9284b1a47276e61cabe189c925206265d9f1ddabe8f00588ce7b8e29d69504c"
+    },
+    {
+      "id": "m0732",
+      "clase": "Mancha gris",
+      "sesion": "20200302",
+      "ruta": "train/GreyLeafSpot/2297_IMG_20200302_131339_GLS.jpg",
+      "sha256": "99a7be3723e77f7a6b5d9ebcb54c52842f339bb0b916ce55fd55a9239aee6334"
+    },
+    {
+      "id": "m0737",
+      "clase": "Mancha gris",
+      "sesion": "20200226",
+      "ruta": "train/GreyLeafSpot/2313_IMG_20200226_084057_GLS.jpg",
+      "sha256": "94eec00ebe08d49a09a86822b1ae1e35fde2376e0533da9223c0047a44efea59"
+    },
+    {
+      "id": "m0743",
+      "clase": "Mancha gris",
+      "sesion": "20200226",
+      "ruta": "train/GreyLeafSpot/2324_IMG_20200226_083810_GLS.jpg",
+      "sha256": "daab686152b4c7ed37f01b4e3d8cbe6a7d026641e73598d4df1e2e6dcecc9ba1"
+    },
+    {
+      "id": "m0746",
+      "clase": "Mancha gris",
+      "sesion": "20200226",
+      "ruta": "train/GreyLeafSpot/2328_IMG_20200226_135151_GLS.jpg",
+      "sha256": "23395865e54aa813e28209f0ad1332679118c05cef9dd799a8c85ad611f979d6"
+    },
+    {
+      "id": "m0752",
+      "clase": "Mancha gris",
+      "sesion": "20200226",
+      "ruta": "train/GreyLeafSpot/2336_IMG_20200226_084032_GLS.jpg",
+      "sha256": "ccca9db572f22d9be71d81c213b758a397ab7c179d988aed1d02b6052b22f7eb"
+    },
+    {
+      "id": "m0757",
+      "clase": "Mancha gris",
+      "sesion": "20200226",
+      "ruta": "train/GreyLeafSpot/2345_IMG_20200226_084654_GLS.jpg",
+      "sha256": "cabe63d6984374a3d5e19c0ce29c007c2e8f0e5e2da8752183f801639d131c90"
+    },
+    {
+      "id": "m0766",
+      "clase": "Mancha gris",
+      "sesion": "20200323",
+      "ruta": "train/GreyLeafSpot/2359_IMG_20200323_103811_GLS.jpg",
+      "sha256": "c22197ea4669eda88fe12a29112ef5b5c7d0e18823ed750cc953a7d23ee299ed"
+    },
+    {
+      "id": "m0771",
+      "clase": "Mancha gris",
+      "sesion": "20200226",
+      "ruta": "train/GreyLeafSpot/2369_IMG_20200226_135220_GLS.jpg",
+      "sha256": "89b356e4e06809951f90e89c4a8abee0be0da5267655dfdf14e5341c878b0f9b"
+    },
+    {
+      "id": "m0772",
+      "clase": "Mancha gris",
+      "sesion": "20200302",
+      "ruta": "train/GreyLeafSpot/2371_IMG_20200302_131328_GLS.jpg",
+      "sha256": "dbce78734b4b7f015f100a12035b5905200fb1ff23f757ada8142767dea62799"
+    },
+    {
+      "id": "m0776",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/243_2019-03-13--Cedara-DKB-DSC_0101_GLS.jpg",
+      "sha256": "8e84f3173e3ef96fab9f7fdc60546bd8a29a1f0e11687a8cd484ab16c8fc4ea0"
+    },
+    {
+      "id": "m0781",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/270_2019-03-13--Cedara-DKB-DSC_0176_GLS.jpg",
+      "sha256": "271740fbdce9f1be527ce35e81072811015fedabca4411e06274c107a66eda39"
+    },
+    {
+      "id": "m0786",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/299_2019-03-13--Cedara-DKB-DSC_0158_GLS.jpg",
+      "sha256": "735ce9b9aa90f9771674ac7b5a5fae5f0e383ef4875e996e0dc7c193902c93e9"
+    },
+    {
+      "id": "m0791",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/38_2019-03-13--Cedara-DKB-DSC_0132_GLS.jpg",
+      "sha256": "d4dd48c7de2b489e439a197004b520701ccdedb6f4f0160aabc58c3540449be1"
+    },
+    {
+      "id": "m0797",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/532_20190313_115004_GLS.jpg",
+      "sha256": "71985dca9c856c3d01f8dd6dee241109dd088070682fa14d928b219a5aba9cae"
+    },
+    {
+      "id": "m0801",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/548_20190313_114821_GLS.jpg",
+      "sha256": "4c92708c2faae5e3106fe705710388445d1db328e161627d197173a0532ec84d"
+    },
+    {
+      "id": "m0809",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/588_20190313_115603_GLS.jpg",
+      "sha256": "890f1835989c3523fa6a609ea20bf467f848e7b40fc28e4b3f7bd6cdae3cff95"
+    },
+    {
+      "id": "m0816",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/617_20190313_122801_GLS.jpg",
+      "sha256": "acddd002f7db9b18462b44221bbd0eeb5e79236495cf03a07263eb0e5531ce16"
+    },
+    {
+      "id": "m0818",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/630_20190313_115710_GLS.jpg",
+      "sha256": "2e658fff3e8459b4f8d74478915815439fec85f329dc9840b23ab19206897940"
+    },
+    {
+      "id": "m0823",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/655_20190313_120023_GLS.jpg",
+      "sha256": "9e0c2e99decb6f26809c26a41afbbe00d49072160b084eaef90bf7356ad7fb11"
+    },
+    {
+      "id": "m0827",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/674_20190313_115307_GLS.jpg",
+      "sha256": "8c9d2d354c92b9a5b6d291c676ae7a052448bc405d39685d8e6f67088dfb8340"
+    },
+    {
+      "id": "m0834",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/703_20190313_121445_GLS.jpg",
+      "sha256": "6b27ee61c0fd413bc3d5bc6233ba24ce3f8e37e2bd4d22111a48991043df0444"
+    },
+    {
+      "id": "m0839",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/739_20190313_144313_GLS.jpg",
+      "sha256": "fc5be733f40da099b40b1c23520b8250d67d72406c10937e7d315d4dace83fd5"
+    },
+    {
+      "id": "m0845",
+      "clase": "Mancha gris",
+      "sesion": "20190313",
+      "ruta": "train/GreyLeafSpot/82_2019-03-13--Cedara-DKB-DSC_0067_GLS.jpg",
+      "sha256": "93c2cc3d006e385285deac92145c085476234219a3cee592d357fcd1702c68ea"
+    },
+    {
+      "id": "m0852",
+      "clase": "Mancha gris",
+      "sesion": "CIMG",
+      "ruta": "train/GreyLeafSpot/997_24_CIMG3759_1-42-1_GLS.jpg",
+      "sha256": "da75e1e31f96efe9d44663f2c1eb55799c69f2baef2b4007be0890e9d26675ba"
+    },
+    {
+      "id": "m0855",
+      "clase": "Sana",
+      "sesion": "CIMG",
+      "ruta": "train/NoFoliarSymptoms/1036_229_CIMG3966_1-387-1_NoFoliarSymptoms.jpg",
+      "sha256": "6595b19facee753af878a9ebc65768f95998aee13e14fca8b4afe13ae589b587"
+    },
+    {
+      "id": "m0859",
+      "clase": "Sana",
+      "sesion": "IMG",
+      "ruta": "train/NoFoliarSymptoms/1223_IMG_3681_NoFoliarSymptoms.jpg",
+      "sha256": "ee6a1517903927f465d2c90be09060c93310022ad926629e3815dc5fdb815df0"
+    },
+    {
+      "id": "m0865",
+      "clase": "Sana",
+      "sesion": "IMG",
+      "ruta": "train/NoFoliarSymptoms/1342_IMG_3846_NoFoliarSymptoms.jpg",
+      "sha256": "634f2e04792ccf0ce3e80f694b9944d4b091318db8313f699635e20d38d29ebc"
+    },
+    {
+      "id": "m0866",
+      "clase": "Sana",
+      "sesion": "IMG",
+      "ruta": "train/NoFoliarSymptoms/1360_IMG_3680_NoFoliarSymptoms.jpg",
+      "sha256": "ff18baa532fda5f5ccbc4b2088c134ff8e17666ab449b1470166a0d7f4ee2306"
+    },
+    {
+      "id": "m0876",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/155_2019-03-13--Cedara-DKB-DSC_0172_NoFoliarSymptoms.jpg",
+      "sha256": "83b903cfea85f6dbfb0b9192720aaab150d9fd9f151c17e4463a3e6b928f4db4"
+    },
+    {
+      "id": "m0878",
+      "clase": "Sana",
+      "sesion": "201203",
+      "ruta": "train/NoFoliarSymptoms/1585_2012_03_DSC1974_maize_diverse-R-Pn-DK-28_NoFoliarSymptoms.jpg",
+      "sha256": "50a1ecae6c91f7f576af81dfc77741213760cbf40e0fea93804e57b92b8a720c"
+    },
+    {
+      "id": "m0887",
+      "clase": "Sana",
+      "sesion": "201203",
+      "ruta": "train/NoFoliarSymptoms/1625_2012_03_DSC1744_maize_diverse-C-AC-DK-273_NoFoliarSymptoms.jpg",
+      "sha256": "c509bc4ba345309ae27d0a6b848f735a1a8e43609144e3c03223a701b53adeee"
+    },
+    {
+      "id": "m0888",
+      "clase": "Sana",
+      "sesion": "201203",
+      "ruta": "train/NoFoliarSymptoms/1632_2012_03_DSC1762_maize_diverse-C-AC-DK-273_NoFoliarSymptoms.jpg",
+      "sha256": "540c44588b682ba657d8889b357c22e421dc44e1d4a3603db2952dfd205bdef0"
+    },
+    {
+      "id": "m0892",
+      "clase": "Sana",
+      "sesion": "201203",
+      "ruta": "train/NoFoliarSymptoms/1657_2012_03_DSC1893_maize_diverse-R-Pn-DK-28_NoFoliarSymptoms.jpg",
+      "sha256": "384b51bc6a7c6f19e8a2c8347b6bdaa13b4768590985c61bfb161bc41e39354c"
+    },
+    {
+      "id": "m0897",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/174_2019-03-13--Cedara-DKB-DSC_0262_NoFoliarSymptoms.jpg",
+      "sha256": "84523316fe66c16d825c2d8efce1121be06aa8355689ef4676815ebe2372aa80"
+    },
+    {
+      "id": "m0901",
+      "clase": "Sana",
+      "sesion": "201203",
+      "ruta": "train/NoFoliarSymptoms/1765_2012_03_IMG_6468_maize_diverse_JM-R-Pn_NoFoliarSymptoms.jpg",
+      "sha256": "3b9be596c384fdeee9828161fde2f2bda70e79bf526d64255565c77ad459ba81"
+    },
+    {
+      "id": "m0908",
+      "clase": "Sana",
+      "sesion": "201203",
+      "ruta": "train/NoFoliarSymptoms/1820_2012_03_IMG_6556_maize_diverse_JM-R-Pn_NoFoliarSymptoms.jpg",
+      "sha256": "1b4d78a1620d5866eb28145a921e649a672731ca1848a311338964af0c0f046e"
+    },
+    {
+      "id": "m0912",
+      "clase": "Sana",
+      "sesion": "201203",
+      "ruta": "train/NoFoliarSymptoms/1853_2012_03_IMG_6494_maize_diverse_JM-R-Pn_NoFoliarSymptoms.jpg",
+      "sha256": "4f8b456e1ac6a97c4f1ffd04fb8f0629bd144746fffd9494622dd34d0183f466"
+    },
+    {
+      "id": "m0918",
+      "clase": "Sana",
+      "sesion": "201203",
+      "ruta": "train/NoFoliarSymptoms/1915_2012_03_IMG_6401_maize_diverse_JM-C-Ac_NoFoliarSymptoms.jpg",
+      "sha256": "6ff2d2c094e270d159c1219b5ef80d0454a2cb452131a2e60d620d8c10c500b8"
+    },
+    {
+      "id": "m0921",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/193_2019-03-13--Cedara-DKB-DSC_0159_NoFoliarSymptoms.jpg",
+      "sha256": "756ef4420140d333ddc2d0a2d79f74bc9a6110d526e45645d1dec82e1d307ca1"
+    },
+    {
+      "id": "m0927",
+      "clase": "Sana",
+      "sesion": "20200309",
+      "ruta": "train/NoFoliarSymptoms/1964_20200309_092928_NoFoliarSymptoms.jpg",
+      "sha256": "eddea0ac149b50fe620bd53b3c3b7285058f69bb2d8917f34e24b068c5ef1444"
+    },
+    {
+      "id": "m0934",
+      "clase": "Sana",
+      "sesion": "20200309",
+      "ruta": "train/NoFoliarSymptoms/1985_20200309_103458_NoFoliarSymptoms.jpg",
+      "sha256": "08460bd60d70ebeaed4560dd674b31aed8111f7262045b5303a38a9fca07b3f2"
+    },
+    {
+      "id": "m0939",
+      "clase": "Sana",
+      "sesion": "20200309",
+      "ruta": "train/NoFoliarSymptoms/2008_20200309_092400_NoFoliarSymptoms.jpg",
+      "sha256": "bfc43d2b05a7ec02b74dfe0ccdc1500391ae2b29ac3a174ccb59804965bd7156"
+    },
+    {
+      "id": "m0946",
+      "clase": "Sana",
+      "sesion": "20200309",
+      "ruta": "train/NoFoliarSymptoms/2024_20200309_093028_NoFoliarSymptoms.jpg",
+      "sha256": "b9da90264c7844eeba0c867bfc07ac99fa1fc7f072ad9b0eeab505d4ed249c5e"
+    },
+    {
+      "id": "m0948",
+      "clase": "Sana",
+      "sesion": "20200309",
+      "ruta": "train/NoFoliarSymptoms/2032_20200309_093018_NoFoliarSymptoms.jpg",
+      "sha256": "7a2ac611e0fcb1eb803adfb571c10dd3d765ae353ff25dabcf36d32a710831f6"
+    },
+    {
+      "id": "m0953",
+      "clase": "Sana",
+      "sesion": "20200309",
+      "ruta": "train/NoFoliarSymptoms/2049_20200309_103533_NoFoliarSymptoms.jpg",
+      "sha256": "1971956ed86eabfa2e9a85a041f4b17ac937e20018babac6a4ab96a30da8be8b"
+    },
+    {
+      "id": "m0959",
+      "clase": "Sana",
+      "sesion": "20200309",
+      "ruta": "train/NoFoliarSymptoms/2078_20200309_092357_NoFoliarSymptoms.jpg",
+      "sha256": "5cc95d2279822724b0de8cafc0c4c5b7a9688e78b18e3350656faf0cba4001f6"
+    },
+    {
+      "id": "m0964",
+      "clase": "Sana",
+      "sesion": "20200309",
+      "ruta": "train/NoFoliarSymptoms/2091_20200309_103309_NoFoliarSymptoms.jpg",
+      "sha256": "74ac10f4f4699c92a89043fdd8bb74794299bf76ef99a1ab4eb7f78dc7be0293"
+    },
+    {
+      "id": "m0969",
+      "clase": "Sana",
+      "sesion": "20200309",
+      "ruta": "train/NoFoliarSymptoms/2117_20200309_093537_NoFoliarSymptoms.jpg",
+      "sha256": "eb2675542310552f26f020704529d4c97d27ce0bd14ff2563bf4874983c2db9e"
+    },
+    {
+      "id": "m0974",
+      "clase": "Sana",
+      "sesion": "20200309",
+      "ruta": "train/NoFoliarSymptoms/2133_20200309_0929400_NoFoliarSymptoms.jpg",
+      "sha256": "1189efd7c91608f20b10a2a11c04ad9e4c95ae94558feda334ef7077005f067c"
+    },
+    {
+      "id": "m0981",
+      "clase": "Sana",
+      "sesion": "20200309",
+      "ruta": "train/NoFoliarSymptoms/2199_20200309_092258_NoFoliarSymptoms.jpg",
+      "sha256": "aa7c91b8ba3298a03e762e36724ab29e81e397051a09845b2479d04c573e3d3f"
+    },
+    {
+      "id": "m0986",
+      "clase": "Sana",
+      "sesion": "20200309",
+      "ruta": "train/NoFoliarSymptoms/2223_20200309_103456_NoFoliarSymptoms.jpg",
+      "sha256": "1334e652a3a95b26f7b44ad64fbaf53f94a5780667e746433c9d993fc5112c3e"
+    },
+    {
+      "id": "m0991",
+      "clase": "Sana",
+      "sesion": "20200309",
+      "ruta": "train/NoFoliarSymptoms/2251_20200309_093026_NoFoliarSymptoms.jpg",
+      "sha256": "05166f039d2f4bd6ed3f4d4ad0867df25839e7f7de53d17ab3104d62cb97df9a"
+    },
+    {
+      "id": "m0994",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/229_2019-03-13--Cedara-DKB-DSC_0261_NoFoliarSymptoms.jpg",
+      "sha256": "0009d1da0b619c38c7d2b2dba70cadf9c47cc89d746ddd133ea920facc3b71b9"
+    },
+    {
+      "id": "m0999",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/269_2019-03-13--Cedara-DKB-DSC_0041_NoFoliarSymptoms.jpg",
+      "sha256": "3ab2222512055e30ea045617b69f168f02bec7e1bc757f430473df2530b0d455"
+    },
+    {
+      "id": "m1006",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/302_2019-03-13--Cedara-DKB-DSC_0249_NoFoliarSymptoms.jpg",
+      "sha256": "36f2632ea9ae4edced99bb615d5219fb69b0cbe27140b5bd9839557b81bede7e"
+    },
+    {
+      "id": "m1008",
+      "clase": "Sana",
+      "sesion": "20190316",
+      "ruta": "train/NoFoliarSymptoms/333_IMG_20190316_090353_NoFoliarSymptoms.jpg",
+      "sha256": "f9c7765aaca2ae50126accebbbca2de7a089646c493cc5b03f227a459776de82"
+    },
+    {
+      "id": "m1013",
+      "clase": "Sana",
+      "sesion": "20190316",
+      "ruta": "train/NoFoliarSymptoms/392_IMG_20190316_090125_NoFoliarSymptoms.jpg",
+      "sha256": "720cbe408e31ee64106aa26acb8d0390aad9ba09cdc08c285a1e79d052585b37"
+    },
+    {
+      "id": "m1018",
+      "clase": "Sana",
+      "sesion": "20190316",
+      "ruta": "train/NoFoliarSymptoms/515_IMG_20190316_083033_NoFoliarSymptoms.jpg",
+      "sha256": "3efc9316ed1a756e38cdc4b2b611cd6f806c35ecd98af1d1e3c61a98de20112c"
+    },
+    {
+      "id": "m1023",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/524_20190313_145330_NoFoliarSymptoms.jpg",
+      "sha256": "83d7e9339f9ec93a9ffa35a73aa896e9f08dbc78ed0760f6cec4d095682379f0"
+    },
+    {
+      "id": "m1026",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/530_20190313_152759_NoFoliarSymptoms.jpg",
+      "sha256": "f52c165d19dfe3d7e1e8ac8ed68320eb9912638a857a99e51395d4de494caf01"
+    },
+    {
+      "id": "m1031",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/547_20190313_120736_NoFoliarSymptoms.jpg",
+      "sha256": "c621136c46f9633d35ff255cebb5250cafef1be06f1824372d77f4c9ca87f280"
+    },
+    {
+      "id": "m1038",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/576_20190313_112806_NoFoliarSymptoms.jpg",
+      "sha256": "cdc5da4c704c7f8bc6ee051fd0d0e8fa37111bd8325b7356c7273d8a4e8e7fc5"
+    },
+    {
+      "id": "m1043",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/610_20190313_113238_NoFoliarSymptoms.jpg",
+      "sha256": "26f4b565f6be07671c790fa982bfb673ad1f211a9121270cb89526a051bdfbc8"
+    },
+    {
+      "id": "m1048",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/624_20190313_121804_NoFoliarSymptoms.jpg",
+      "sha256": "a7fb646a42ab5dfd6da4113c603f36c778f6fa64eb23d62b566bab87b20e46da"
+    },
+    {
+      "id": "m1054",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/647_20190313_122307_NoFoliarSymptoms.jpg",
+      "sha256": "ea09fee0456147e170ff90178b7b4ec906b2e03d9dd9c609be7b9cc8b574c4f7"
+    },
+    {
+      "id": "m1061",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/704_20190313_121959_NoFoliarSymptoms.jpg",
+      "sha256": "7ede047a007fc5c0702a3c678b917b149ccb9bc8d588ab2f482bc4843f1e3966"
+    },
+    {
+      "id": "m1066",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/759_20190313_120744_NoFoliarSymptoms.jpg",
+      "sha256": "d3dee085bbbaf311ecd5b91da56d93abcdf705a16ac16dcdde9437c36b4902dc"
+    },
+    {
+      "id": "m1070",
+      "clase": "Sana",
+      "sesion": "20190316",
+      "ruta": "train/NoFoliarSymptoms/791_IMG_20190316_085253_NoFoliarSymptoms.jpg",
+      "sha256": "d8bb17a7c0e144416ba4522981995c6ad0b82d9c6d48873237317f304d67f075"
+    },
+    {
+      "id": "m1073",
+      "clase": "Sana",
+      "sesion": "20190313",
+      "ruta": "train/NoFoliarSymptoms/84_2019-03-13--Cedara-DKB-DSC_0243_NoFoliarSymptoms.jpg",
+      "sha256": "ea68fe49cbd413d571bb2ed232d934e4453f8181403e772629f06d201dcfd5f5"
+    }
+  ]
+}

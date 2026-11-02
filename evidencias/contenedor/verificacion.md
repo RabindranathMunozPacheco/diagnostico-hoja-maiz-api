@@ -1,7 +1,7 @@
 # Verificación del contenedor
 
-- Fecha: 2026-11-01 16:57
-- Imagen: `diagnostico-hoja-maiz-api:0.2.0` (`sha256:73496c58d906`)
+- Fecha: 2026-11-01 17:35
+- Imagen: `diagnostico-hoja-maiz-api:0.3.0` (`sha256:fc422577bd02`)
 - Motor de Docker: 29.9.2
 - Generado con `python pruebas/verificar_contenedor.py`. Cada comprobación usa un contenedor desechable.
 
@@ -14,13 +14,13 @@
 | 2 | Versión de Python | 3.10.x | 3.10.22 | OK |
 | 2 | Versiones de requirements.txt | las 14 iguales | todas iguales | OK |
 | 2 | Conflictos entre dependencias (pip check) | ninguno | No broken requirements found. | OK |
-| 3 | Llega a healthy | sí | en 10.8 s | OK |
+| 3 | Llega a healthy | sí | en 5.3 s | OK |
 | 3 | Página web (GET /) | 200 con HTML | 200, text/html; charset=utf-8 | OK |
-| 3 | GET /api/salud | estado ok | {"estado": "ok", "modelo": "clasificador-hoja-maiz v1", "version_api": "0.2.0"} | OK |
+| 3 | GET /api/salud | estado ok | {"estado": "ok", "modelo": "clasificador-hoja-maiz v1", "version_api": "0.3.0"} | OK |
 | 3 | GET /api/modelo | clasificador-hoja-maiz v1, umbral 0.2494 | clasificador-hoja-maiz v1, umbral 0.2494 | OK |
 | 3 | Diagnóstico de m0005 igual que en local | Roya común, mismas probabilidades | Roya común, P(enferma) 0.9992 | OK |
 | 4 | El contenedor no tiene salida a internet | no puede conectarse a huggingface.co | no se conecta | OK |
-| 4 | Llega a healthy sin internet | sí | en 5.4 s | OK |
+| 4 | Llega a healthy sin internet | sí | en 5.3 s | OK |
 | 4 | Diagnóstico de m0005 sin internet | igual que en local | Roya común, P(enferma) 0.9992 | OK |
 | 5 | Umbral en uso con -e UMBRAL_ENFERMA=0.40 | 0.4 | 0.4 | OK |
 | 5 | m0859 (P(enferma) 0.38) con umbral 0.40 | Sana (con 0.2494 sale Mancha gris) | Sana, P(enferma) 0.3801 | OK |

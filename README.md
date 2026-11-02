@@ -39,16 +39,25 @@ diagnostico-hoja-maiz-api/
 │   ├── exportar_modelo.py      copia el modelo desde el MLflow de la Actividad 5 y lo verifica
 │   └── descargar_extractor.py  baja MobileNetV2 al construir la imagen
 ├── pruebas/
-│   ├── test_api.py        pruebas automáticas de los endpoints (pytest)
-│   ├── probar_api.py      cliente que consume la API y guarda la evidencia
+│   ├── test_api.py              pruebas automáticas de los endpoints (pytest)
+│   ├── probar_api.py            cliente que consume la API y guarda la evidencia
 │   ├── verificar_contenedor.py  comprueba la imagen y el contenedor (19 comprobaciones)
-│   └── fotos_ejemplo.json fotos de prueba de la Actividad 5 que usa el cliente
+│   ├── validar_modelo.py        manda las 221 fotos de prueba a la API, también alteradas
+│   ├── casos_extremos.py        archivos inválidos, formatos raros, imágenes que no son hojas
+│   ├── carga.py                 peticiones en paralelo y planes chicos de nube simulados
+│   ├── fotos_ejemplo.json       8 fotos de ejemplo (2 por clase)
+│   └── prueba_act5.json         las 221 fotos de prueba de la Actividad 5 (sin las fotos)
 ├── evidencias/
 │   ├── local/             la API corriendo con uvicorn en Windows
-│   └── contenedor/        la API corriendo en Docker, con el log de la construcción
+│   ├── contenedor/        la API corriendo en Docker, con el log de la construcción
+│   ├── validacion/        métricas de las 221 fotos por la API y con fotos alteradas
+│   ├── casos_extremos/    tabla de casos extremos y las imágenes sintéticas usadas
+│   └── carga/             latencia, memoria y planes simulados
 ├── Dockerfile             receta de la imagen
 ├── .dockerignore          lo que no entra a la imagen
 ├── docker-compose.yml     levantar el servicio con la configuración de .env
+├── Procfile               comando de arranque para un PaaS sin Docker (alternativa)
+├── .python-version        versión de Python para ese PaaS
 ├── requirements.txt       dependencias directas del servicio (versiones fijas)
 ├── constraints.txt        las 60 dependencias que se instalan en Linux con Python 3.10, todas fijas
 ├── requirements-dev.txt   dependencias para pruebas
@@ -111,15 +120,15 @@ cd diagnostico-hoja-maiz-api
 ### 2. Construir la imagen
 
 ```bash
-docker build -t diagnostico-hoja-maiz-api:0.2.0 .
+docker build -t diagnostico-hoja-maiz-api:0.3.0 .
 ```
 
-La primera vez tarda unos 3 minutos, porque descarga las dependencias (1.4 GB, casi todo es PyTorch) y el extractor MobileNetV2. Si después solo cambia el código, Docker reutiliza esas capas y tarda segundos. Al final debe decir `naming to docker.io/library/diagnostico-hoja-maiz-api:0.2.0`.
+La primera vez tarda unos 3 minutos, porque descarga las dependencias (1.4 GB, casi todo es PyTorch) y el extractor MobileNetV2. Si después solo cambia el código, Docker reutiliza esas capas y tarda segundos. Al final debe decir `naming to docker.io/library/diagnostico-hoja-maiz-api:0.3.0`.
 
 ### 3. Arrancar el contenedor
 
 ```bash
-docker run -d --name diagnostico-hoja-maiz -p 8000:8000 diagnostico-hoja-maiz-api:0.2.0
+docker run -d --name diagnostico-hoja-maiz -p 8000:8000 diagnostico-hoja-maiz-api:0.3.0
 ```
 
 - `-d` lo deja corriendo en segundo plano.
@@ -135,7 +144,7 @@ La columna `STATUS` debe decir `Up ... (healthy)`. El contenedor se revisa solo 
 
 ```bash
 curl http://localhost:8000/api/salud          # en Windows PowerShell: curl.exe
-# {"estado":"ok","modelo":"clasificador-hoja-maiz v1","version_api":"0.2.0"}
+# {"estado":"ok","modelo":"clasificador-hoja-maiz v1","version_api":"0.3.0"}
 ```
 
 Después se abre http://localhost:8000 para la página web y http://localhost:8000/docs para la documentación de la API.
@@ -168,7 +177,7 @@ Deja el resultado en `evidencias/contenedor/verificacion.md` y termina con error
 Sin reconstruir la imagen, con variables de entorno:
 
 ```bash
-docker run -d --name diagnostico-hoja-maiz -p 8000:8000 -e UMBRAL_ENFERMA=0.20 diagnostico-hoja-maiz-api:0.2.0
+docker run -d --name diagnostico-hoja-maiz -p 8000:8000 -e UMBRAL_ENFERMA=0.20 diagnostico-hoja-maiz-api:0.3.0
 ```
 
 O con Docker Compose, que lee el archivo `.env`:
@@ -185,8 +194,33 @@ docker compose down           # detiene y borra el contenedor
 docker logs -f diagnostico-hoja-maiz     # cada diagnóstico queda registrado con su P(enferma) y su tiempo
 docker stop diagnostico-hoja-maiz
 docker rm diagnostico-hoja-maiz
-docker rmi diagnostico-hoja-maiz-api:0.2.0   # borra la imagen, si ya no se necesita
+docker rmi diagnostico-hoja-maiz-api:0.3.0   # borra la imagen, si ya no se necesita
 ```
+
+### 7. Comprobar que da la misma predicción
+
+Con solo Docker y el navegador se puede repetir cualquiera de estas 8 fotos: se descarga desde su liga, se sube en http://localhost:8000 y el resultado debe coincidir con la tabla. Son las 2 primeras fotos de cada clase de la prueba de la Actividad 5, que el modelo no vio al entrenar. Las fotos no se incluyen en el repositorio porque el dataset no declara licencia.
+
+| Foto | Clase real | Debe dar | P(enferma) | Probabilidades |
+|---|---|---|---|---|
+| [m0243](https://huggingface.co/datasets/muAtarist/maize_foliar_diseases/resolve/448bec6c7abe18fe87917e443368c63ed3786119/train/GreyLeafSpot/1003_222_CIMG3959_1-239-2_GLS.jpg) | Mancha gris | **Mancha gris** | 1.0000 | Mancha gris 0.9999, Roya común 0.0000, Sana 0.0000, Tizón 0.0000 |
+| [m0247](https://huggingface.co/datasets/muAtarist/maize_foliar_diseases/resolve/448bec6c7abe18fe87917e443368c63ed3786119/train/GreyLeafSpot/1007_37_CIMG3772_1-364-2_GLS.jpg) | Mancha gris | **Mancha gris** | 0.9948 | Mancha gris 0.9947, Sana 0.0052, Roya común 0.0000, Tizón 0.0000 |
+| [m0000](https://huggingface.co/datasets/muAtarist/maize_foliar_diseases/resolve/448bec6c7abe18fe87917e443368c63ed3786119/train/CommonRust/104_2019-03-13--Cedara-DKB-DSC_0308_CR.jpg) | Roya común | **Mancha gris** | 0.8963 | Mancha gris 0.6661, Roya común 0.2276, Sana 0.1037, Tizón 0.0025 |
+| [m0005](https://huggingface.co/datasets/muAtarist/maize_foliar_diseases/resolve/448bec6c7abe18fe87917e443368c63ed3786119/train/CommonRust/131_2019-03-13--Cedara-DKB-DSC_0313_CR.jpg) | Roya común | **Roya común** | 0.9992 | Roya común 0.9788, Mancha gris 0.0204, Sana 0.0008, Tizón 0.0000 |
+| [m0855](https://huggingface.co/datasets/muAtarist/maize_foliar_diseases/resolve/448bec6c7abe18fe87917e443368c63ed3786119/train/NoFoliarSymptoms/1036_229_CIMG3966_1-387-1_NoFoliarSymptoms.jpg) | Sana | **Mancha gris** | 0.9143 | Mancha gris 0.9100, Sana 0.0857, Tizón 0.0041, Roya común 0.0001 |
+| [m0859](https://huggingface.co/datasets/muAtarist/maize_foliar_diseases/resolve/448bec6c7abe18fe87917e443368c63ed3786119/train/NoFoliarSymptoms/1223_IMG_3681_NoFoliarSymptoms.jpg) | Sana | **Mancha gris** | 0.3801 | Sana 0.6199, Mancha gris 0.3674, Roya común 0.0096, Tizón 0.0031 |
+| [m0111](https://huggingface.co/datasets/muAtarist/maize_foliar_diseases/resolve/448bec6c7abe18fe87917e443368c63ed3786119/train/CornLeafBlight/1246_IMG_3803_NCLB.jpg) | Tizón | **Mancha gris** | 0.9997 | Mancha gris 0.9916, Tizón 0.0041, Roya común 0.0041, Sana 0.0003 |
+| [m0112](https://huggingface.co/datasets/muAtarist/maize_foliar_diseases/resolve/448bec6c7abe18fe87917e443368c63ed3786119/train/CornLeafBlight/1258_IMG_3805_NCLB.jpg) | Tizón | **Mancha gris** | 1.0000 | Mancha gris 0.9901, Tizón 0.0080, Roya común 0.0018, Sana 0.0000 |
+
+Por ejemplo, con `curl` (en Windows PowerShell, `curl.exe`):
+
+```bash
+curl -L -o m0005.jpg "https://huggingface.co/datasets/muAtarist/maize_foliar_diseases/resolve/448bec6c7abe18fe87917e443368c63ed3786119/train/CommonRust/131_2019-03-13--Cedara-DKB-DSC_0313_CR.jpg"
+curl -F "foto=@m0005.jpg" http://localhost:8000/api/diagnostico
+# "diagnostico": "Roya común", "probabilidad_enferma": 0.9992
+```
+
+Solo 3 de las 8 aciertan la clase exacta, lo que cuadra con el F1 de 0.72 del modelo; la tabla sirve para comprobar que el contenedor da **la misma** predicción, no para medir qué tan bueno es el modelo (eso está en `evidencias/validacion/`).
 
 ### Problemas comunes
 
@@ -212,7 +246,7 @@ docker rmi diagnostico-hoja-maiz-api:0.2.0   # borra la imagen, si ya no se nece
 Corrí `probar_api.py` contra el contenedor y comparé sus respuestas con las de la API corriendo en Windows: las 8 fotos de ejemplo dieron el mismo diagnóstico y las mismas probabilidades (diferencia 0 con 4 decimales), y los errores 413 y 415 también salieron igual.
 
 `verificar_contenedor.py` pasó las 19 comprobaciones:
-- El contenedor arranca en unos 11 segundos.
+- El contenedor llega a `healthy` en unos segundos (entre 5 y 11 en mis pruebas).
 - Sin internet (`--network none`) da el mismo diagnóstico.
 - Con `UMBRAL_ENFERMA=0.40`, la hoja m0859 (P(enferma) 0.38) pasa de Mancha gris a Sana sin reconstruir la imagen.
 - Con un umbral inválido se detiene con un mensaje claro, en vez de diagnosticar mal.
@@ -225,6 +259,22 @@ Todo está en `evidencias/contenedor/`:
 - `verificacion.md`: el resultado de las 19 comprobaciones.
 - `docker_compose.txt`: la prueba de Compose.
 - Las respuestas de la API y las capturas.
+
+## Despliegue en la nube (resumen)
+
+El manual completo va en el documento del proyecto. En corto, la estrategia es un **PaaS que corre el mismo contenedor** (por ejemplo Render, Google Cloud Run o Azure App Service), construido con este Dockerfile:
+
+| Opción en la plataforma | Valor |
+|---|---|
+| Entorno | Docker (usa el `Dockerfile` de la raíz) |
+| Puerto | `8000` (en Render, variable `PORT=8000`; en Azure, `WEBSITES_PORT=8000`) |
+| Revisión de salud | `/api/salud` |
+| Variables | `UMBRAL_ENFERMA=0.2494`, `TAMANO_MAX_MB=10`, `OMP_NUM_THREADS=1` |
+| Plan mínimo | 512 MB de memoria y 0.5 CPU (con 256 MB no arranca; con 0.1 CPU tarda minutos en arrancar) |
+
+Después de desplegar se verifica igual que en local, cambiando la dirección: `python pruebas/validar_modelo.py --url https://<servicio> --sin-variantes` debe dar F1 macro 0.7212.
+
+Para plataformas que no usan Docker queda el `Procfile` (`web: uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}`) con `.python-version`; lo probé con `PORT=8300` (`evidencias/nube/procfile.txt`). Es la segunda opción porque la plataforma arma su propio entorno en lugar de usar la imagen validada.
 
 ## Cómo correrlo en local (sin contenedor)
 
@@ -248,15 +298,38 @@ Se cambia con variables de entorno, sin tocar el código (ver `.env.example`):
 | `UMBRAL_ENFERMA` | `0.2494` | Probabilidad de enfermedad desde la que se reporta enferma |
 | `TAMANO_MAX_MB` | `10` | Tamaño máximo de la foto |
 | `DIR_MODELO` | `modelo/` | Carpeta con `model.skops` y `ficha_modelo.json` |
+| `PORT` | `8000` | Solo con el `Procfile`: el puerto que asigna el PaaS |
+| `OMP_NUM_THREADS` | (todos los núcleos) | En la nube, `1`: con CPU limitado los hilos de PyTorch se estorban (ver `evidencias/carga/`) |
 
 ## Pruebas y evidencias
 
+Cada grupo de pruebas tiene su script y guarda sus resultados en `evidencias/`. Todos (menos pytest) se corren contra la API ya levantada, local o en el contenedor:
+
 ```bash
-python -m pytest pruebas -v                                     # pruebas automáticas
-python pruebas/probar_api.py --url http://localhost:8000        # cliente contra la API levantada
+python -m pytest pruebas -v                       # pruebas automáticas de los endpoints (11)
+python pruebas/probar_api.py --url http://localhost:8000 --salida evidencias/contenedor
+python pruebas/verificar_contenedor.py            # 19 comprobaciones de la imagen y el contenedor
+python pruebas/validar_modelo.py                  # las 221 fotos de prueba, originales y alteradas
+python pruebas/casos_extremos.py                  # 32 casos extremos
+python pruebas/carga.py                           # peticiones en paralelo y planes chicos simulados
 ```
 
-`probar_api.py` llama a todos los endpoints, manda las 8 fotos de ejemplo (2 por clase, de la prueba de la Actividad 5) y dos archivos con error, y guarda las respuestas JSON, un CSV con cada petición y un `resumen.md`. Por defecto escribe en `evidencias/local/`; con `--salida evidencias/contenedor` guarda la corrida contra Docker. Cada carpeta tiene en `capturas/` las imágenes de la documentación y de la página web.
+| Prueba | Resultado | Evidencia |
+|---|---|---|
+| pytest | 11 de 11 | `evidencias/local/pytest.txt` |
+| Cliente contra el contenedor | 13 peticiones con el código esperado; las 8 fotos idénticas a la API sin Docker | `evidencias/contenedor/` |
+| Verificación del contenedor | 19 de 19 (sin internet, configuración por variables, umbral inválido, reinicio) | `evidencias/contenedor/verificacion.md` |
+| Modelo completo (221 fotos) | F1 macro 0.7212 y 8.0 % de enfermas como sanas: **iguales** a lo registrado en las actividades 5 y 6 | `evidencias/validacion/` |
+| Fotos alteradas | Con fotos oscuras o borrosas, 30.7 % y 32.4 % de las enfermas salen como sanas | `evidencias/validacion/resumen.md` |
+| Casos extremos | 31 de 32 (con la 0.2.0 eran 29: encontraron 2 errores que se corrigieron en la 0.3.0) | `evidencias/casos_extremos/` |
+| Carga | 0 errores con hasta 16 peticiones a la vez; con 256 MB no arranca; con CPU limitado conviene `OMP_NUM_THREADS=1` (504 ms con 1 CPU y los hilos por defecto, 97 ms con 0.5 CPU y un hilo) | `evidencias/carga/` |
+| Procfile | Arranca con `PORT=8300` y da el mismo diagnóstico | `evidencias/nube/procfile.txt` |
+
+**Errores que encontraron los casos extremos (corregidos en la 0.3.0):**
+- Una imagen de 64 megapíxeles pasaba aunque el límite es 50: Pillow solo marca error arriba del doble del límite. Ahora el tamaño se revisa a mano.
+- Una foto de celular guardada de lado con su etiqueta EXIF de orientación salía con otra enfermedad, porque la API no la enderezaba. Ahora se aplica la orientación antes de diagnosticar (ninguna de las 1,078 fotos del entrenamiento trae esa etiqueta, así que para ellas no cambia nada).
+
+**Limitaciones que siguen (del modelo, no de la API):** responde con alguna de las 4 clases aunque la imagen no sea una hoja (una imagen negra sale como Mancha gris con P(enferma) 1.00), y una hoja girada 90° sin etiqueta EXIF puede cambiar de enfermedad.
 
 ## Origen del modelo
 
