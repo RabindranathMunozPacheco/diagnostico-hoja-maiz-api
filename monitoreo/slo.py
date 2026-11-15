@@ -62,7 +62,9 @@ SLOS = [
     SLO(nombre="disponibilidad", titulo="Disponibilidad del diagnóstico", objetivo=0.995, ventana_dias=30,
         sli="Proporción de solicitudes de diagnóstico de usuarios que no terminan en error del servidor (5xx). "
             "Las fotos inválidas (4xx) son responsabilidad del cliente y no gastan presupuesto.",
-        malos=f'sum(rate(http_solicitudes_total{{{DIAGNOSTICOS},codigo=~"5.."}}[{{v}}]))',
+        # "or on() vector(0)": la serie de 5xx no existe hasta el primer error (y desaparece al reiniciar la API);
+        # sin esto, con tráfico y cero errores la proporción quedaba vacía en lugar de 0 % (ausencia no es cero)
+        malos=f'(sum(rate(http_solicitudes_total{{{DIAGNOSTICOS},codigo=~"5.."}}[{{v}}])) or on() vector(0))',
         totales=f'sum(rate(http_solicitudes_total{{{DIAGNOSTICOS}}}[{{v}}]))',
         severidades={"rapida": ("P1", "atender_errores", "RB-03"), "media": ("P2", "ninguna", "RB-03"),
                      "lenta": ("P3", "ninguna", "RB-03")}),

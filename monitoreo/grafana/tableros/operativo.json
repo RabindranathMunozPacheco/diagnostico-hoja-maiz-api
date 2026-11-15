@@ -184,7 +184,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "1 - slo:proporcion_errores:v1h{slo=\"disponibilidad\"}",
+          "expr": "1 - (slo:proporcion_errores:v1h{slo=\"disponibilidad\"} or on() (0 * (slo:solicitudes:v1h{slo=\"disponibilidad\"} > 0)))",
           "legendFormat": "",
           "instant": true,
           "range": false,

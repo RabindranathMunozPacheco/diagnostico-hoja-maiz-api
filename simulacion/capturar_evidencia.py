@@ -123,7 +123,9 @@ def grafana():
         inc = json.loads(p.read_text(encoding="utf-8"))
         if not inc.get("t_alerta_alertmanager"):
             continue
-        hasta = ms(inc["t_alerta_alertmanager"]) + 20000            # 20 s después de la alerta: sigue activa
+        # 20 s después de la alerta (sigue activa); en el INC-01 el reinicio resuelve todo en ese lapso, así que se
+        # toma a los 3 s para que se vea el servicio caído y la alerta disparada
+        hasta = ms(inc["t_alerta_alertmanager"]) + (3000 if inc["id"] == "INC-01" else 20000)
         capturar(f"{GRAFANA}/d/operativo-maiz/?orgId=1&kiosk&from={hasta - 15 * 60000}&to={hasta}",
                  SALIDA / f"grafana_tablero_{inc['id'].lower().replace('-', '')}.png", 1800, 2420, 30000)
     resumen = json.loads((SIM / "resumen.json").read_text(encoding="utf-8"))

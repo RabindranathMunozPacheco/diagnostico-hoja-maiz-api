@@ -88,7 +88,10 @@ def construir():
                                                                        "1": {"text": "EN LÍNEA", "color": "green"}}}]),
         dato("Modelo en servicio", 4, y, 4, 4, [q("max by (version) (modelo_info)", "v{{version}}", instant=True)],
              "Versión del alias champion del registro.", texto="name", umbral=umbrales(("blue", None))),
-        dato("Disponibilidad (1 h)", 8, y, 4, 4, [q('1 - slo:proporcion_errores:v1h{slo="disponibilidad"}', instant=True)],
+        # Con tráfico y sin la proporción grabada (datos anteriores a la corrección en slo.py) se muestra 100 %;
+        # "sin tráfico" solo cuando de verdad no hubo solicitudes en la ventana
+        dato("Disponibilidad (1 h)", 8, y, 4, 4, [q('1 - (slo:proporcion_errores:v1h{slo="disponibilidad"} or on() '
+                                                    '(0 * (slo:solicitudes:v1h{slo="disponibilidad"} > 0)))', instant=True)],
              "SLO: 99.5 % sin errores 5xx.", "percentunit", umbrales(("red", None), ("orange", 0.99), ("green", 0.995))),
         dato("Diagnósticos en ≤ 0.5 s (1 h)", 12, y, 5, 4, [q('1 - slo:proporcion_errores:v1h{slo="latencia"}', instant=True)],
              "SLO: 99 % en 0.5 s o menos.", "percentunit", umbrales(("red", None), ("orange", 0.95), ("green", 0.99))),

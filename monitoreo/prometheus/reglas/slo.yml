@@ -6,7 +6,8 @@ groups:
     labels:
       slo: disponibilidad
       ventana_real: 25s
-    expr: (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[25s]))) / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[25s])))
+    expr: ((sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[25s])) or on() vector(0)))
+      / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[25s])))
   - record: slo:solicitudes:v5m
     labels:
       slo: disponibilidad
@@ -16,7 +17,8 @@ groups:
     labels:
       slo: disponibilidad
       ventana_real: 150s
-    expr: (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[150s]))) / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[150s])))
+    expr: ((sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[150s])) or on() vector(0)))
+      / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[150s])))
   - record: slo:solicitudes:v30m
     labels:
       slo: disponibilidad
@@ -26,7 +28,8 @@ groups:
     labels:
       slo: disponibilidad
       ventana_real: 5m
-    expr: (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[5m]))) / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[5m])))
+    expr: ((sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[5m])) or on() vector(0)))
+      / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[5m])))
   - record: slo:solicitudes:v1h
     labels:
       slo: disponibilidad
@@ -36,7 +39,8 @@ groups:
     labels:
       slo: disponibilidad
       ventana_real: 30m
-    expr: (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[30m]))) / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[30m])))
+    expr: ((sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[30m])) or on() vector(0)))
+      / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[30m])))
   - record: slo:solicitudes:v6h
     labels:
       slo: disponibilidad
@@ -46,7 +50,8 @@ groups:
     labels:
       slo: disponibilidad
       ventana_real: 6h
-    expr: (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[6h]))) / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[6h])))
+    expr: ((sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[6h])) or on() vector(0)))
+      / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[6h])))
   - record: slo:solicitudes:v3d
     labels:
       slo: disponibilidad
@@ -56,7 +61,8 @@ groups:
     labels:
       slo: disponibilidad
       ventana_real: 60h
-    expr: (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[60h]))) / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[60h])))
+    expr: ((sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[60h])) or on() vector(0)))
+      / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[60h])))
   - record: slo:solicitudes:v30d
     labels:
       slo: disponibilidad
