@@ -108,10 +108,10 @@ def grafana():
             continue
         hasta = ms(inc["t_alerta_alertmanager"]) + 20000            # 20 s después de la alerta: sigue activa
         capturar(f"{GRAFANA}/d/operativo-maiz/?orgId=1&kiosk&from={hasta - 15 * 60000}&to={hasta}",
-                 SALIDA / f"grafana_tablero_{inc['id'].lower().replace('-', '')}.png", 1800, 2750, 30000)
+                 SALIDA / f"grafana_tablero_{inc['id'].lower().replace('-', '')}.png", 1800, 2420, 30000)
     resumen = json.loads((SIM / "resumen.json").read_text(encoding="utf-8"))
     capturar(f"{GRAFANA}/d/operativo-maiz/?orgId=1&kiosk&from={ms(resumen['inicio'])}&to={ms(resumen['fin'])}",
-             SALIDA / "grafana_tablero_simulacion_completa.png", 1800, 2750, 30000)
+             SALIDA / "grafana_tablero_simulacion_completa.png", 1800, 2420, 30000)
 
 
 def trazas_y_logs():

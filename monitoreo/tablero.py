@@ -83,28 +83,36 @@ def construir():
 
     paneles.append(fila("1. Estado general", y)); y += 1
     paneles += [
-        dato("Servicio", 0, y, 3, 4, [q('up{job="api"}', instant=True)], "La API responde a Prometheus.",
+        dato("Servicio", 0, y, 4, 4, [q('up{job="api"}', instant=True)], "La API responde a Prometheus.",
              umbral=rojo_verde, mapeos=[{"type": "value", "options": {"0": {"text": "CAÍDO", "color": "red"},
                                                                        "1": {"text": "EN LÍNEA", "color": "green"}}}]),
-        dato("Modelo en servicio", 3, y, 3, 4, [q("max by (version) (modelo_info)", "v{{version}}", instant=True)],
+        dato("Modelo en servicio", 4, y, 4, 4, [q("max by (version) (modelo_info)", "v{{version}}", instant=True)],
              "Versión del alias champion del registro.", texto="name", umbral=umbrales(("blue", None))),
-        dato("Disponibilidad (1 h)", 6, y, 3, 4, [q('1 - slo:proporcion_errores:v1h{slo="disponibilidad"}', instant=True)],
+        dato("Disponibilidad (1 h)", 8, y, 4, 4, [q('1 - slo:proporcion_errores:v1h{slo="disponibilidad"}', instant=True)],
              "SLO: 99.5 % sin errores 5xx.", "percentunit", umbrales(("red", None), ("orange", 0.99), ("green", 0.995))),
-        dato("Diagnósticos en ≤ 0.5 s (1 h)", 9, y, 3, 4, [q('1 - slo:proporcion_errores:v1h{slo="latencia"}', instant=True)],
+        dato("Diagnósticos en ≤ 0.5 s (1 h)", 12, y, 5, 4, [q('1 - slo:proporcion_errores:v1h{slo="latencia"}', instant=True)],
              "SLO: 99 % en 0.5 s o menos.", "percentunit", umbrales(("red", None), ("orange", 0.95), ("green", 0.99))),
-        dato("Presupuesto de errores restante", 12, y, 4, 4,
+        dato("Presupuesto de errores restante", 17, y, 7, 4,
              [q('slo:presupuesto_restante', "{{slo}}", instant=True)],
              "Cuánto del presupuesto de la ventana del SLO (30 días; 2.5 días en el laboratorio) queda sin gastar.",
              "percentunit", umbrales(("red", None), ("orange", 0.25), ("green", 0.5))),
-        panel("table", "Alertas activas", 16, y, 8, 4,
-              [q('ALERTS{alertstate="firing"}', instant=True, formato="table")],
-              "Alertas que Prometheus tiene disparadas (Alertmanager decide a quién avisar y cuáles se inhiben).",
-              extra={"transformations": [{"id": "organize", "options": {
-                  "includeByName": {"alertname": True, "severidad": True, "runbook": True, "accion": True},
-                  "indexByName": {"severidad": 0, "alertname": 1, "runbook": 2, "accion": 3},
-                  "renameByName": {"alertname": "alerta", "accion": "acción automática"}}}]}),
     ]
     y += 4
+    # Fila propia y a todo lo ancho: en un panel de 8 columnas por 4 de alto solo se leía una alerta y media
+    tabla_alertas = panel("table", "Alertas activas", 0, y, 24, 6,
+                          [q('ALERTS{alertstate="firing"}', instant=True, formato="table")],
+                          "Alertas que Prometheus tiene disparadas (Alertmanager decide a quién avisar y cuáles se "
+                          "inhiben).", opciones={"showHeader": True, "sortBy": [{"displayName": "severidad", "desc": False}]},
+                          extra={"transformations": [{"id": "organize", "options": {
+                              "includeByName": {"alertname": True, "severidad": True, "runbook": True, "accion": True},
+                              "indexByName": {"severidad": 0, "alertname": 1, "runbook": 2, "accion": 3},
+                              "renameByName": {"alertname": "alerta", "accion": "acción automática"}}}]})
+    tabla_alertas["fieldConfig"]["overrides"] = [
+        {"matcher": {"id": "byName", "options": n}, "properties": [{"id": "custom.width", "value": w}]}
+        for n, w in (("severidad", 110), ("runbook", 110), ("acción automática", 260))]
+    tabla_alertas["fieldConfig"]["defaults"]["noValue"] = "sin alertas activas"
+    paneles.append(tabla_alertas)
+    y += 6
 
     paneles.append(fila("2. Señales doradas", y)); y += 1
     paneles += [

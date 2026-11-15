@@ -40,7 +40,7 @@
       "gridPos": {
         "x": 0,
         "y": 1,
-        "w": 3,
+        "w": 4,
         "h": 4
       },
       "targets": [
@@ -115,9 +115,9 @@
         "uid": "prometheus"
       },
       "gridPos": {
-        "x": 3,
+        "x": 4,
         "y": 1,
-        "w": 3,
+        "w": 4,
         "h": 4
       },
       "targets": [
@@ -173,9 +173,9 @@
         "uid": "prometheus"
       },
       "gridPos": {
-        "x": 6,
+        "x": 8,
         "y": 1,
-        "w": 3,
+        "w": 4,
         "h": 4
       },
       "targets": [
@@ -240,9 +240,9 @@
         "uid": "prometheus"
       },
       "gridPos": {
-        "x": 9,
+        "x": 12,
         "y": 1,
-        "w": 3,
+        "w": 5,
         "h": 4
       },
       "targets": [
@@ -307,9 +307,9 @@
         "uid": "prometheus"
       },
       "gridPos": {
-        "x": 12,
+        "x": 17,
         "y": 1,
-        "w": 4,
+        "w": 7,
         "h": 4
       },
       "targets": [
@@ -374,10 +374,10 @@
         "uid": "prometheus"
       },
       "gridPos": {
-        "x": 16,
-        "y": 1,
-        "w": 8,
-        "h": 4
+        "x": 0,
+        "y": 5,
+        "w": 24,
+        "h": 6
       },
       "targets": [
         {
@@ -394,10 +394,57 @@
         }
       ],
       "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+        "defaults": {
+          "noValue": "sin alertas activas"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "severidad"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "runbook"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "acción automática"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 260
+              }
+            ]
+          }
+        ]
       },
-      "options": {},
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "displayName": "severidad",
+            "desc": false
+          }
+        ]
+      },
       "transformations": [
         {
           "id": "organize",
@@ -429,7 +476,7 @@
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 5,
+        "y": 11,
         "w": 24,
         "h": 1
       },
@@ -446,7 +493,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 6,
+        "y": 12,
         "w": 6,
         "h": 7
       },
@@ -514,7 +561,7 @@
       },
       "gridPos": {
         "x": 6,
-        "y": 6,
+        "y": 12,
         "w": 6,
         "h": 7
       },
@@ -596,7 +643,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 6,
+        "y": 12,
         "w": 6,
         "h": 7
       },
@@ -690,7 +737,7 @@
       },
       "gridPos": {
         "x": 18,
-        "y": 6,
+        "y": 12,
         "w": 6,
         "h": 7
       },
@@ -770,7 +817,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 13,
+        "y": 19,
         "w": 24,
         "h": 5
       },
@@ -823,7 +870,7 @@
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 18,
+        "y": 24,
         "w": 24,
         "h": 1
       },
@@ -840,7 +887,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 19,
+        "y": 25,
         "w": 16,
         "h": 7
       },
@@ -977,7 +1024,7 @@
       },
       "gridPos": {
         "x": 16,
-        "y": 19,
+        "y": 25,
         "w": 8,
         "h": 7
       },
@@ -1047,7 +1094,7 @@
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 26,
+        "y": 32,
         "w": 24,
         "h": 1
       },
@@ -1064,7 +1111,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 27,
+        "y": 33,
         "w": 8,
         "h": 7
       },
@@ -1134,7 +1181,7 @@
       },
       "gridPos": {
         "x": 8,
-        "y": 27,
+        "y": 33,
         "w": 8,
         "h": 7
       },
@@ -1204,7 +1251,7 @@
       },
       "gridPos": {
         "x": 16,
-        "y": 27,
+        "y": 33,
         "w": 8,
         "h": 7
       },
@@ -1269,7 +1316,7 @@
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 34,
+        "y": 40,
         "w": 24,
         "h": 1
       },
@@ -1286,7 +1333,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 35,
+        "y": 41,
         "w": 10,
         "h": 7
       },
@@ -1359,7 +1406,7 @@
       },
       "gridPos": {
         "x": 10,
-        "y": 35,
+        "y": 41,
         "w": 7,
         "h": 7
       },
@@ -1416,7 +1463,7 @@
       },
       "gridPos": {
         "x": 17,
-        "y": 35,
+        "y": 41,
         "w": 7,
         "h": 7
       },
@@ -1480,7 +1527,7 @@
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 42,
+        "y": 48,
         "w": 24,
         "h": 1
       },
@@ -1497,7 +1544,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 43,
+        "y": 49,
         "w": 8,
         "h": 7
       },
@@ -1565,7 +1612,7 @@
       },
       "gridPos": {
         "x": 8,
-        "y": 43,
+        "y": 49,
         "w": 8,
         "h": 7
       },
@@ -1621,7 +1668,7 @@
       },
       "gridPos": {
         "x": 16,
-        "y": 43,
+        "y": 49,
         "w": 8,
         "h": 7
       },
@@ -1657,7 +1704,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 50,
+        "y": 56,
         "w": 24,
         "h": 4
       },
