@@ -150,6 +150,14 @@ def reconciliar_recursos(incidente, runbook, alerta):
         escalar(incidente, runbook, "la latencia no bajó después de corregir los recursos")
 
 
+def proporcion_errores(ventana):
+    """Proporción de 5xx de usuarios en la ventana; sin solicitudes con error la serie no existe y cuenta como 0."""
+    total = comun.escalar(f'sum(rate(http_solicitudes_total{{ruta="/api/diagnostico",origen="usuario"}}[{ventana}]))')
+    malas = comun.escalar(f'sum(rate(http_solicitudes_total{{ruta="/api/diagnostico",origen="usuario",'
+                          f'codigo=~"5.."}}[{ventana}]))') or 0.0
+    return None if not total else malas / total
+
+
 def evidencia_errores():
     etapas = comun.consulta('sum by (etapa, tipo) (increase(diagnostico_errores_total[5m])) > 0')
     trazas = []
@@ -165,9 +173,7 @@ def evidencia_errores():
     return {"errores_por_etapa": {f'{e["metric"]["etapa"]}/{e["metric"]["tipo"]}': round(float(e["value"][1]))
                                   for e in etapas},
             "trace_ids_recientes": trazas[:5],
-            "proporcion_errores_1m": comun.escalar('sum(rate(http_solicitudes_total{ruta="/api/diagnostico",'
-                                                   'origen="usuario",codigo=~"5.."}[1m])) / sum(rate('
-                                                   'http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[1m]))')}
+            "proporcion_errores_1m": proporcion_errores("1m")}
 
 
 def promocion_reciente():
@@ -188,11 +194,11 @@ def atender_errores(incidente, runbook, alerta):
         return rollback(incidente, runbook, alerta)
     anotar(incidente, "decision", runbook=runbook, detalle="sin despliegues recientes: se trata como falla transitoria")
     reiniciar(incidente, runbook, alerta)
-    time.sleep(30)
-    proporcion = evidencia_errores()["proporcion_errores_1m"]
+    time.sleep(30)                                     # la ventana de 25 s ya solo tiene solicitudes posteriores
+    proporcion = proporcion_errores("25s")
     ok = proporcion is not None and proporcion < 0.01
     anotar(incidente, "verificacion", runbook=runbook, resultado="ok" if ok else "fallo",
-           proporcion_errores_1m=proporcion)
+           proporcion_errores_despues_del_reinicio=proporcion)
     if not ok:
         escalar(incidente, runbook, "los errores siguen después del reinicio")
 

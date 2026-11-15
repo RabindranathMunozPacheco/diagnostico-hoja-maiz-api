@@ -1,0 +1,17 @@
+2026-11-15T19:32:54+00:00 tráfico de usuarios iniciado (2 fotos/s); calentando 3 min…
+
+== INC-01 Caída del contenedor de la API
+   2026-11-15T19:35:54+00:00 inyección: docker stop diagnostico-hoja-maiz
+   2026-11-15T19:36:18+00:00 alerta ServicioCaido en Alertmanager
+   2026-11-15T19:36:39+00:00 resuelto
+   MTTD 24.2 s · MTTA 28.5 s · MTTR 44.7 s · usuario: {'solicitudes': 79, 'fallidas': 55, 'proporcion_fallidas': 0.6962, 'latencia_p50_s': 0.0525, 'latencia_p95_s': 0.0955, 'latencia_p99_s': 0.1229, 'lentas_mas_de_0_5_s': 0.0}
+
+== INC-02 CPU estrangulada (vecino ruidoso o límite mal configurado)
+   2026-11-15T19:36:59+00:00 inyección: docker update --cpus 0.2 diagnostico-hoja-maiz (antes: 1.0)
+   2026-11-15T19:38:24+00:00 alerta LatenciaQuemaRapida en Alertmanager
+   2026-11-15T19:39:09+00:00 resuelto
+   MTTD 84.0 s · MTTA 88.3 s · MTTR 129.2 s · usuario: {'solicitudes': 246, 'fallidas': 0, 'proporcion_fallidas': 0.0, 'latencia_p50_s': 0.6742, 'latencia_p95_s': 6.4908, 'latencia_p99_s': 7.6074, 'lentas_mas_de_0_5_s': 0.6382}
+
+== INC-03 Falla interna en la extracción de características (50 % de errores 500)
+   2026-11-15T19:39:09+00:00 inyección: POST /api/admin/fallas: 50 % de errores en extraer_caracteristicas durante 30 min
+   2026-11-15T19:40:08+00:00 alerta PresupuestoErroresQuemaRapida en Alertmanager

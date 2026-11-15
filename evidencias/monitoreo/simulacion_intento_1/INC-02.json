@@ -1,0 +1,85 @@
+{
+  "id": "INC-02",
+  "nombre": "CPU estrangulada (vecino ruidoso o límite mal configurado)",
+  "runbook": "RB-02",
+  "alerta_esperada": "LatenciaQuemaRapida",
+  "inyeccion": "docker update --cpus 0.2 diagnostico-hoja-maiz (antes: 1.0)",
+  "t_inyeccion": "2026-11-15T19:36:59+00:00",
+  "t_alerta_alertmanager": "2026-11-15T19:38:24+00:00",
+  "inicio_segun_prometheus": "2026-11-15T19:38:18.366Z",
+  "t_recibida_operaciones": "2026-11-15T19:38:28+00:00",
+  "t_resuelto": "2026-11-15T19:39:09+00:00",
+  "mttd_s": 84.0,
+  "mtta_s": 88.3,
+  "mttr_s": 129.2,
+  "resuelto": true,
+  "impacto_usuario": {
+    "solicitudes": 246,
+    "fallidas": 0,
+    "proporcion_fallidas": 0.0,
+    "latencia_p50_s": 0.6742,
+    "latencia_p95_s": 6.4908,
+    "latencia_p99_s": 7.6074,
+    "lentas_mas_de_0_5_s": 0.6382
+  },
+  "alertas_vistas": [
+    {
+      "alerta": "LatenciaQuemaRapida",
+      "severidad": "P2",
+      "inicio": "2026-11-15T19:38:18.366Z",
+      "primera_vez_vista": "2026-11-15T19:38:24+00:00",
+      "estados": [
+        "active"
+      ]
+    }
+  ],
+  "bitacora": [
+    {
+      "ts": "2026-11-15T19:38:28.237+00:00",
+      "incidente": "LatenciaQuemaRapida@2026-11-15T19:38:18",
+      "evento": "alerta_recibida",
+      "alerta": "LatenciaQuemaRapida",
+      "severidad": "P2",
+      "runbook": "RB-02",
+      "accion": "reconciliar_recursos",
+      "canal": "página al responsable de guardia",
+      "inicio": "2026-11-15T19:38:18.366Z",
+      "resumen": "Latencia del diagnóstico: el presupuesto de errores se quema 14.4 veces más rápido de lo permitido"
+    },
+    {
+      "ts": "2026-11-15T19:38:28.279+00:00",
+      "incidente": "LatenciaQuemaRapida@2026-11-15T19:38:18",
+      "evento": "diagnostico",
+      "runbook": "RB-02",
+      "recursos_actuales": {
+        "cpus": 0.2,
+        "memoria": 1073741824
+      },
+      "recursos_deseados": {
+        "cpus": 1.0,
+        "memoria": 1073741824
+      },
+      "latencia_p95_s": 9.557142857142857,
+      "en_curso": 8.0
+    },
+    {
+      "ts": "2026-11-15T19:38:28.311+00:00",
+      "incidente": "LatenciaQuemaRapida@2026-11-15T19:38:18",
+      "evento": "accion",
+      "runbook": "RB-02",
+      "accion": "docker update (estado deseado)",
+      "cambios": {
+        "cpus": {
+          "actual": 0.2,
+          "deseado": 1.0
+        }
+      }
+    }
+  ],
+  "pasos_manuales": [],
+  "salida_despliegue": null,
+  "ventana": {
+    "desde": "2026-11-15T19:35:59+00:00",
+    "hasta": "2026-11-15T19:40:09+00:00"
+  }
+}

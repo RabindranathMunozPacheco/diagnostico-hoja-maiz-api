@@ -145,7 +145,8 @@ def inc03_inyectar(ctx):
 
 
 def inc03_resuelto(ctx):
-    errores = prom('sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[30s]))')
+    # Después de un reinicio el contador de 500 no existe hasta el siguiente error: sin serie cuenta como 0
+    errores = prom('sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[30s]))') or 0.0
     return errores == 0 and httpx.get(f"{API}/api/salud", timeout=5).json()["falla_inyectada"] is None
 
 
@@ -196,7 +197,7 @@ def inc05_respuesta_manual(ctx):
 def inc05_resuelto(ctx):
     nueva = ctx.get("version_nueva")
     return bool(nueva) and comun.leer_registro(DIR_MODELOS)["alias"]["champion"] == nueva and \
-        prom('max(drift_psi{variable=~"brillo|contraste|nitidez|verdor"})') < 0.25
+        (prom('max(drift_psi{variable=~"brillo|contraste|nitidez|verdor"})') or 9.0) < 0.25
 
 
 INCIDENTES = [
