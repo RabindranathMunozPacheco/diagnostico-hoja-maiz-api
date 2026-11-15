@@ -1,12 +1,12 @@
-"""Copia el modelo elegido en la Actividad 5 a modelo/ y comprueba que es el mismo que se evaluó.
+"""Copia el modelo elegido en la Actividad 5 a modelo/versiones/1/ y comprueba que es el mismo que se evaluó.
 
 El modelo vive en el MLflow local de la Actividad 5 (models:/clasificador-hoja-maiz@candidato), que no se
 sube a GitHub. Este script toma sus archivos, vuelve a calcular las métricas de prueba con el mismo corte
-de datos y las compara contra las que quedaron registradas, y escribe modelo/ficha_modelo.json con el
+de datos y las compara contra las que quedaron registradas, y escribe modelo/versiones/1/ficha_modelo.json con el
 origen, la huella sha256 y el umbral de decisión de la Actividad 6.
 
 Solo hace falta correrlo una vez en la computadora donde está la Actividad 5; la API y el Dockerfile
-usan los archivos que deja en modelo/.
+usan los archivos que deja en modelo/versiones/1/.
 
 Uso:
     python scripts/exportar_modelo.py
@@ -27,7 +27,7 @@ from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import StratifiedGroupKFold
 
 RAIZ = Path(__file__).resolve().parents[1]
-DESTINO = RAIZ / "modelo"
+DESTINO = RAIZ / "modelo" / "versiones" / "1"     # la versión 1 del registro (modelo/registro.json)
 ACT5_DEFECTO = RAIZ.parents[1] / "actividad5" / "Actividad5"
 
 MODELO_REGISTRADO = "clasificador-hoja-maiz"

@@ -1,6 +1,7 @@
 # Imagen del servicio de diagnóstico de hoja de maíz: API (FastAPI) + página web + modelo.
-# Construir:  docker build -t diagnostico-hoja-maiz-api:0.3.0 .
-# Ejecutar:   docker run --rm -p 8000:8000 diagnostico-hoja-maiz-api:0.3.0
+# Construir:  docker build -t diagnostico-hoja-maiz-api:0.4.0 .
+# Ejecutar:   docker run --rm -p 8000:8000 diagnostico-hoja-maiz-api:0.4.0
+# Con monitoreo (Prometheus, Grafana, Jaeger, Loki y Alertmanager): ver monitoreo/README.md
 FROM python:3.10-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -20,20 +21,25 @@ RUN pip install -r requirements.txt -c constraints.txt
 RUN useradd --create-home --uid 1000 servicio && mkdir -p "$HF_HOME" && chown servicio "$HF_HOME"
 USER servicio
 
-# 3. El extractor (MobileNetV2) se descarga al construir, así el contenedor no necesita internet
-COPY modelo/ficha_modelo.json modelo/
+# 3. Registro de versiones del modelo (de solo lectura para el servicio: lo copia root). El extractor (MobileNetV2)
+#    de cada versión se descarga al construir, así el contenedor no necesita internet. Con el monitoreo, la carpeta
+#    modelo/ se monta desde fuera para poder promover versiones o hacer rollback sin reconstruir la imagen.
+COPY modelo/ modelo/
 COPY scripts/descargar_extractor.py scripts/
 RUN python scripts/descargar_extractor.py
 ENV HF_HUB_OFFLINE=1
 
-# 4. Código, página web y clasificador (de solo lectura para el servicio: los copia root)
+# 4. Código y página web
 COPY app/ app/
 COPY frontend/ frontend/
-COPY modelo/ modelo/
 
-# Valores por defecto de la configuración (se pueden cambiar con -e o con docker-compose.yml)
-ENV UMBRAL_ENFERMA=0.2494 \
-    TAMANO_MAX_MB=10
+# Valores por defecto de la configuración (se pueden cambiar con -e o con docker-compose.yml). El umbral sale de
+# la ficha de la versión en servicio; UMBRAL_ENFERMA solo hace falta para forzar otro.
+# OMP_NUM_THREADS=1: con CPU limitada, PyTorch con un solo hilo responde más rápido (Fase II: 97 ms contra 504 ms)
+ENV TAMANO_MAX_MB=10 \
+    ALIAS_MODELO=champion \
+    ENTORNO=contenedor \
+    OMP_NUM_THREADS=1
 
 EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \

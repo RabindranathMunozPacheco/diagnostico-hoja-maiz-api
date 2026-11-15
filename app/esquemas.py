@@ -5,7 +5,10 @@ from pydantic import BaseModel, Field
 class Salud(BaseModel):
     estado: str = Field(examples=["ok"])
     modelo: str = Field(examples=["clasificador-hoja-maiz v1"])
-    version_api: str = Field(examples=["0.3.0"])
+    modelo_version: str = Field(examples=["1"])
+    alias: str = Field(description="Alias del registro que sirve la API", examples=["champion"])
+    version_api: str = Field(examples=["0.4.0"])
+    falla_inyectada: dict | None = Field(None, description="Falla activa (solo en el entorno de simulación)")
 
 
 class ImagenRecibida(BaseModel):
@@ -27,8 +30,22 @@ class Diagnostico(BaseModel):
     probabilidades: dict[str, float] = Field(examples=[{"Mancha gris": 0.81, "Tizón": 0.1,
                                                         "Sana": 0.07, "Roya común": 0.02}])
     imagen: ImagenRecibida
+    calidad_imagen: dict[str, float] = Field(description="Brillo, contraste, nitidez y verdor de la foto",
+                                             examples=[{"brillo": 114.2, "contraste": 46.0, "nitidez": 720.5,
+                                                        "verdor": 0.73}])
+    fuera_de_rango: list[str] = Field(description="Características fuera del 99 % central del entrenamiento",
+                                      examples=[[]])
+    advertencias: list[str] = Field(description="Avisos para el usuario sobre la calidad de la foto", examples=[[]])
+    modelo_version: str = Field(examples=["1"])
     tiempo_ms: float = Field(description="Tiempo de preparación e inferencia", examples=[45.2])
 
 
 class Error(BaseModel):
     detail: str = Field(examples=["el archivo no es una imagen válida"])
+
+
+class FallaPedida(BaseModel):
+    etapa: str = Field(examples=["extraer_caracteristicas"])
+    tasa: float = Field(0.0, ge=0, le=1, description="Proporción de solicitudes que fallan con 500")
+    latencia_ms: int = Field(0, ge=0, description="Espera agregada en la etapa")
+    duracion_s: int = Field(300, gt=0, le=3600)

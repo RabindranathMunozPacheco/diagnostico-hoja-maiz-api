@@ -26,18 +26,26 @@ La foto se prepara igual que en el entrenamiento (RGB, 224×224), el extractor l
 ```
 diagnostico-hoja-maiz-api/
 ├── app/
-│   ├── main.py            endpoints de la API y servicio de la página web
-│   ├── modelo.py          carga del modelo y diagnóstico de una foto
-│   ├── config.py          configuración por variables de entorno
+│   ├── main.py            endpoints de la API (también /metrics y /api/admin/*) y servicio de la página web
+│   ├── modelo.py          carga del modelo y diagnóstico de una foto (un span por etapa)
+│   ├── config.py          configuración por variables de entorno y registro de versiones del modelo
+│   ├── observabilidad.py  métricas de Prometheus, logs JSON con trace_id y trazas de OpenTelemetry
+│   ├── calidad.py         brillo, contraste, nitidez y verdor de la foto (para detectar data drift)
+│   ├── caos.py            inyección de fallas para simular incidentes (solo con CAOS_HABILITADO=1)
 │   └── esquemas.py        forma de las respuestas (aparece en /docs)
 ├── frontend/              página web: index.html, app.js, estilos.css
 ├── modelo/
-│   ├── model.skops        regresión logística de la Actividad 5
-│   ├── MLmodel            metadatos originales de MLflow
-│   └── ficha_modelo.json  origen, huella sha256, umbral y métricas de prueba
+│   ├── registro.json      versiones, alias (champion) e historial de promociones y rollbacks
+│   └── versiones/1/
+│       ├── model.skops        regresión logística de la Actividad 5
+│       ├── MLmodel            metadatos originales de MLflow
+│       ├── ficha_modelo.json  origen, huella sha256, umbral y métricas de prueba
+│       └── linea_base.json    distribución de las fotos de entrenamiento y de las predicciones (para el drift)
 ├── scripts/
 │   ├── exportar_modelo.py      copia el modelo desde el MLflow de la Actividad 5 y lo verifica
-│   └── descargar_extractor.py  baja MobileNetV2 al construir la imagen
+│   ├── descargar_extractor.py  baja MobileNetV2 al construir la imagen
+│   ├── datos.py                acceso a las fotos y características de la Actividad 5
+│   └── linea_base.py           calcula la línea base de una versión del modelo
 ├── pruebas/
 │   ├── test_api.py              pruebas automáticas de los endpoints (pytest)
 │   ├── probar_api.py            cliente que consume la API y guarda la evidencia
@@ -59,7 +67,7 @@ diagnostico-hoja-maiz-api/
 ├── Procfile               comando de arranque para un PaaS sin Docker (alternativa)
 ├── .python-version        versión de Python para ese PaaS
 ├── requirements.txt       dependencias directas del servicio (versiones fijas)
-├── constraints.txt        las 60 dependencias que se instalan en Linux con Python 3.10, todas fijas
+├── constraints.txt        las 73 dependencias que se instalan en Linux con Python 3.10, todas fijas
 ├── requirements-dev.txt   dependencias para pruebas
 └── .env.example           variables de configuración
 ```
@@ -70,7 +78,10 @@ diagnostico-hoja-maiz-api/
 |---|---|---|
 | `GET` | `/api/salud` | Estado del servicio y modelo cargado |
 | `GET` | `/api/modelo` | Ficha del modelo: origen, clases, umbral y métricas de prueba |
-| `POST` | `/api/diagnostico` | Recibe una foto (campo `foto`, multipart) y regresa el diagnóstico |
+| `POST` | `/api/diagnostico` | Recibe una foto (campo `foto`, multipart) y regresa el diagnóstico, la calidad de la foto y advertencias |
+| `GET` | `/metrics` | Métricas para Prometheus (tráfico, errores, latencia, etapas, predicciones y calidad de las fotos) |
+| `POST` | `/api/admin/recargar` | Carga la versión a la que apunta el alias del registro (promover o rollback). Pide `X-Token-Admin` |
+| `POST` / `DELETE` | `/api/admin/fallas` | Inyecta o quita una falla para simular incidentes (solo con `CAOS_HABILITADO=1`). Pide `X-Token-Admin` |
 | `GET` | `/` | Página web |
 | `GET` | `/docs` | Documentación interactiva (Swagger) generada por FastAPI |
 
@@ -144,7 +155,7 @@ La columna `STATUS` debe decir `Up ... (healthy)`. El contenedor se revisa solo 
 
 ```bash
 curl http://localhost:8000/api/salud          # en Windows PowerShell: curl.exe
-# {"estado":"ok","modelo":"clasificador-hoja-maiz v1","version_api":"0.3.0"}
+# {"estado":"ok","modelo":"clasificador-hoja-maiz v1","modelo_version":"1","alias":"champion","version_api":"0.4.0",...}
 ```
 
 Después se abre http://localhost:8000 para la página web y http://localhost:8000/docs para la documentación de la API.
@@ -295,18 +306,23 @@ Se cambia con variables de entorno, sin tocar el código (ver `.env.example`):
 
 | Variable | Por defecto | Para qué sirve |
 |---|---|---|
-| `UMBRAL_ENFERMA` | `0.2494` | Probabilidad de enfermedad desde la que se reporta enferma |
+| `UMBRAL_ENFERMA` | (el de la ficha: `0.2494`) | Probabilidad de enfermedad desde la que se reporta enferma; vacío = el de la versión en servicio |
 | `TAMANO_MAX_MB` | `10` | Tamaño máximo de la foto |
-| `DIR_MODELO` | `modelo/` | Carpeta con `model.skops` y `ficha_modelo.json` |
+| `DIR_MODELOS` | `modelo/` | Carpeta con `registro.json` y `versiones/` |
+| `ALIAS_MODELO` | `champion` | Alias del registro que sirve la API |
+| `TOKEN_ADMIN` | (vacío) | Token de la cabecera `X-Token-Admin` para `/api/admin/*`; vacío = administración apagada |
+| `CAOS_HABILITADO` | `0` | `1` permite inyectar fallas (solo para la simulación de incidentes) |
+| `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT` | (vacío) | Destino OTLP/HTTP de las trazas (Jaeger) |
+| `OTEL_EXPORTER_OTLP_LOGS_ENDPOINT` | (vacío) | Destino OTLP/HTTP de los logs (Loki) |
 | `PORT` | `8000` | Solo con el `Procfile`: el puerto que asigna el PaaS |
-| `OMP_NUM_THREADS` | (todos los núcleos) | En la nube, `1`: con CPU limitado los hilos de PyTorch se estorban (ver `evidencias/carga/`) |
+| `OMP_NUM_THREADS` | `1` en la imagen | Con CPU limitado los hilos de PyTorch se estorban (ver `evidencias/carga/`) |
 
 ## Pruebas y evidencias
 
 Cada grupo de pruebas tiene su script y guarda sus resultados en `evidencias/`. Todos (menos pytest) se corren contra la API ya levantada, local o en el contenedor:
 
 ```bash
-python -m pytest pruebas -v                       # pruebas automáticas de los endpoints (11)
+python -m pytest pruebas -v                       # pruebas automáticas de los endpoints (19)
 python pruebas/probar_api.py --url http://localhost:8000 --salida evidencias/contenedor
 python pruebas/verificar_contenedor.py            # 19 comprobaciones de la imagen y el contenedor
 python pruebas/validar_modelo.py                  # las 221 fotos de prueba, originales y alteradas

@@ -1,0 +1,26 @@
+{
+  "nombre": "clasificador-hoja-maiz",
+  "descripcion": "Registro de versiones del clasificador. Funciona como los alias del Model Registry de MLflow: la API sirve la versión del alias 'champion'. Lo modifican scripts/desplegar.py (promover), el servicio de operaciones (rollback automático) y scripts/reentrenar.py (registrar candidatas).",
+  "alias": {
+    "champion": "1"
+  },
+  "versiones": {
+    "1": {
+      "carpeta": "versiones/1",
+      "registrada": "2026-11-01",
+      "descripcion": "Regresión logística de la Actividad 5 (MLflow run 89185e00) con el umbral de la Actividad 6.",
+      "estado": "produccion"
+    }
+  },
+  "historial": [
+    {
+      "fecha": "2026-11-01T00:00:00+00:00",
+      "evento": "promocion",
+      "alias": "champion",
+      "de": null,
+      "a": "1",
+      "motivo": "Versión inicial desplegada en la Fase II (v0.3.0)",
+      "autor": "Rabindranath Muñoz"
+    }
+  ]
+}

@@ -4,11 +4,11 @@
 services:
   api:
     build: .
-    image: diagnostico-hoja-maiz-api:0.3.0
+    image: diagnostico-hoja-maiz-api:0.4.0
     container_name: diagnostico-hoja-maiz
     ports:
       - "${PUERTO:-8000}:8000"
     environment:
-      UMBRAL_ENFERMA: ${UMBRAL_ENFERMA:-0.2494}
+      UMBRAL_ENFERMA: ${UMBRAL_ENFERMA:-}
       TAMANO_MAX_MB: ${TAMANO_MAX_MB:-10}
     restart: unless-stopped

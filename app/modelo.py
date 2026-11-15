@@ -2,14 +2,17 @@
 
 El diagnóstico tiene dos etapas, igual que en el entrenamiento de la Actividad 5:
     1. MobileNetV2 congelado (Actividad 4) convierte la foto en 1,280 características.
-    2. La regresión logística de la Actividad 5 da la probabilidad de cada clase.
+    2. La regresión logística de la versión en servicio da la probabilidad de cada clase.
 Al final se aplica el umbral de la Actividad 6: la hoja se reporta como enferma si P(enferma) >= umbral,
 aunque "Sana" sea la clase más probable, porque reportar sana una hoja enferma es el error más caro.
 
 La foto se prepara exactamente como en el entrenamiento (RGB y 224x224 con LANCZOS); si se cambia este
 paso, las características ya no son las mismas con las que aprendió el modelo. Antes se endereza según su
-etiqueta EXIF de orientación (fotos de celular tomadas de lado); las 1,078 fotos del entrenamiento no traen esa
+etiqueta EXIF de orientación (fotos de celular tomadas de lado); las fotos del entrenamiento no traen esa
 etiqueta, así que para ellas no cambia nada.
+
+Cada etapa es un span de la traza (app/observabilidad.py) y en cada una se puede inyectar una falla para
+simular incidentes (app/caos.py). Recargar el modelo reutiliza el extractor si la versión nueva usa el mismo.
 """
 import hashlib
 import io
@@ -22,15 +25,28 @@ import torch
 from PIL import Image, ImageOps
 from transformers import MobileNetV2ImageProcessorPil, MobileNetV2Model
 
+from app.calidad import calidad, fuera_de_rango
+from app.observabilidad import etapa
+
 TAMANO = (224, 224)
 LIMITE_PIXELES = 50_000_000                  # más de 50 megapíxeles se rechaza (protege la memoria)
 # Pillow solo lanza el error arriba del doble de este valor; entre 1x y 2x solo avisa, por eso además se
 # revisa el tamaño a mano en abrir_imagen (lo encontró la prueba de casos extremos A7)
 Image.MAX_IMAGE_PIXELS = LIMITE_PIXELES
 
+# Mensaje para el usuario cuando una característica queda fuera del rango de las fotos del entrenamiento
+ADVERTENCIAS = {
+    ("brillo", "bajo"): "La foto está más oscura que las del entrenamiento; el diagnóstico puede ser menos confiable.",
+    ("brillo", "alto"): "La foto está sobreexpuesta; el diagnóstico puede ser menos confiable.",
+    ("contraste", "bajo"): "La foto tiene muy poco contraste (¿neblina o sombra?).",
+    ("nitidez", "bajo"): "La foto está borrosa o movida; conviene tomarla otra vez.",
+    ("verdor", "bajo"): "La foto no parece una hoja de maíz.",
+}
+
 
 class ImagenInvalida(ValueError):
     """El archivo no se pudo abrir como imagen."""
+    es_del_cliente = True
 
 
 def enderezar(im):
@@ -56,46 +72,76 @@ def abrir_imagen(contenido):
         raise ImagenInvalida("el archivo no es una imagen válida") from e
 
 
+class Extractor:
+    """MobileNetV2 congelado. Procesador con backend PIL, el mismo del entrenamiento."""
+
+    def __init__(self, repositorio, revision):
+        self.clave = (repositorio, revision)
+        self.procesador = MobileNetV2ImageProcessorPil.from_pretrained(repositorio, revision=revision)
+        self.modelo = MobileNetV2Model.from_pretrained(repositorio, revision=revision).eval()
+
+    def __call__(self, imagen):
+        with torch.no_grad():
+            return self.modelo(**self.procesador([imagen], return_tensors="pt")).pooler_output.numpy()
+
+
 class Diagnosticador:
-    def __init__(self, config):
-        self.config = config
-        ficha = config.ficha
-        huella = hashlib.sha256(config.ruta_modelo.read_bytes()).hexdigest()
-        if huella != ficha["sha256"]:
-            raise RuntimeError(f"{config.ruta_modelo.name} no coincide con la huella de la ficha del modelo")
-        self.clasificador = sio.load(config.ruta_modelo)
+    def __init__(self, version, umbral, alias, caos=None, extractor=None):
+        huella = hashlib.sha256(version.ruta_clasificador.read_bytes()).hexdigest()
+        if huella != version.ficha["sha256"]:
+            raise RuntimeError(f"{version.ruta_clasificador} no coincide con la huella de la ficha del modelo")
+        self.version, self.umbral, self.alias, self.caos = version, umbral, alias, caos
+        self.clasificador = sio.load(version.ruta_clasificador)
         self.clases = [str(c) for c in self.clasificador.classes_]
         self.columnas = [f"f{i:04d}" for i in range(self.clasificador.n_features_in_)]
-        # Procesador con backend PIL, el mismo del entrenamiento (el de torchvision redimensiona distinto)
-        self.procesador = MobileNetV2ImageProcessorPil.from_pretrained(config.extractor_repo,
-                                                                       revision=config.extractor_revision)
-        self.extractor = MobileNetV2Model.from_pretrained(config.extractor_repo,
-                                                          revision=config.extractor_revision).eval()
+        reutilizable = extractor is not None and extractor.clave == version.extractor
+        self.extractor = extractor if reutilizable else Extractor(*version.extractor)
+        self.cargado = time.time()
 
-    def caracteristicas(self, imagen):
-        with torch.no_grad():
-            salida = self.extractor(**self.procesador([imagen], return_tensors="pt")).pooler_output
-        return pd.DataFrame(salida.numpy().astype(np.float32), columns=self.columnas)
+    def advertencias(self, medidas):
+        avisos = []
+        for variable in fuera_de_rango(medidas, self.version.linea_base):
+            bajo = medidas[variable] < self.version.linea_base["variables"][variable]["rango_99"][0]
+            aviso = ADVERTENCIAS.get((variable, "bajo" if bajo else "alto"))
+            if aviso:
+                avisos.append(aviso)
+        return avisos
 
     def diagnosticar(self, contenido):
         inicio = time.perf_counter()
-        imagen, original = abrir_imagen(contenido)
-        proba = self.clasificador.predict_proba(self.caracteristicas(imagen))[0]
-        probabilidades = dict(zip(self.clases, map(float, proba)))
-
-        p_enferma = 1 - probabilidades["Sana"]
-        enferma = p_enferma >= self.config.umbral_enferma
-        mas_probable = max(probabilidades, key=probabilidades.get)
-        enfermedad = max((c for c in self.clases if c != "Sana"), key=probabilidades.get)
+        with etapa("abrir_imagen", self.caos, bytes=len(contenido)) as span:
+            imagen, original = abrir_imagen(contenido)
+            span.set_attributes({f"imagen.{k}": v for k, v in original.items() if v is not None})
+        with etapa("calidad_imagen", self.caos) as span:
+            medidas = calidad(imagen)
+            fuera = fuera_de_rango(medidas, self.version.linea_base)
+            span.set_attributes({f"calidad.{k}": round(v, 3) for k, v in medidas.items()})
+            span.set_attribute("calidad.fuera_de_rango", ",".join(fuera))
+        with etapa("extraer_caracteristicas", self.caos):
+            caracteristicas = pd.DataFrame(self.extractor(imagen).astype(np.float32), columns=self.columnas)
+        with etapa("clasificar", self.caos, **{"modelo.version": self.version.version}) as span:
+            proba = self.clasificador.predict_proba(caracteristicas)[0]
+            probabilidades = dict(zip(self.clases, map(float, proba)))
+            p_enferma = 1 - probabilidades["Sana"]
+            enferma = p_enferma >= self.umbral
+            mas_probable = max(probabilidades, key=probabilidades.get)
+            enfermedad = max((c for c in self.clases if c != "Sana"), key=probabilidades.get)
+            diagnostico = enfermedad if enferma else "Sana"
+            span.set_attributes({"modelo.diagnostico": diagnostico, "modelo.p_enferma": round(p_enferma, 4),
+                                 "modelo.umbral": self.umbral})
         return {
-            "diagnostico": enfermedad if enferma else "Sana",
+            "diagnostico": diagnostico,
             "estado": "enferma" if enferma else "sana",
             "probabilidad_enferma": round(p_enferma, 4),
-            "umbral_enferma": self.config.umbral_enferma,
+            "umbral_enferma": self.umbral,
             "clase_mas_probable": mas_probable,
             # True cuando el umbral cambia la respuesta: la clase más probable es Sana, pero P(enferma) pasa el umbral
             "decidido_por_umbral": bool(enferma and mas_probable == "Sana"),
             "probabilidades": {c: round(p, 4) for c, p in sorted(probabilidades.items(), key=lambda x: -x[1])},
             "imagen": original,
+            "calidad_imagen": {k: round(v, 3) for k, v in medidas.items()},
+            "fuera_de_rango": fuera,
+            "advertencias": self.advertencias(medidas),
+            "modelo_version": self.version.version,
             "tiempo_ms": round((time.perf_counter() - inicio) * 1000, 1),
         }

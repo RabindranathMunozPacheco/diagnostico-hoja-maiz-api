@@ -37,7 +37,9 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
 PRUEBA = json.loads((Path(__file__).parent / "prueba_act5.json").read_text(encoding="utf-8"))
-FICHA = json.loads((RAIZ / "modelo" / "ficha_modelo.json").read_text(encoding="utf-8"))
+_REGISTRO = json.loads((RAIZ / "modelo" / "registro.json").read_text(encoding="utf-8"))
+_CARPETA = _REGISTRO["versiones"][_REGISTRO["alias"]["champion"]]["carpeta"]
+FICHA = json.loads((RAIZ / "modelo" / _CARPETA / "ficha_modelo.json").read_text(encoding="utf-8"))
 CLASES = FICHA["clases"]
 
 
