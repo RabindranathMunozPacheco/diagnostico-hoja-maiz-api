@@ -1,0 +1,115 @@
+{
+  "id": "INC-03",
+  "nombre": "Falla interna en la extracción de características (50 % de errores 500)",
+  "runbook": "RB-03",
+  "alerta_esperada": "PresupuestoErroresQuemaRapida",
+  "inyeccion": "POST /api/admin/fallas: 50 % de errores en extraer_caracteristicas durante 30 min",
+  "t_inyeccion": "2026-11-15T20:08:55+00:00",
+  "t_alerta_alertmanager": "2026-11-15T20:09:59+00:00",
+  "inicio_segun_prometheus": "2026-11-15T20:09:53.366Z",
+  "t_recibida_operaciones": "2026-11-15T20:10:03+00:00",
+  "t_resuelto": "2026-11-15T20:10:29+00:00",
+  "mttd_s": 63.5,
+  "mtta_s": 67.7,
+  "mttr_s": 94.3,
+  "resuelto": true,
+  "impacto_usuario": {
+    "solicitudes": 191,
+    "fallidas": 86,
+    "proporcion_fallidas": 0.4503,
+    "latencia_p50_s": 0.0549,
+    "latencia_p95_s": 0.1307,
+    "latencia_p99_s": 0.1973,
+    "lentas_mas_de_0_5_s": 0.0
+  },
+  "alertas_vistas": [
+    {
+      "alerta": "PresupuestoErroresQuemaRapida",
+      "severidad": "P1",
+      "inicio": "2026-11-15T20:09:53.366Z",
+      "primera_vez_vista": "2026-11-15T20:09:59+00:00",
+      "estados": [
+        "active"
+      ]
+    }
+  ],
+  "bitacora": [
+    {
+      "ts": "2026-11-15T20:09:13.308+00:00",
+      "incidente": "LatenciaQuemaMedia@2026-11-15T20:06:33",
+      "evento": "alerta_resuelta",
+      "alerta": "LatenciaQuemaMedia",
+      "severidad": "P3",
+      "inicio": "2026-11-15T20:06:33.366Z",
+      "fin": "2026-11-15T20:08:48.366Z"
+    },
+    {
+      "ts": "2026-11-15T20:10:03.299+00:00",
+      "incidente": "PresupuestoErroresQuemaRapida@2026-11-15T20:09:53",
+      "evento": "alerta_recibida",
+      "alerta": "PresupuestoErroresQuemaRapida",
+      "severidad": "P1",
+      "runbook": "RB-03",
+      "accion": "atender_errores",
+      "canal": "página al responsable de guardia",
+      "inicio": "2026-11-15T20:09:53.366Z",
+      "resumen": "Disponibilidad del diagnóstico: el presupuesto de errores se quema 14.4 veces más rápido de lo permitido"
+    },
+    {
+      "ts": "2026-11-15T20:10:03.430+00:00",
+      "incidente": "PresupuestoErroresQuemaRapida@2026-11-15T20:09:53",
+      "evento": "diagnostico",
+      "runbook": "RB-03",
+      "errores_por_etapa": {
+        "extraer_caracteristicas/FallaInyectada": 118
+      },
+      "trace_ids_recientes": [
+        "573899a79bf3711d8920037bf898c86f",
+        "f7572efc64381be363e683446e72f7ee",
+        "3ff5cd601551963b3bb5ab85a5afe44c",
+        "0bd31c472f4b897d98fb68353f2917f2",
+        "e0e2f17f2df1c07cb4e4b61e5dace2e1"
+      ],
+      "proporcion_errores_1m": 0.5210084033613446
+    },
+    {
+      "ts": "2026-11-15T20:10:03.441+00:00",
+      "incidente": "PresupuestoErroresQuemaRapida@2026-11-15T20:09:53",
+      "evento": "decision",
+      "runbook": "RB-03",
+      "detalle": "sin despliegues recientes: se trata como falla transitoria"
+    },
+    {
+      "ts": "2026-11-15T20:10:03.467+00:00",
+      "incidente": "PresupuestoErroresQuemaRapida@2026-11-15T20:09:53",
+      "evento": "diagnostico",
+      "runbook": "RB-03",
+      "estado_contenedor": "running",
+      "codigo_salida": 0,
+      "oom": false,
+      "salud": "healthy",
+      "terminado": "2026-11-15T20:03:38.148160117Z"
+    },
+    {
+      "ts": "2026-11-15T20:10:04.973+00:00",
+      "incidente": "PresupuestoErroresQuemaRapida@2026-11-15T20:09:53",
+      "evento": "accion",
+      "runbook": "RB-03",
+      "accion": "docker restart"
+    },
+    {
+      "ts": "2026-11-15T20:10:11.026+00:00",
+      "incidente": "PresupuestoErroresQuemaRapida@2026-11-15T20:09:53",
+      "evento": "verificacion",
+      "runbook": "RB-03",
+      "resultado": "ok",
+      "detalle": "healthy en 6.0 s"
+    }
+  ],
+  "pasos_manuales": [],
+  "salida_despliegue": null,
+  "ventana": {
+    "desde": "2026-11-15T20:07:55+00:00",
+    "hasta": "2026-11-15T20:11:29+00:00"
+  }
+}

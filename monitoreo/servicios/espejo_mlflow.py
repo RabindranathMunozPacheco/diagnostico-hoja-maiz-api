@@ -37,8 +37,12 @@ def _cliente():
 
 
 def _experimento(cliente, nombre):
+    """Id del experimento (lo crea si no existe). Se marca como desarrollo de modelos clásico: sin esa etiqueta,
+    la interfaz de MLflow 3 lo abre en la vista GenAI (trazas de LLM) y no en la tabla de corridas."""
     exp = cliente.get_experiment_by_name(nombre)
-    return exp.experiment_id if exp else cliente.create_experiment(nombre)
+    id_exp = exp.experiment_id if exp else cliente.create_experiment(nombre)
+    cliente.set_experiment_tag(id_exp, "mlflow.experimentKind", "custom_model_development")
+    return id_exp
 
 
 def _seguro(funcion):
@@ -68,7 +72,7 @@ def registrar_version(version, carpeta, ficha, metricas, descripcion, estado="ca
     cliente = _cliente()
     if version_mlflow(cliente, version):
         return version_mlflow(cliente, version)
-    mlflow.set_experiment("versiones-del-modelo")
+    mlflow.set_experiment(experiment_id=_experimento(cliente, "versiones-del-modelo"))
     with mlflow.start_run(run_name=f"v{version}") as corrida:
         mlflow.set_tags({"version_registro": str(version), "descripcion": descripcion})
         mlflow.log_params({"algoritmo": ficha.get("algoritmo"), "umbral_enferma": ficha["umbral_enferma"]["valor"],
@@ -110,8 +114,7 @@ def mover_alias(version, motivo, alias="champion", estado_anterior=None, anterio
 def registrar_evento(experimento, nombre, parametros=None, metricas=None, etiquetas=None, artefactos=()):
     """Una corrida corta que documenta un evento (despliegue, acción automática, reentrenamiento)."""
     import mlflow
-    _cliente()
-    mlflow.set_experiment(experimento)
+    mlflow.set_experiment(experiment_id=_experimento(_cliente(), experimento))
     with mlflow.start_run(run_name=nombre) as corrida:
         if etiquetas:
             mlflow.set_tags(etiquetas)

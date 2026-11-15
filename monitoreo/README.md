@@ -47,3 +47,19 @@ python simulacion/trafico.py --tasa 2 --minutos 5     # tráfico de usuarios sim
 | Datos | PSI de brillo, contraste, nitidez y verdor contra la línea base | ≤ 0.25 | ventana de 1 h |
 
 En el laboratorio las ventanas de tiempo se comprimen 12 veces (1 h → 5 min) para que un incidente se vea en minutos.
+
+## Resultados de la simulación de incidentes
+
+Corrida del 15 de noviembre de 2026 (40 minutos, 4,856 solicitudes de usuarios simuladas, tráfico Poisson a 2 por segundo). Los detalles están en `evidencias/monitoreo/simulacion/` (un JSON y una gráfica por incidente, `linea_de_tiempo.png`, `trafico.csv` y `consola.txt`).
+
+| Incidente | Runbook | Detección (MTTD) | Recuperación (MTTR) | Cómo se resolvió |
+|---|---|---|---|---|
+| INC-01 Caída del contenedor | RB-01 | 28 s | 47 s | Reinicio automático |
+| INC-02 CPU estrangulada | RB-02 | 80 s | 121 s | Reconciliación automática del límite de CPU |
+| INC-03 Ráfaga de errores 500 | RB-03 | 64 s | 94 s | Reinicio automático y verificación |
+| INC-04 Release malo del modelo (v2) | RB-04 | 44 s | ~11 min | El rollback movió el alias, pero la recarga falló por permisos; escaló y se terminó a mano (`INC-04_intervencion_manual.json`). Corregido en ea5c050 |
+| INC-05 Data drift (temporada de lluvias) | RB-05 | 168 s | 246 s | Solicitud de reentrenamiento; la v3 se promovió con aprobación humana |
+
+Reducción de ruido (`ruido.md`): con umbrales fijos sobre cada métrica habrían salido 72 avisos (17 episodios); el diseño basado en SLO mandó 10 avisos a personas (6 páginas y 4 tickets). El bloque `ruido` de `resumen.json` es un conteo preliminar por episodios; el análisis completo es el de `ruido.md`.
+
+El reentrenamiento de la v3 (`evidencias/monitoreo/reentrenamiento/`) es un trade-off: mejora mucho con fotos de lluvia (enfermas reportadas como sanas 31.8 % → 4.5 %) a cambio de perder un poco con fotos normales (F1 0.72 → 0.66), por eso la compuerta de despliegue pide `--aprobado-por`.

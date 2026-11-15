@@ -1,0 +1,80 @@
+{
+  "ventana": [
+    "2026-11-15T20:00:36+00:00",
+    "2026-11-15T20:40:33+00:00"
+  ],
+  "paso_s": 15,
+  "ingenuo": {
+    "Algún error 5xx en el último minuto": {
+      "episodios": 1,
+      "avisos": 2,
+      "minutos_activa": 2.0
+    },
+    "Latencia p95 > 0.5 s en el último minuto": {
+      "episodios": 1,
+      "avisos": 3,
+      "minutos_activa": 2.2
+    },
+    "Algún diagnóstico tardó más de 1 s": {
+      "episodios": 1,
+      "avisos": 3,
+      "minutos_activa": 2.2
+    },
+    "CPU > 80 % del límite": {
+      "episodios": 0,
+      "avisos": 0,
+      "minutos_activa": 0.0
+    },
+    "Memoria > 60 % del límite": {
+      "episodios": 2,
+      "avisos": 2,
+      "minutos_activa": 1.0
+    },
+    "La API no responde": {
+      "episodios": 2,
+      "avisos": 2,
+      "minutos_activa": 0.8
+    },
+    "PSI de alguna variable de entrada > 0.1": {
+      "episodios": 6,
+      "avisos": 33,
+      "minutos_activa": 30.2
+    },
+    "PSI de P(enferma) > 0.1": {
+      "episodios": 3,
+      "avisos": 16,
+      "minutos_activa": 15.0
+    },
+    "La sonda no cumple": {
+      "episodios": 1,
+      "avisos": 11,
+      "minutos_activa": 11.0
+    }
+  },
+  "total_ingenuo_avisos": 72,
+  "total_ingenuo_episodios": 17,
+  "real": {
+    "pagina": 6,
+    "ticket": 4,
+    "registro": 1,
+    "escalamientos": 1,
+    "inhibidas": [
+      "DistribucionPrediccionesCambio",
+      "DriftDatosAdvertencia",
+      "LatenciaQuemaMedia"
+    ],
+    "alertas_distintas": [
+      "CalidadModeloDegradada",
+      "DistribucionPrediccionesCambio",
+      "DriftDatosAdvertencia",
+      "DriftDatosEntrada",
+      "LatenciaQuemaMedia",
+      "LatenciaQuemaRapida",
+      "PresupuestoErroresQuemaLenta",
+      "PresupuestoErroresQuemaMedia",
+      "PresupuestoErroresQuemaRapida",
+      "ServicioCaido"
+    ]
+  },
+  "total_real_a_personas": 10
+}

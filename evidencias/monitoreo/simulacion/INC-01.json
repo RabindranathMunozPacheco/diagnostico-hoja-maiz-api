@@ -1,0 +1,82 @@
+{
+  "id": "INC-01",
+  "nombre": "Caída del contenedor de la API",
+  "runbook": "RB-01",
+  "alerta_esperada": "ServicioCaido",
+  "inyeccion": "docker stop diagnostico-hoja-maiz",
+  "t_inyeccion": "2026-11-15T20:03:36+00:00",
+  "t_alerta_alertmanager": "2026-11-15T20:04:05+00:00",
+  "inicio_segun_prometheus": "2026-11-15T20:03:58.366Z",
+  "t_recibida_operaciones": "2026-11-15T20:04:08+00:00",
+  "t_resuelto": "2026-11-15T20:04:23+00:00",
+  "mttd_s": 28.4,
+  "mtta_s": 31.5,
+  "mttr_s": 46.8,
+  "resuelto": true,
+  "impacto_usuario": {
+    "solicitudes": 83,
+    "fallidas": 61,
+    "proporcion_fallidas": 0.7349,
+    "latencia_p50_s": 0.0541,
+    "latencia_p95_s": 0.1009,
+    "latencia_p99_s": 0.2563,
+    "lentas_mas_de_0_5_s": 0.0
+  },
+  "alertas_vistas": [
+    {
+      "alerta": "ServicioCaido",
+      "severidad": "P1",
+      "inicio": "2026-11-15T20:03:58.366Z",
+      "primera_vez_vista": "2026-11-15T20:04:05+00:00",
+      "estados": [
+        "active"
+      ]
+    }
+  ],
+  "bitacora": [
+    {
+      "ts": "2026-11-15T20:04:08.332+00:00",
+      "incidente": "ServicioCaido@2026-11-15T20:03:58",
+      "evento": "alerta_recibida",
+      "alerta": "ServicioCaido",
+      "severidad": "P1",
+      "runbook": "RB-01",
+      "accion": "reiniciar",
+      "canal": "página al responsable de guardia",
+      "inicio": "2026-11-15T20:03:58.366Z",
+      "resumen": "La API de diagnóstico no responde a Prometheus"
+    },
+    {
+      "ts": "2026-11-15T20:04:08.358+00:00",
+      "incidente": "ServicioCaido@2026-11-15T20:03:58",
+      "evento": "diagnostico",
+      "runbook": "RB-01",
+      "estado_contenedor": "exited",
+      "codigo_salida": 0,
+      "oom": false,
+      "salud": "unhealthy",
+      "terminado": "2026-11-15T20:03:38.148160117Z"
+    },
+    {
+      "ts": "2026-11-15T20:04:08.498+00:00",
+      "incidente": "ServicioCaido@2026-11-15T20:03:58",
+      "evento": "accion",
+      "runbook": "RB-01",
+      "accion": "docker start"
+    },
+    {
+      "ts": "2026-11-15T20:04:14.532+00:00",
+      "incidente": "ServicioCaido@2026-11-15T20:03:58",
+      "evento": "verificacion",
+      "runbook": "RB-01",
+      "resultado": "ok",
+      "detalle": "healthy en 6.0 s"
+    }
+  ],
+  "pasos_manuales": [],
+  "salida_despliegue": null,
+  "ventana": {
+    "desde": "2026-11-15T20:02:36+00:00",
+    "hasta": "2026-11-15T20:05:23+00:00"
+  }
+}

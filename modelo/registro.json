@@ -2,20 +2,26 @@
   "nombre": "clasificador-hoja-maiz",
   "descripcion": "Registro de versiones del clasificador. Funciona como los alias del Model Registry de MLflow: la API sirve la versión del alias 'champion'. Lo modifican scripts/desplegar.py (promover), el servicio de operaciones (rollback automático) y scripts/reentrenar.py (registrar candidatas).",
   "alias": {
-    "champion": "1"
+    "champion": "3"
   },
   "versiones": {
     "1": {
       "carpeta": "versiones/1",
       "registrada": "2026-11-01",
       "descripcion": "Regresión logística de la Actividad 5 (MLflow run 89185e00) con el umbral de la Actividad 6.",
-      "estado": "produccion"
+      "estado": "archivada"
     },
     "2": {
       "carpeta": "versiones/2",
       "registrada": "2026-11-15",
       "descripcion": "DEFECTUOSA a propósito (simulación INC-04): etiquetas Sana y Mancha gris cruzadas al reentrenar",
-      "estado": "candidata"
+      "estado": "rechazada"
+    },
+    "3": {
+      "carpeta": "versiones/3",
+      "registrada": "2026-11-15",
+      "descripcion": "Reentrenada con aumento de lluvia (respuesta a drift; solicitud DriftDatosEntrada@2026-11-15T20:38:38)",
+      "estado": "produccion"
     }
   },
   "historial": [
@@ -35,6 +41,42 @@
       "de": null,
       "a": "2",
       "motivo": "DEFECTUOSA a propósito (simulación INC-04): etiquetas Sana y Mancha gris cruzadas al reentrenar",
+      "autor": "Rabin Muñoz"
+    },
+    {
+      "fecha": "2026-11-15T20:10:45.434+00:00",
+      "evento": "promocion",
+      "alias": "champion",
+      "de": "1",
+      "a": "2",
+      "motivo": "Hotfix urgente: reentrenamiento con fotos nuevas [SIN COMPUERTA]",
+      "autor": "Rabin Muñoz"
+    },
+    {
+      "fecha": "2026-11-15T20:11:23.387+00:00",
+      "evento": "rollback",
+      "alias": "champion",
+      "de": "2",
+      "a": "1",
+      "motivo": "Rollback automático por la alerta CalidadModeloDegradada",
+      "autor": "operaciones (automático)"
+    },
+    {
+      "fecha": "2026-11-15T20:39:19.176+00:00",
+      "evento": "registro",
+      "alias": null,
+      "de": null,
+      "a": "3",
+      "motivo": "Reentrenada con aumento de lluvia (respuesta a drift; solicitud DriftDatosEntrada@2026-11-15T20:38:38)",
+      "autor": "Rabin Muñoz"
+    },
+    {
+      "fecha": "2026-11-15T20:39:43.016+00:00",
+      "evento": "promocion",
+      "alias": "champion",
+      "de": "1",
+      "a": "3",
+      "motivo": "Temporada de lluvias: respuesta a la solicitud de reentrenamiento (RB-05) [compuerta aprobada, lluvia 36%; aprobado por Rabin Muñoz]",
       "autor": "Rabin Muñoz"
     }
   ]

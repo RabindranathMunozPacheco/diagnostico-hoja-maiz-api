@@ -53,7 +53,8 @@
           "legendFormat": "",
           "instant": true,
           "range": false,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -129,7 +130,8 @@
           "legendFormat": "v{{version}}",
           "instant": true,
           "range": false,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -186,7 +188,8 @@
           "legendFormat": "",
           "instant": true,
           "range": false,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -252,7 +255,8 @@
           "legendFormat": "",
           "instant": true,
           "range": false,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -318,7 +322,8 @@
           "legendFormat": "{{slo}}",
           "instant": true,
           "range": false,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -380,11 +385,12 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sort_desc(ALERTS{alertstate=\"firing\"})",
+          "expr": "ALERTS{alertstate=\"firing\"}",
           "legendFormat": "",
           "instant": true,
           "range": false,
-          "refId": "A"
+          "refId": "A",
+          "format": "table"
         }
       ],
       "fieldConfig": {
@@ -394,12 +400,6 @@
       "options": {},
       "transformations": [
         {
-          "id": "labelsToFields",
-          "options": {
-            "mode": "columns"
-          }
-        },
-        {
           "id": "organize",
           "options": {
             "includeByName": {
@@ -407,6 +407,16 @@
               "severidad": true,
               "runbook": true,
               "accion": true
+            },
+            "indexByName": {
+              "severidad": 0,
+              "alertname": 1,
+              "runbook": 2,
+              "accion": 3
+            },
+            "renameByName": {
+              "alertname": "alerta",
+              "accion": "acción automática"
             }
           }
         }
@@ -450,7 +460,8 @@
           "legendFormat": "{{codigo}}",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         },
         {
           "datasource": {
@@ -461,7 +472,8 @@
           "legendFormat": "sonda",
           "instant": false,
           "range": true,
-          "refId": "B"
+          "refId": "B",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -516,7 +528,8 @@
           "legendFormat": "errores 5xx",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         },
         {
           "datasource": {
@@ -527,7 +540,8 @@
           "legendFormat": "rechazos 4xx (no gastan presupuesto)",
           "instant": false,
           "range": true,
-          "refId": "B"
+          "refId": "B",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -596,7 +610,8 @@
           "legendFormat": "p50",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         },
         {
           "datasource": {
@@ -607,7 +622,8 @@
           "legendFormat": "p95",
           "instant": false,
           "range": true,
-          "refId": "B"
+          "refId": "B",
+          "format": "time_series"
         },
         {
           "datasource": {
@@ -618,7 +634,8 @@
           "legendFormat": "p99",
           "instant": false,
           "range": true,
-          "refId": "C"
+          "refId": "C",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -687,7 +704,8 @@
           "legendFormat": "CPU usada (núcleos)",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         },
         {
           "datasource": {
@@ -698,7 +716,8 @@
           "legendFormat": "memoria (fracción de 1 GiB)",
           "instant": false,
           "range": true,
-          "refId": "B"
+          "refId": "B",
+          "format": "time_series"
         },
         {
           "datasource": {
@@ -709,7 +728,8 @@
           "legendFormat": "solicitudes en curso",
           "instant": false,
           "range": true,
-          "refId": "C"
+          "refId": "C",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -764,7 +784,8 @@
           "legendFormat": "{{etapa}}",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -833,7 +854,8 @@
           "legendFormat": "disponibilidad 5m",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         },
         {
           "datasource": {
@@ -844,7 +866,8 @@
           "legendFormat": "disponibilidad 1h",
           "instant": false,
           "range": true,
-          "refId": "B"
+          "refId": "B",
+          "format": "time_series"
         },
         {
           "datasource": {
@@ -855,7 +878,8 @@
           "legendFormat": "disponibilidad 6h",
           "instant": false,
           "range": true,
-          "refId": "C"
+          "refId": "C",
+          "format": "time_series"
         },
         {
           "datasource": {
@@ -866,7 +890,8 @@
           "legendFormat": "latencia 5m",
           "instant": false,
           "range": true,
-          "refId": "D"
+          "refId": "D",
+          "format": "time_series"
         },
         {
           "datasource": {
@@ -877,7 +902,8 @@
           "legendFormat": "latencia 1h",
           "instant": false,
           "range": true,
-          "refId": "E"
+          "refId": "E",
+          "format": "time_series"
         },
         {
           "datasource": {
@@ -888,7 +914,8 @@
           "legendFormat": "latencia 6h",
           "instant": false,
           "range": true,
-          "refId": "F"
+          "refId": "F",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -964,7 +991,8 @@
           "legendFormat": "{{slo}}",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -1050,7 +1078,8 @@
           "legendFormat": "{{conjunto}} (v{{version}})",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -1119,7 +1148,8 @@
           "legendFormat": "{{conjunto}} (v{{version}})",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -1188,7 +1218,8 @@
           "legendFormat": "{{diagnostico}}",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         },
         {
           "datasource": {
@@ -1199,7 +1230,8 @@
           "legendFormat": "{{diagnostico}} (línea base)",
           "instant": false,
           "range": true,
-          "refId": "B"
+          "refId": "B",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -1268,7 +1300,8 @@
           "legendFormat": "{{variable}}",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -1340,7 +1373,8 @@
           "legendFormat": "{{variable}}",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -1396,7 +1430,8 @@
           "legendFormat": "{{variable}}",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         },
         {
           "datasource": {
@@ -1407,7 +1442,8 @@
           "legendFormat": "fotos en la ventana del drift",
           "instant": false,
           "range": true,
-          "refId": "B"
+          "refId": "B",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -1475,7 +1511,8 @@
           "legendFormat": "{{accion}} ({{resultado}})",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         },
         {
           "datasource": {
@@ -1486,7 +1523,8 @@
           "legendFormat": "escaladas a una persona",
           "instant": false,
           "range": true,
-          "refId": "B"
+          "refId": "B",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -1541,7 +1579,8 @@
           "legendFormat": "{{canal}}",
           "instant": false,
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "format": "time_series"
         }
       ],
       "fieldConfig": {
@@ -1620,7 +1659,7 @@
         "x": 0,
         "y": 50,
         "w": 24,
-        "h": 3
+        "h": 4
       },
       "targets": [],
       "fieldConfig": {

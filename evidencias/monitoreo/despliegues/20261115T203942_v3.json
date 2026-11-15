@@ -1,0 +1,77 @@
+{
+  "fecha": "2026-11-15T20:39:42.684+00:00",
+  "de": "1",
+  "a": "3",
+  "motivo": "Temporada de lluvias: respuesta a la solicitud de reentrenamiento (RB-05)",
+  "sin_compuerta": false,
+  "metricas": {
+    "v1": {
+      "golden": {
+        "n": 40,
+        "f1_macro": 0.7295,
+        "exactitud": 0.725,
+        "enferma_como_sana": 0.0667,
+        "sana_como_enferma": 0.6
+      },
+      "adverso": {
+        "n": 40,
+        "f1_macro": 0.25,
+        "exactitud": 0.325,
+        "enferma_como_sana": 0.3,
+        "sana_como_enferma": 0.3
+      }
+    },
+    "v3": {
+      "golden": {
+        "n": 40,
+        "f1_macro": 0.6225,
+        "exactitud": 0.625,
+        "enferma_como_sana": 0.0333,
+        "sana_como_enferma": 0.5
+      },
+      "adverso": {
+        "n": 40,
+        "f1_macro": 0.4948,
+        "exactitud": 0.5,
+        "enferma_como_sana": 0.0333,
+        "sana_como_enferma": 0.8
+      }
+    }
+  },
+  "compuerta": {
+    "aprobada": true,
+    "razones": [],
+    "mezcla_lluvia": 0.356,
+    "esperado_en_servicio": {
+      "f1_macro": 0.5588,
+      "enferma_como_sana": 0.1498
+    },
+    "esperado_candidata": {
+      "f1_macro": 0.577,
+      "enferma_como_sana": 0.0333
+    },
+    "perdida_f1_por_condicion": {
+      "golden": 0.107,
+      "adverso": -0.2448
+    },
+    "requiere_aprobacion": true,
+    "aprobado_por": "Rabin Muñoz"
+  },
+  "resultado": "promovida",
+  "recarga": {
+    "version_anterior": "1",
+    "version_actual": "3",
+    "alias": "champion",
+    "umbral": 0.209
+  },
+  "sonda_posterior": {
+    "evaluada": true,
+    "version": "3",
+    "fallidas": 0,
+    "slo_cumplido": true,
+    "f1_macro": 0.6225,
+    "exactitud": 0.625,
+    "enferma_como_sana": 0.0333,
+    "sana_como_enferma": 0.5
+  }
+}

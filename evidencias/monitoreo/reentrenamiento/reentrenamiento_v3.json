@@ -1,0 +1,93 @@
+{
+  "version_candidata": "3",
+  "version_en_servicio": "1",
+  "umbral": {
+    "valor": 0.209,
+    "origen": "reentrenamiento con aumento de lluvia",
+    "criterio": "umbral más alto con 5 % o menos de enfermas reportadas como sanas en validación fuera de fold (StratifiedGroupKFold 5 por grupo)",
+    "enferma_como_sana_oof": 0.0493,
+    "sana_como_enferma_oof": 0.6236
+  },
+  "comparacion": {
+    "v1 (en servicio)": {
+      "golden": {
+        "n": 40,
+        "f1_macro": 0.7295,
+        "exactitud": 0.725,
+        "enferma_como_sana": 0.0667,
+        "sana_como_enferma": 0.6
+      },
+      "adverso": {
+        "n": 40,
+        "f1_macro": 0.25,
+        "exactitud": 0.325,
+        "enferma_como_sana": 0.3,
+        "sana_como_enferma": 0.3
+      },
+      "prueba": {
+        "n": 221,
+        "f1_macro": 0.7212,
+        "exactitud": 0.7511,
+        "enferma_como_sana": 0.0795,
+        "sana_como_enferma": 0.5556
+      },
+      "prueba_lluvia": {
+        "n": 221,
+        "f1_macro": 0.364,
+        "exactitud": 0.4525,
+        "enferma_como_sana": 0.3182,
+        "sana_como_enferma": 0.3111
+      }
+    },
+    "candidata": {
+      "golden": {
+        "n": 40,
+        "f1_macro": 0.6225,
+        "exactitud": 0.625,
+        "enferma_como_sana": 0.0333,
+        "sana_como_enferma": 0.5
+      },
+      "adverso": {
+        "n": 40,
+        "f1_macro": 0.4948,
+        "exactitud": 0.5,
+        "enferma_como_sana": 0.0333,
+        "sana_como_enferma": 0.8
+      },
+      "prueba": {
+        "n": 221,
+        "f1_macro": 0.6582,
+        "exactitud": 0.7104,
+        "enferma_como_sana": 0.0568,
+        "sana_como_enferma": 0.6667
+      },
+      "prueba_lluvia": {
+        "n": 221,
+        "f1_macro": 0.539,
+        "exactitud": 0.6425,
+        "enferma_como_sana": 0.0455,
+        "sana_como_enferma": 0.7333
+      }
+    }
+  },
+  "solicitud": {
+    "fecha": "2026-11-15T20:38:48.181+00:00",
+    "incidente": "DriftDatosEntrada@2026-11-15T20:38:38",
+    "estado": "pendiente de aprobación humana",
+    "version_en_servicio": "1",
+    "psi_por_variable": {
+      "brillo": 0.449,
+      "contraste": 0.288,
+      "nitidez": 0.603,
+      "verdor": 0.089,
+      "p_enferma": 0.07
+    },
+    "muestras_en_ventana": 637.6919686747805,
+    "f1_sonda": {
+      "adverso": 0.25,
+      "golden": 0.73
+    },
+    "decision_automatica": "Sin rollback: la versión anterior tampoco fue entrenada con estas condiciones. Se pide reentrenar con fotos de las condiciones nuevas.",
+    "siguiente_paso": "Validar que no es un error del pipeline de datos (RB-05 paso 2) y aprobar scripts/reentrenar.py"
+  }
+}

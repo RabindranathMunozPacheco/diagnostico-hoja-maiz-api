@@ -113,9 +113,24 @@ def psi_y_ks(conteos, esperadas):
     return psi, ks
 
 
+def version_servida():
+    """La versión que la API realmente sirve (modelo_info), no la que dice el registro.
+
+    Casi siempre coinciden, pero en la simulación INC-04 el rollback movió el alias y la recarga de la API falló:
+    el registro decía v1 mientras la API servía v2, y el monitoreo le atribuía a la v1 los errores de la v2.
+    Si la API no responde, se usa el registro.
+    """
+    try:
+        resultado = comun.consulta('max by (version) (modelo_info{job="api"})')
+        if resultado:
+            return resultado[0]["metric"]["version"]
+    except Exception:                                   # noqa: BLE001 - sin Prometheus se usa el registro
+        pass
+    return comun.leer_registro()["alias"]["champion"]
+
+
 def evaluar_drift():
-    registro = comun.leer_registro()
-    version = registro["alias"]["champion"]
+    version = version_servida()
     linea = comun.linea_base(version)
     LINEA_BASE.clear()
     LINEA_BASE.labels(version=version).set(1)
@@ -234,7 +249,8 @@ def ciclo():
                 proxima_sonda = ahora + PERIODO_SONDA
                 r = correr_sonda(con_adverso=ronda % ADVERSO_CADA == 0)
                 ronda += 1
-                _mlflow.registrar(comun.leer_registro()["alias"]["champion"],
+                servida = r.get("golden", {}).get("version") or version_servida()
+                _mlflow.registrar(servida,
                                   {f"sonda_{c}_{k}": v for c, m in r.items() if m.get("evaluada")
                                    for k, v in m.items() if k in ("f1_macro", "enferma_como_sana",
                                                                    "sana_como_enferma", "exactitud")})

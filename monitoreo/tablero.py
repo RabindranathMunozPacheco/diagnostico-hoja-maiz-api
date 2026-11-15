@@ -23,9 +23,9 @@ D = 'ruta="/api/diagnostico",origen="usuario"'
 _id = iter(range(1, 1000))
 
 
-def q(expr, leyenda="", instant=False, ref=None):
+def q(expr, leyenda="", instant=False, ref=None, formato="time_series"):
     return {"datasource": PROM, "expr": expr, "legendFormat": leyenda, "instant": instant, "range": not instant,
-            "refId": ref or "ABCDEFGHIJ"[0]}
+            "refId": ref or "ABCDEFGHIJ"[0], "format": formato}
 
 
 def umbrales(*pasos):
@@ -97,11 +97,12 @@ def construir():
              "Cuánto del presupuesto de la ventana del SLO (30 días; 2.5 días en el laboratorio) queda sin gastar.",
              "percentunit", umbrales(("red", None), ("orange", 0.25), ("green", 0.5))),
         panel("table", "Alertas activas", 16, y, 8, 4,
-              [q('sort_desc(ALERTS{alertstate="firing"})', instant=True)],
+              [q('ALERTS{alertstate="firing"}', instant=True, formato="table")],
               "Alertas que Prometheus tiene disparadas (Alertmanager decide a quién avisar y cuáles se inhiben).",
-              extra={"transformations": [{"id": "labelsToFields", "options": {"mode": "columns"}},
-                                         {"id": "organize", "options": {"includeByName": {
-                                             "alertname": True, "severidad": True, "runbook": True, "accion": True}}}]}),
+              extra={"transformations": [{"id": "organize", "options": {
+                  "includeByName": {"alertname": True, "severidad": True, "runbook": True, "accion": True},
+                  "indexByName": {"severidad": 0, "alertname": 1, "runbook": 2, "accion": 3},
+                  "renameByName": {"alertname": "alerta", "accion": "acción automática"}}}]}),
     ]
     y += 4
 
@@ -198,7 +199,7 @@ def construir():
               datasource=LOKI),
     ]
     y += 7
-    paneles.append(panel("text", "Enlaces", 0, y, 24, 3, [], opciones={"mode": "markdown", "content": (
+    paneles.append(panel("text", "Enlaces", 0, y, 24, 4, [], opciones={"mode": "markdown", "content": (
         "[Trazas en Jaeger](http://localhost:16686/search?service=diagnostico-hoja-maiz) · "
         "[Alertmanager](http://localhost:9093) · [Reglas en Prometheus](http://localhost:9090/alerts) · "
         "[Bitácora de operaciones](http://localhost:9102/bitacora) · "

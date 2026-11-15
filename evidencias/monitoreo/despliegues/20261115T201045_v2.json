@@ -1,0 +1,24 @@
+{
+  "fecha": "2026-11-15T20:10:45.407+00:00",
+  "de": "1",
+  "a": "2",
+  "motivo": "Hotfix urgente: reentrenamiento con fotos nuevas",
+  "sin_compuerta": true,
+  "resultado": "promovida",
+  "recarga": {
+    "version_anterior": "1",
+    "version_actual": "2",
+    "alias": "champion",
+    "umbral": 0.2494
+  },
+  "sonda_posterior": {
+    "evaluada": true,
+    "version": "2",
+    "fallidas": 0,
+    "slo_cumplido": false,
+    "f1_macro": 0.4521,
+    "exactitud": 0.425,
+    "enferma_como_sana": 0.3,
+    "sana_como_enferma": 0.9
+  }
+}

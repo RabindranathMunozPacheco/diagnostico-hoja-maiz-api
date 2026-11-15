@@ -1,0 +1,125 @@
+{
+  "inicio": "2026-11-15T20:00:36+00:00",
+  "fin": "2026-11-15T20:40:33+00:00",
+  "incidentes": [
+    {
+      "id": "INC-01",
+      "nombre": "Caída del contenedor de la API",
+      "alerta_esperada": "ServicioCaido",
+      "runbook": "RB-01",
+      "mttd_s": 28.4,
+      "mtta_s": 31.5,
+      "mttr_s": 46.8,
+      "resuelto": true,
+      "impacto_usuario": {
+        "solicitudes": 83,
+        "fallidas": 61,
+        "proporcion_fallidas": 0.7349,
+        "latencia_p50_s": 0.0541,
+        "latencia_p95_s": 0.1009,
+        "latencia_p99_s": 0.2563,
+        "lentas_mas_de_0_5_s": 0.0
+      }
+    },
+    {
+      "id": "INC-02",
+      "nombre": "CPU estrangulada (vecino ruidoso o límite mal configurado)",
+      "alerta_esperada": "LatenciaQuemaRapida",
+      "runbook": "RB-02",
+      "mttd_s": 79.9,
+      "mtta_s": 84.3,
+      "mttr_s": 120.8,
+      "resuelto": true,
+      "impacto_usuario": {
+        "solicitudes": 229,
+        "fallidas": 0,
+        "proporcion_fallidas": 0.0,
+        "latencia_p50_s": 0.5786,
+        "latencia_p95_s": 5.7992,
+        "latencia_p99_s": 8.4991,
+        "lentas_mas_de_0_5_s": 0.559
+      }
+    },
+    {
+      "id": "INC-03",
+      "nombre": "Falla interna en la extracción de características (50 % de errores 500)",
+      "alerta_esperada": "PresupuestoErroresQuemaRapida",
+      "runbook": "RB-03",
+      "mttd_s": 63.5,
+      "mtta_s": 67.7,
+      "mttr_s": 94.3,
+      "resuelto": true,
+      "impacto_usuario": {
+        "solicitudes": 191,
+        "fallidas": 86,
+        "proporcion_fallidas": 0.4503,
+        "latencia_p50_s": 0.0549,
+        "latencia_p95_s": 0.1307,
+        "latencia_p99_s": 0.1973,
+        "lentas_mas_de_0_5_s": 0.0
+      }
+    },
+    {
+      "id": "INC-04",
+      "nombre": "Release malo del modelo (v2 sin compuerta de calidad)",
+      "alerta_esperada": "CalidadModeloDegradada",
+      "runbook": "RB-04",
+      "mttd_s": 43.7,
+      "mtta_s": 48.3,
+      "mttr_s": null,
+      "resuelto": false,
+      "impacto_usuario": {
+        "solicitudes": 1208,
+        "fallidas": 0,
+        "proporcion_fallidas": 0.0,
+        "latencia_p50_s": 0.0541,
+        "latencia_p95_s": 0.1238,
+        "latencia_p99_s": 0.1904,
+        "lentas_mas_de_0_5_s": 0.0
+      }
+    },
+    {
+      "id": "INC-05",
+      "nombre": "Data drift: temporada de lluvias",
+      "alerta_esperada": "DriftDatosEntrada",
+      "runbook": "RB-05",
+      "mttd_s": 167.5,
+      "mtta_s": 170.7,
+      "mttr_s": 246.2,
+      "resuelto": true,
+      "impacto_usuario": {
+        "solicitudes": 534,
+        "fallidas": 0,
+        "proporcion_fallidas": 0.0,
+        "latencia_p50_s": 0.0562,
+        "latencia_p95_s": 0.119,
+        "latencia_p99_s": 0.2479,
+        "lentas_mas_de_0_5_s": 0.0
+      }
+    }
+  ],
+  "ruido": {
+    "monitoreo_ingenuo_episodios": {
+      "cualquier error 5xx en 30 s": 1,
+      "latencia p95 > 0.5 s (1 min)": 1,
+      "CPU > 80 % del límite": 0,
+      "algún PSI > 0.1": 1,
+      "la API no responde": 0,
+      "rechazos 4xx en 30 s": 0
+    },
+    "total_ingenuo": 3,
+    "notificaciones_reales_por_canal": {
+      "ticket": 4.0,
+      "registro": 1.0
+    }
+  },
+  "trafico_total": {
+    "solicitudes": 4856,
+    "fallidas": 147,
+    "proporcion_fallidas": 0.0303,
+    "latencia_p50_s": 0.0544,
+    "latencia_p95_s": 0.1787,
+    "latencia_p99_s": 4.6952,
+    "lentas_mas_de_0_5_s": 0.0272
+  }
+}

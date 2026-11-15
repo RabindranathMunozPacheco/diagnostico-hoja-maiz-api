@@ -1,0 +1,159 @@
+sistema estable: 20:00:36
+2026-11-15T20:00:36+00:00 tráfico de usuarios iniciado (2 fotos/s); calentando 3 min…
+
+== INC-01 Caída del contenedor de la API
+   2026-11-15T20:03:36+00:00 inyección: docker stop diagnostico-hoja-maiz
+   2026-11-15T20:04:05+00:00 alerta ServicioCaido en Alertmanager
+   2026-11-15T20:04:23+00:00 resuelto
+   MTTD 28.4 s · MTTA 31.5 s · MTTR 46.8 s · usuario: {'solicitudes': 83, 'fallidas': 61, 'proporcion_fallidas': 0.7349, 'latencia_p50_s': 0.0541, 'latencia_p95_s': 0.1009, 'latencia_p99_s': 0.2563, 'lentas_mas_de_0_5_s': 0.0}
+
+== INC-02 CPU estrangulada (vecino ruidoso o límite mal configurado)
+   2026-11-15T20:04:49+00:00 inyección: docker update --cpus 0.2 diagnostico-hoja-maiz (antes: 1.0)
+   2026-11-15T20:06:08+00:00 alerta LatenciaQuemaRapida en Alertmanager
+   2026-11-15T20:06:49+00:00 resuelto
+   MTTD 79.9 s · MTTA 84.3 s · MTTR 120.8 s · usuario: {'solicitudes': 229, 'fallidas': 0, 'proporcion_fallidas': 0.0, 'latencia_p50_s': 0.5786, 'latencia_p95_s': 5.7992, 'latencia_p99_s': 8.4991, 'lentas_mas_de_0_5_s': 0.559}
+
+== INC-03 Falla interna en la extracción de características (50 % de errores 500)
+   2026-11-15T20:08:55+00:00 inyección: POST /api/admin/fallas: 50 % de errores en extraer_caracteristicas durante 30 min
+   2026-11-15T20:09:59+00:00 alerta PresupuestoErroresQuemaRapida en Alertmanager
+   2026-11-15T20:10:29+00:00 resuelto
+   MTTD 63.5 s · MTTA 67.7 s · MTTR 94.3 s · usuario: {'solicitudes': 191, 'fallidas': 86, 'proporcion_fallidas': 0.4503, 'latencia_p50_s': 0.0549, 'latencia_p95_s': 0.1307, 'latencia_p99_s': 0.1973, 'lentas_mas_de_0_5_s': 0.0}
+
+== INC-04 Release malo del modelo (v2 sin compuerta de calidad)
+   2026-11-15T20:10:34+00:00 inyección: scripts/desplegar.py --version 2 --sin-compuerta (v2: etiquetas Sana y Mancha gris cruzadas)
+   2026-11-15T20:11:18+00:00 alerta CalidadModeloDegradada en Alertmanager
+   2026-11-15T20:20:53+00:00 SIN RESOLVER en el límite
+   MTTD 43.7 s · MTTA 48.3 s · MTTR None s · usuario: {'solicitudes': 1208, 'fallidas': 0, 'proporcion_fallidas': 0.0, 'latencia_p50_s': 0.0541, 'latencia_p95_s': 0.1238, 'latencia_p99_s': 0.1904, 'lentas_mas_de_0_5_s': 0.0}
+
+== INC-05 Data drift: temporada de lluvias
+   (el sistema no quedó estable en 15 min; se sigue de todos modos)
+   2026-11-15T20:35:57+00:00 inyección: El 50 % de las fotos de los usuarios llega en condición de lluvia (oscuras y borrosas)
+   2026-11-15T20:38:44+00:00 alerta DriftDatosEntrada en Alertmanager
+   2026-11-15T20:38:48.199+00:00 operaciones creó reentrenamiento_20261115_203848.json; respuesta manual del runbook…
+   2026-11-15T20:40:03+00:00 resuelto
+   MTTD 167.5 s · MTTA 170.7 s · MTTR 246.2 s · usuario: {'solicitudes': 534, 'fallidas': 0, 'proporcion_fallidas': 0.0, 'latencia_p50_s': 0.0562, 'latencia_p95_s': 0.119, 'latencia_p99_s': 0.2479, 'lentas_mas_de_0_5_s': 0.0}
+{
+  "inicio": "2026-11-15T20:00:36+00:00",
+  "fin": "2026-11-15T20:40:33+00:00",
+  "incidentes": [
+    {
+      "id": "INC-01",
+      "nombre": "Caída del contenedor de la API",
+      "alerta_esperada": "ServicioCaido",
+      "runbook": "RB-01",
+      "mttd_s": 28.4,
+      "mtta_s": 31.5,
+      "mttr_s": 46.8,
+      "resuelto": true,
+      "impacto_usuario": {
+        "solicitudes": 83,
+        "fallidas": 61,
+        "proporcion_fallidas": 0.7349,
+        "latencia_p50_s": 0.0541,
+        "latencia_p95_s": 0.1009,
+        "latencia_p99_s": 0.2563,
+        "lentas_mas_de_0_5_s": 0.0
+      }
+    },
+    {
+      "id": "INC-02",
+      "nombre": "CPU estrangulada (vecino ruidoso o límite mal configurado)",
+      "alerta_esperada": "LatenciaQuemaRapida",
+      "runbook": "RB-02",
+      "mttd_s": 79.9,
+      "mtta_s": 84.3,
+      "mttr_s": 120.8,
+      "resuelto": true,
+      "impacto_usuario": {
+        "solicitudes": 229,
+        "fallidas": 0,
+        "proporcion_fallidas": 0.0,
+        "latencia_p50_s": 0.5786,
+        "latencia_p95_s": 5.7992,
+        "latencia_p99_s": 8.4991,
+        "lentas_mas_de_0_5_s": 0.559
+      }
+    },
+    {
+      "id": "INC-03",
+      "nombre": "Falla interna en la extracción de características (50 % de errores 500)",
+      "alerta_esperada": "PresupuestoErroresQuemaRapida",
+      "runbook": "RB-03",
+      "mttd_s": 63.5,
+      "mtta_s": 67.7,
+      "mttr_s": 94.3,
+      "resuelto": true,
+      "impacto_usuario": {
+        "solicitudes": 191,
+        "fallidas": 86,
+        "proporcion_fallidas": 0.4503,
+        "latencia_p50_s": 0.0549,
+        "latencia_p95_s": 0.1307,
+        "latencia_p99_s": 0.1973,
+        "lentas_mas_de_0_5_s": 0.0
+      }
+    },
+    {
+      "id": "INC-04",
+      "nombre": "Release malo del modelo (v2 sin compuerta de calidad)",
+      "alerta_esperada": "CalidadModeloDegradada",
+      "runbook": "RB-04",
+      "mttd_s": 43.7,
+      "mtta_s": 48.3,
+      "mttr_s": null,
+      "resuelto": false,
+      "impacto_usuario": {
+        "solicitudes": 1208,
+        "fallidas": 0,
+        "proporcion_fallidas": 0.0,
+        "latencia_p50_s": 0.0541,
+        "latencia_p95_s": 0.1238,
+        "latencia_p99_s": 0.1904,
+        "lentas_mas_de_0_5_s": 0.0
+      }
+    },
+    {
+      "id": "INC-05",
+      "nombre": "Data drift: temporada de lluvias",
+      "alerta_esperada": "DriftDatosEntrada",
+      "runbook": "RB-05",
+      "mttd_s": 167.5,
+      "mtta_s": 170.7,
+      "mttr_s": 246.2,
+      "resuelto": true,
+      "impacto_usuario": {
+        "solicitudes": 534,
+        "fallidas": 0,
+        "proporcion_fallidas": 0.0,
+        "latencia_p50_s": 0.0562,
+        "latencia_p95_s": 0.119,
+        "latencia_p99_s": 0.2479,
+        "lentas_mas_de_0_5_s": 0.0
+      }
+    }
+  ],
+  "ruido": {
+    "monitoreo_ingenuo_episodios": {
+      "cualquier error 5xx en 30 s": 1,
+      "latencia p95 > 0.5 s (1 min)": 1,
+      "CPU > 80 % del límite": 0,
+      "algún PSI > 0.1": 1,
+      "la API no responde": 0,
+      "rechazos 4xx en 30 s": 0
+    },
+    "total_ingenuo": 3,
+    "notificaciones_reales_por_canal": {
+      "ticket": 4.0,
+      "registro": 1.0
+    }
+  },
+  "trafico_total": {
+    "solicitudes": 4856,
+    "fallidas": 147,
+    "proporcion_fallidas": 0.0303,
+    "latencia_p50_s": 0.0544,
+    "latencia_p95_s": 0.1787,
+    "latencia_p99_s": 4.6952,
+    "lentas_mas_de_0_5_s": 0.0272
+  }
+}

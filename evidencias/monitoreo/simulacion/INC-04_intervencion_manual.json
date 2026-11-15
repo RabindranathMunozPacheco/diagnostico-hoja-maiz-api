@@ -1,0 +1,22 @@
+[
+  {
+    "ts": "2026-11-15T20:21:45+00:00",
+    "paso": "Diagnóstico (RB-04, escalamiento): el log recarga_fallida de la API dice \"[Errno 13] Permission denied: '/app/modelo/registro.json'\"; el registro ya apunta a la v1 pero la API sigue sirviendo la v2"
+  },
+  {
+    "ts": "2026-11-15T20:21:45+00:00",
+    "paso": "Permisos de registro.json escrito por operaciones: 600 root (solo root puede leerlo; la API corre como el usuario servicio)"
+  },
+  {
+    "ts": "2026-11-15T20:21:45+00:00",
+    "paso": "Corrección inmediata: chmod 644 al registro"
+  },
+  {
+    "ts": "2026-11-15T20:21:45+00:00",
+    "paso": "POST /api/admin/recargar -> 200 {'version_anterior': '2', 'version_actual': '1', 'alias': 'champion', 'umbral': 0.2494}"
+  },
+  {
+    "ts": "2026-11-15T20:21:47+00:00",
+    "paso": "Sonda de verificación: {'evaluada': True, 'version': '1', 'fallidas': 0, 'slo_cumplido': True, 'f1_macro': 0.7295, 'exactitud': 0.725, 'enferma_como_sana': 0.0667, 'sana_como_enferma': 0.6}"
+  }
+]

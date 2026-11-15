@@ -1,0 +1,123 @@
+{
+  "id": "INC-05",
+  "nombre": "Data drift: temporada de lluvias",
+  "runbook": "RB-05",
+  "alerta_esperada": "DriftDatosEntrada",
+  "inyeccion": "El 50 % de las fotos de los usuarios llega en condición de lluvia (oscuras y borrosas)",
+  "t_inyeccion": "2026-11-15T20:35:57+00:00",
+  "t_alerta_alertmanager": "2026-11-15T20:38:44+00:00",
+  "inicio_segun_prometheus": "2026-11-15T20:38:38.366Z",
+  "t_recibida_operaciones": "2026-11-15T20:38:48+00:00",
+  "t_resuelto": "2026-11-15T20:40:03+00:00",
+  "mttd_s": 167.5,
+  "mtta_s": 170.7,
+  "mttr_s": 246.2,
+  "resuelto": true,
+  "impacto_usuario": {
+    "solicitudes": 534,
+    "fallidas": 0,
+    "proporcion_fallidas": 0.0,
+    "latencia_p50_s": 0.0562,
+    "latencia_p95_s": 0.119,
+    "latencia_p99_s": 0.2479,
+    "lentas_mas_de_0_5_s": 0.0
+  },
+  "alertas_vistas": [
+    {
+      "alerta": "PresupuestoErroresQuemaLenta",
+      "severidad": "P3",
+      "inicio": "2026-11-15T20:14:08.366Z",
+      "primera_vez_vista": "2026-11-15T20:35:57+00:00",
+      "estados": [
+        "active"
+      ]
+    },
+    {
+      "alerta": "DriftDatosAdvertencia",
+      "severidad": "info",
+      "inicio": "2026-11-15T20:38:23.366Z",
+      "primera_vez_vista": "2026-11-15T20:38:28+00:00",
+      "estados": [
+        "active",
+        "suppressed (inhibida)"
+      ]
+    },
+    {
+      "alerta": "DriftDatosEntrada",
+      "severidad": "P3",
+      "inicio": "2026-11-15T20:38:38.366Z",
+      "primera_vez_vista": "2026-11-15T20:38:44+00:00",
+      "estados": [
+        "active"
+      ]
+    }
+  ],
+  "bitacora": [
+    {
+      "ts": "2026-11-15T20:38:33.138+00:00",
+      "incidente": "DriftDatosAdvertencia@2026-11-15T20:38:23",
+      "evento": "alerta_recibida",
+      "alerta": "DriftDatosAdvertencia",
+      "severidad": "info",
+      "runbook": "RB-05",
+      "accion": "ninguna",
+      "canal": "solo registro",
+      "inicio": "2026-11-15T20:38:23.366Z",
+      "resumen": "Las fotos empiezan a cambiar (PSI entre 0.2 y 0.25)"
+    },
+    {
+      "ts": "2026-11-15T20:38:48.142+00:00",
+      "incidente": "DriftDatosEntrada@2026-11-15T20:38:38",
+      "evento": "alerta_recibida",
+      "alerta": "DriftDatosEntrada",
+      "severidad": "P3",
+      "runbook": "RB-05",
+      "accion": "solicitar_reentrenamiento",
+      "canal": "ticket en la cola de MLOps",
+      "inicio": "2026-11-15T20:38:38.366Z",
+      "resumen": "Las fotos que llegan ya no se parecen a las del entrenamiento (data drift)"
+    },
+    {
+      "ts": "2026-11-15T20:38:48.199+00:00",
+      "incidente": "DriftDatosEntrada@2026-11-15T20:38:38",
+      "evento": "accion",
+      "runbook": "RB-05",
+      "accion": "solicitud de reentrenamiento creada",
+      "archivo": "reentrenamiento_20261115_203848.json",
+      "psi_por_variable": {
+        "brillo": 0.449,
+        "contraste": 0.288,
+        "nitidez": 0.603,
+        "verdor": 0.089,
+        "p_enferma": 0.07
+      },
+      "f1_sonda": {
+        "adverso": 0.25,
+        "golden": 0.73
+      }
+    }
+  ],
+  "pasos_manuales": [
+    {
+      "ts": "2026-11-15T20:38:49+00:00",
+      "paso": "Revisar que no es un error del pipeline: las fotos siguen llegando como PNG de 224x224 desde la misma app; el cambio es de iluminación y nitidez"
+    },
+    {
+      "ts": "2026-11-15T20:39:35+00:00",
+      "paso": "python scripts/reentrenar.py",
+      "codigo": 0,
+      "salida": " servicio)   {'golden': (0.7295, 0.0667), 'adverso': (0.25, 0.3), 'prueba': (0.7212, 0.0795), 'prueba_lluvia': (0.364, 0.3182)}\n   candidata          {'golden': (0.6225, 0.0333), 'adverso': (0.4948, 0.0333), 'prueba': (0.6582, 0.0568), 'prueba_lluvia': (0.539, 0.0455)}\n🏃 View run v3 at: http://localhost:5000/#/experiments/1/runs/9830e4db8135445e9cc01ef2351fc6e1\n🧪 View experiment at: http://localhost:5000/#/experiments/1\n🏃 View run v1 -> candidata v3 at: http://localhost:5000/#/experiments/5/runs/a454b54aaeae4b97ab27fd93e0346dbd\n🧪 View experiment at: http://localhost:5000/#/experiments/5\n5. Candidata registrada: v3 en modelo\\versiones\\3 (también en MLflow)\n2026/11/15 13:39:31 WARNING mlflow.utils.requirements_utils: Found torch version (2.13.0+cpu) contains a local version label (+cpu). MLflow logged a pip requirement for this package as 'torch==2.13.0' without the local version label to make it installable from PyPI. To specify pip requirements containing local version labels, please use `conda_env` or `pip_requirements`.\nRegistered model 'clasificador-hoja-maiz' already exists. Creating a new version of this model...\n2026/11/15 13:39:32 INFO mlflow.store.model_registry.abstract_store: Waiting up to 300 seconds for model version to finish creation. Model name: clasificador-hoja-maiz, version 3\nCreated version '3' of model 'clasificador-hoja-maiz'.\n2026/11/15 13:39:33 INFO mlflow.tracking.fluent: Experiment with name 'reentrenamiento' does not exist. Creating a new experiment."
+    },
+    {
+      "ts": "2026-11-15T20:39:49+00:00",
+      "paso": "python scripts/desplegar.py --version 3 --aprobado-por",
+      "codigo": 0,
+      "salida": "Compuerta de calidad (mezcla estimada de lluvia: 36%)\n  v1: golden F1 0.730 / enfermas como sanas 6.7%   adverso F1 0.250 / 30.0%\n  v3: golden F1 0.623 / enfermas como sanas 3.3%   adverso F1 0.495 / 3.3%\n  esperado con la mezcla: v1 {'f1_macro': 0.5588, 'enferma_como_sana': 0.1498}  v3 {'f1_macro': 0.577, 'enferma_como_sana': 0.0333}\nAlias champion: v1 -> v3; la API recargó: {'version_anterior': '1', 'version_actual': '3', 'alias': 'champion', 'umbral': 0.209}\nSonda después del despliegue: {'evaluada': True, 'version': '3', 'fallidas': 0, 'slo_cumplido': True, 'f1_macro': 0.6225, 'exactitud': 0.625, 'enferma_como_sana': 0.0333, 'sana_como_enferma': 0.5}\n🏃 View run v1 -> v3 (promovida) at: http://localhost:5000/#/experiments/4/runs/b8306367ff1a48598986640be63c172d\n🧪 View experiment at: http://localhost:5000/#/experiments/4"
+    }
+  ],
+  "salida_despliegue": null,
+  "ventana": {
+    "desde": "2026-11-15T20:34:57+00:00",
+    "hasta": "2026-11-15T20:41:03+00:00"
+  }
+}

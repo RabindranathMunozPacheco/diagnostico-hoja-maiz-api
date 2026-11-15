@@ -1,0 +1,150 @@
+{
+  "id": "INC-04",
+  "nombre": "Release malo del modelo (v2 sin compuerta de calidad)",
+  "runbook": "RB-04",
+  "alerta_esperada": "CalidadModeloDegradada",
+  "inyeccion": "scripts/desplegar.py --version 2 --sin-compuerta (v2: etiquetas Sana y Mancha gris cruzadas)",
+  "t_inyeccion": "2026-11-15T20:10:34+00:00",
+  "t_alerta_alertmanager": "2026-11-15T20:11:18+00:00",
+  "inicio_segun_prometheus": "2026-11-15T20:11:13.366Z",
+  "t_recibida_operaciones": "2026-11-15T20:11:23+00:00",
+  "t_resuelto": null,
+  "mttd_s": 43.7,
+  "mtta_s": 48.3,
+  "mttr_s": null,
+  "resuelto": false,
+  "impacto_usuario": {
+    "solicitudes": 1208,
+    "fallidas": 0,
+    "proporcion_fallidas": 0.0,
+    "latencia_p50_s": 0.0541,
+    "latencia_p95_s": 0.1238,
+    "latencia_p99_s": 0.1904,
+    "lentas_mas_de_0_5_s": 0.0
+  },
+  "alertas_vistas": [
+    {
+      "alerta": "PresupuestoErroresQuemaMedia",
+      "severidad": "P2",
+      "inicio": "2026-11-15T20:10:43.366Z",
+      "primera_vez_vista": "2026-11-15T20:10:52+00:00",
+      "estados": [
+        "active"
+      ]
+    },
+    {
+      "alerta": "CalidadModeloDegradada",
+      "severidad": "P2",
+      "inicio": "2026-11-15T20:11:13.366Z",
+      "primera_vez_vista": "2026-11-15T20:11:18+00:00",
+      "estados": [
+        "active"
+      ]
+    },
+    {
+      "alerta": "DistribucionPrediccionesCambio",
+      "severidad": "P3",
+      "inicio": "2026-11-15T20:13:23.366Z",
+      "primera_vez_vista": "2026-11-15T20:13:29+00:00",
+      "estados": [
+        "suppressed (inhibida)"
+      ]
+    },
+    {
+      "alerta": "PresupuestoErroresQuemaLenta",
+      "severidad": "P3",
+      "inicio": "2026-11-15T20:14:08.366Z",
+      "primera_vez_vista": "2026-11-15T20:14:14+00:00",
+      "estados": [
+        "active"
+      ]
+    }
+  ],
+  "bitacora": [
+    {
+      "ts": "2026-11-15T20:10:33.296+00:00",
+      "incidente": "PresupuestoErroresQuemaRapida@2026-11-15T20:09:53",
+      "evento": "alerta_resuelta",
+      "alerta": "PresupuestoErroresQuemaRapida",
+      "severidad": "P1",
+      "inicio": "2026-11-15T20:09:53.366Z",
+      "fin": "2026-11-15T20:10:23.366Z"
+    },
+    {
+      "ts": "2026-11-15T20:10:41.070+00:00",
+      "incidente": "PresupuestoErroresQuemaRapida@2026-11-15T20:09:53",
+      "evento": "verificacion",
+      "runbook": "RB-03",
+      "resultado": "ok",
+      "proporcion_errores_despues_del_reinicio": 0.0
+    },
+    {
+      "ts": "2026-11-15T20:10:53.293+00:00",
+      "incidente": "PresupuestoErroresQuemaMedia@2026-11-15T20:10:43",
+      "evento": "alerta_recibida",
+      "alerta": "PresupuestoErroresQuemaMedia",
+      "severidad": "P2",
+      "runbook": "RB-03",
+      "accion": "ninguna",
+      "canal": "página al responsable de guardia",
+      "inicio": "2026-11-15T20:10:43.366Z",
+      "resumen": "Disponibilidad del diagnóstico: el presupuesto de errores se quema 6 veces más rápido de lo permitido"
+    },
+    {
+      "ts": "2026-11-15T20:11:23.301+00:00",
+      "incidente": "CalidadModeloDegradada@2026-11-15T20:11:13",
+      "evento": "alerta_recibida",
+      "alerta": "CalidadModeloDegradada",
+      "severidad": "P2",
+      "runbook": "RB-04",
+      "accion": "rollback",
+      "canal": "página al responsable de guardia",
+      "inicio": "2026-11-15T20:11:13.366Z",
+      "resumen": "La sonda detecta que la calidad del modelo bajó del SLO"
+    },
+    {
+      "ts": "2026-11-15T20:11:23.339+00:00",
+      "incidente": "CalidadModeloDegradada@2026-11-15T20:11:13",
+      "evento": "diagnostico",
+      "runbook": "RB-04",
+      "version_actual": "2",
+      "version_anterior": "1"
+    },
+    {
+      "ts": "2026-11-15T20:11:24.024+00:00",
+      "incidente": "CalidadModeloDegradada@2026-11-15T20:11:13",
+      "evento": "escalamiento",
+      "runbook": "RB-04",
+      "motivo": "la acción automática rollback falló: Server error '500 Internal Server Error' for url 'http://api:8000/api/admin/recargar'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500",
+      "canal": "página al responsable de guardia",
+      "mensaje": "Se requiere intervención humana (ver el runbook)"
+    },
+    {
+      "ts": "2026-11-15T20:12:53.289+00:00",
+      "incidente": "PresupuestoErroresQuemaMedia@2026-11-15T20:10:43",
+      "evento": "alerta_resuelta",
+      "alerta": "PresupuestoErroresQuemaMedia",
+      "severidad": "P2",
+      "inicio": "2026-11-15T20:10:43.366Z",
+      "fin": "2026-11-15T20:12:28.366Z"
+    },
+    {
+      "ts": "2026-11-15T20:14:18.282+00:00",
+      "incidente": "PresupuestoErroresQuemaLenta@2026-11-15T20:14:08",
+      "evento": "alerta_recibida",
+      "alerta": "PresupuestoErroresQuemaLenta",
+      "severidad": "P3",
+      "runbook": "RB-03",
+      "accion": "ninguna",
+      "canal": "ticket en la cola de MLOps",
+      "inicio": "2026-11-15T20:14:08.366Z",
+      "resumen": "Disponibilidad del diagnóstico: el presupuesto de errores se quema 1 veces más rápido de lo permitido"
+    }
+  ],
+  "pasos_manuales": [],
+  "salida_despliegue": "ATENCIÓN: se promueve la v2 SIN compuerta de calidad (queda en el historial)\nAlias champion: v1 -> v2; la API recargó: {'version_anterior': '1', 'version_actual': '2', 'alias': 'champion', 'umbral': 0.2494}\nSonda después del despliegue: {'evaluada': True, 'version': '2', 'fallidas': 0, 'slo_cumplido': False, 'f1_macro': 0.4521, 'exactitud': 0.425, 'enferma_como_sana': 0.3, 'sana_como_enferma': 0.9}\n🏃 View run v1 -> v2 (promovida) at: http://localhost:5000/#/experiments/4/runs/882c3c68a19448aba6dfbba7204f8bfa\n🧪 View experiment at: http://localhost:5000/#/experiments/4\n2026/11/15 13:10:50 INFO mlflow.tracking.fluent: Experiment with name 'despliegues' does not exist. Creating a new experiment.",
+  "ventana": {
+    "desde": "2026-11-15T20:09:34+00:00",
+    "hasta": "2026-11-15T20:21:53+00:00"
+  }
+}

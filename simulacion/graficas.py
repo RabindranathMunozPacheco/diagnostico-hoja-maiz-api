@@ -63,11 +63,17 @@ def marcas(inc):
     if inc.get("t_alerta_alertmanager"):
         m.append(("alerta", ts(inc["t_alerta_alertmanager"]), "alerta"))
     for e in inc["bitacora"]:
-        if e["evento"] == "accion":
-            m.append(("accion", ts(e["ts"]), "acción automática"))
+        if e["evento"] in ("accion", "escalamiento"):
+            m.append(("accion" if e["evento"] == "accion" else "alerta", ts(e["ts"]),
+                      "acción automática" if e["evento"] == "accion" else "escalamiento"))
     for p in inc.get("pasos_manuales", []):
         if "desplegar" in p["paso"]:
             m.append(("accion", ts(p["ts"]), "despliegue aprobado"))
+    manual = CARPETA / f"{inc['id']}_intervencion_manual.json"
+    if manual.exists():
+        pasos = json.loads(manual.read_text(encoding="utf-8"))
+        m.append(("accion", ts(pasos[0]["ts"]), "intervención manual"))
+        m.append(("resuelto", ts(pasos[-1]["ts"]), "resuelto (manual)"))
     if inc.get("t_resuelto"):
         m.append(("resuelto", ts(inc["t_resuelto"]), "resuelto"))
     return m
@@ -89,7 +95,12 @@ def figura(inc):
         eje.grid(alpha=0.25)
         eje.legend(fontsize=7, loc="upper right", ncol=3)
     ejes[-1].xaxis.set_major_formatter(mdates.DateFormatter("%H:%M", tz=datetime.now().astimezone().tzinfo))
-    fig.suptitle(f"{inc['id']} · {inc['nombre']}  (MTTD {inc['mttd_s']} s, MTTR {inc['mttr_s']} s)", fontsize=11)
+    mttr = f"{inc['mttr_s']} s"
+    manual = CARPETA / f"{inc['id']}_intervencion_manual.json"
+    if not inc.get("t_resuelto") and manual.exists():
+        fin = ts(json.loads(manual.read_text(encoding="utf-8"))[-1]["ts"])
+        mttr = f"{(fin - ts(inc['t_inyeccion'])).total_seconds() / 60:.1f} min, con intervención manual"
+    fig.suptitle(f"{inc['id']} · {inc['nombre']}  (MTTD {inc['mttd_s']} s, MTTR {mttr})", fontsize=11)
     fig.tight_layout()
     ruta = CARPETA / f"{inc['id']}.png"
     fig.savefig(ruta, dpi=150)
@@ -102,12 +113,19 @@ def linea_de_tiempo(incidentes):
     for i, inc in enumerate(incidentes):
         t0 = ts(inc["t_inyeccion"])
         fin = ts(inc["t_resuelto"]) if inc.get("t_resuelto") else ts(inc["ventana"]["hasta"])
+        manual = CARPETA / f"{inc['id']}_intervencion_manual.json"
+        if not inc.get("t_resuelto") and manual.exists():
+            fin = ts(json.loads(manual.read_text(encoding="utf-8"))[-1]["ts"])
         eje.barh(i, (fin - t0).total_seconds() / 60, height=0.5, color="#bdc3c7")
         detect = inc["mttd_s"] or 0
         eje.barh(i, detect / 60, height=0.5, color=COLORES["alerta"])
-        eje.text((fin - t0).total_seconds() / 60 + 0.2, i, f"MTTD {inc['mttd_s']} s · MTTR {inc['mttr_s']} s",
-                 va="center", fontsize=8)
+        texto = f"MTTD {inc['mttd_s']} s · MTTR {inc['mttr_s']} s"
+        manual = CARPETA / f"{inc['id']}_intervencion_manual.json"
+        if not inc.get("t_resuelto") and manual.exists():
+            texto = f"MTTD {inc['mttd_s']} s · escaló; resuelto a mano en {(fin - t0).total_seconds() / 60:.1f} min"
+        eje.text((fin - t0).total_seconds() / 60 + 0.2, i, texto, va="center", fontsize=8)
     eje.set_yticks(range(len(incidentes)), [f"{inc['id']} {inc['alerta_esperada']}" for inc in incidentes], fontsize=8)
+    eje.set_xlim(0, eje.get_xlim()[1] + 5)
     eje.invert_yaxis()
     eje.set_xlabel("minutos desde la inyección (naranja: detección; gris: hasta la recuperación)")
     eje.grid(axis="x", alpha=0.25)
@@ -117,7 +135,7 @@ def linea_de_tiempo(incidentes):
 
 
 def main():
-    incidentes = [json.loads(p.read_text(encoding="utf-8")) for p in sorted(CARPETA.glob("INC-*.json"))]
+    incidentes = [json.loads(p.read_text(encoding="utf-8")) for p in sorted(CARPETA.glob("INC-0?.json"))]
     for inc in incidentes:
         print("escrita", figura(inc).relative_to(RAIZ))
     linea_de_tiempo(incidentes)
