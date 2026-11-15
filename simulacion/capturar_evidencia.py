@@ -57,6 +57,23 @@ def mlflow():
             exportar_monitoreo(cliente, exp.experiment_id)
 
 
+DETALLES = {   # corrida de MLflow -> captura de su página de detalle (parámetros, métricas y etiquetas)
+    ("despliegues", "v1 -> v3 (promovida)"): "mlflow_detalle_despliegue_v3.png",
+    ("respuesta-a-incidentes", "RB-04 rollback"): "mlflow_detalle_rb04_rollback.png",
+    ("reentrenamiento", "v1 -> candidata v3"): "mlflow_detalle_reentrenamiento_v3.png",
+}
+
+
+def mlflow_detalle():
+    """La lista de corridas solo muestra nombres; el detalle muestra qué se registra de cada evento."""
+    cliente = MlflowClient(MLFLOW)
+    for (experimento, corrida), archivo in DETALLES.items():
+        exp = cliente.get_experiment_by_name(experimento)
+        run = next((r for r in cliente.search_runs([exp.experiment_id]) if r.info.run_name == corrida), None) if exp else None
+        if run:
+            capturar(f"{MLFLOW}/#/experiments/{exp.experiment_id}/runs/{run.info.run_id}", SALIDA / archivo, 1700, 1500)
+
+
 def recortar_graficas(ruta):
     """De la vista de gráficas (orden alfabético) se queda con el encabezado y las filas de PSI y de la sonda."""
     from PIL import Image
@@ -122,8 +139,12 @@ def trazas_y_logs():
     with open(SIM / "trafico.csv", encoding="utf-8") as f:
         normal = next(r["trace_id"] for r in csv.DictReader(f) if r["codigo"] == "200" and r["trace_id"])
     capturar(f"{JAEGER}/trace/{normal}", SALIDA / "jaeger_traza_normal.png", 1600, 900)
-    capturar(f"{JAEGER}/search?service=diagnostico-hoja-maiz&tags=%7B%22error%22%3A%22true%22%7D&limit=20",
-             SALIDA / "jaeger_busqueda_errores.png", 1600, 1000)
+    us = lambda texto: ms(texto) * 1000  # noqa: E731 - Jaeger usa microsegundos
+    busqueda = urllib.parse.urlencode({"end": us(inc["ventana"]["hasta"]), "limit": 20, "lookback": "custom",
+                                       "service": "diagnostico-hoja-maiz", "start": us(inc["ventana"]["desde"]),
+                                       "tags": json.dumps({"error": "true"})})
+    # con lookback=1h (lo que pone la interfaz por defecto) la búsqueda fallaba con 400; con el rango del INC-03 no
+    capturar(f"{JAEGER}/search?{busqueda}", SALIDA / "jaeger_busqueda_errores.png", 1600, 1000, 25000)
     desde, hasta = ms(inc["t_inyeccion"]) - 30000, ms(inc["t_resuelto"] or inc["ventana"]["hasta"]) + 30000
     panes = {"a": {"datasource": "loki", "queries": [{"refId": "A", "datasource": {"type": "loki", "uid": "loki"},
                                                       "expr": '{service_name="diagnostico-hoja-maiz"} | evento=~"error_interno|modelo_recargado|falla_inyectada"'}],
@@ -136,14 +157,81 @@ def prometheus():
     capturar(f"{PROM}/alerts", SALIDA / "prometheus_reglas.png", 1500, 1800)
     resumen = json.loads((SIM / "resumen.json").read_text(encoding="utf-8"))
     duracion = int((ms(resumen["fin"]) - ms(resumen["inicio"])) / 60000) + 2
-    q = urllib.parse.quote('slo:proporcion_errores:v5m / on(slo) group_left() (1 - slo:objetivo)')
-    capturar(f"{PROM}/query?g0.expr={q}&g0.tab=graph&g0.range_input={duracion}m&g0.end_input="
-             f"{urllib.parse.quote(resumen['fin'][:19].replace('T', ' '))}", SALIDA / "prometheus_quema.png", 1500, 900)
+    del duracion
+    # La interfaz nueva de Prometheus no dibuja la gráfica en Edge sin ventana; la consulta se hace desde Grafana
+    # Explore, que lee el mismo Prometheus
+    panes = {"q": {"datasource": "prometheus", "queries": [
+        {"refId": "A", "datasource": {"type": "prometheus", "uid": "prometheus"}, "legendFormat": "{{slo}}",
+         "expr": 'slo:proporcion_errores:v5m / on(slo) group_left() (1 - slo:objetivo)'}],
+        "range": {"from": str(ms(resumen["inicio"])), "to": str(ms(resumen["fin"]))}}}
+    capturar(f"{GRAFANA}/explore?schemaVersion=1&orgId=1&panes={urllib.parse.quote(json.dumps(panes))}",
+             SALIDA / "prometheus_quema.png", 1700, 1000, 25000)
+    alertas_en_el_tiempo(resumen)
+
+
+SEVERIDAD = {   # paleta de estado (fija): el color repite la severidad que ya va escrita en cada fila
+    "P1": ("#d03b3b", "P1 (página inmediata)"), "P2": ("#ec835a", "P2 (página)"),
+    "P3": ("#fab219", "P3 (ticket)"), "info": ("#898781", "info (solo registro)")}
+
+
+def alertas_en_el_tiempo(resumen):
+    """Cuándo estuvo disparada cada alerta durante la simulación (serie ALERTS de Prometheus), con los incidentes."""
+    import matplotlib.dates as mdates
+    import httpx
+    from matplotlib.patches import Patch
+    fin = datetime.fromisoformat(resumen["fin"].replace("Z", "+00:00")).timestamp() + 120
+    r = httpx.get(f"{PROM}/api/v1/query_range", params={
+        "query": 'ALERTS{alertstate="firing"}', "start": resumen["inicio"], "end": fin, "step": "5s"}).json()
+    tramos = {}
+    for serie in r["data"]["result"]:
+        clave = (serie["metric"]["alertname"], serie["metric"].get("severidad", "info"))
+        tiempos = [float(t) for t, _ in serie["values"]]
+        inicio = previo = tiempos[0]
+        for t in tiempos[1:] + [None]:
+            if t is None or t - previo > 10:
+                tramos.setdefault(clave, []).append((inicio, previo + 5))
+                inicio = t
+            previo = t if t is not None else previo
+    orden = sorted(tramos, key=lambda k: (list(SEVERIDAD).index(k[1]), min(a for a, _ in tramos[k])))
+    zona = datetime.now().astimezone().tzinfo
+    a_fecha = lambda t: datetime.fromtimestamp(t, zona)  # noqa: E731
+    fig, eje = plt.subplots(figsize=(11, 0.42 * len(orden) + 1.6))
+    fig.patch.set_facecolor("#fcfcfb")
+    eje.set_facecolor("#fcfcfb")
+    for fila, (alerta, sev) in enumerate(orden):
+        for a, b in tramos[(alerta, sev)]:
+            eje.barh(fila, (b - a) / 86400, left=mdates.date2num(a_fecha(a)), height=0.5,
+                     color=SEVERIDAD[sev][0], edgecolor="#fcfcfb", linewidth=1)
+    for i, p in enumerate(sorted(SIM.glob("INC-0?.json"))):
+        inc = json.loads(p.read_text(encoding="utf-8"))
+        x = mdates.date2num(a_fecha(ms(inc["t_inyeccion"]) / 1000))
+        eje.axvline(x, color="#898781", lw=1, ls=(0, (3, 3)), zorder=0)
+        # alturas alternadas: el INC-01 y el INC-02 quedaron a un minuto y sus etiquetas se encimaban
+        eje.text(x, -0.75 - 0.55 * (i % 2), inc["id"], fontsize=8, color="#52514e", ha="center", va="bottom")
+    eje.set_yticks(range(len(orden)), [f"{sev} · {alerta}" for alerta, sev in orden], fontsize=8.5, color="#0b0b0b")
+    eje.set_ylim(len(orden) - 0.4, -1.6)
+    eje.xaxis.set_major_locator(mdates.MinuteLocator(byminute=range(0, 60, 5), tz=zona))
+    eje.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M", tz=zona))
+    eje.tick_params(axis="x", labelsize=8, colors="#52514e")
+    eje.tick_params(axis="y", length=0)
+    eje.grid(axis="x", color="#e1e0d9", lw=0.6)
+    eje.set_axisbelow(True)
+    for lado in ("top", "right", "left"):
+        eje.spines[lado].set_visible(False)
+    eje.spines["bottom"].set_color("#c3c2b7")
+    eje.set_xlabel("hora local (líneas punteadas: inyección de cada incidente)", fontsize=8, color="#52514e")
+    eje.legend(handles=[Patch(color=c, label=t) for c, t in SEVERIDAD.values()], fontsize=8, ncol=4,
+               loc="upper center", bbox_to_anchor=(0.5, -0.16), frameon=False)
+    fig.suptitle("Alertas disparadas en Prometheus durante la simulación", fontsize=11, color="#0b0b0b", x=0.02,
+                 ha="left")
+    fig.tight_layout()
+    fig.savefig(SALIDA / "prometheus_alertas_en_el_tiempo.png", dpi=170, facecolor=fig.get_facecolor())
+    plt.close(fig)
 
 
 def main():
     SALIDA.mkdir(parents=True, exist_ok=True)
-    for paso in (mlflow, grafana, trazas_y_logs, prometheus):
+    for paso in (mlflow, mlflow_detalle, grafana, trazas_y_logs, prometheus):
         try:
             paso()
             print(f"listo: {paso.__name__}")
