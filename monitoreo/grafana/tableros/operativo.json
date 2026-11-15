@@ -85,7 +85,8 @@
                 }
               }
             }
-          ]
+          ],
+          "noValue": "sin tráfico"
         },
         "overrides": []
       },
@@ -141,7 +142,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "noValue": "sin tráfico"
         },
         "overrides": []
       },
@@ -206,7 +208,8 @@
                 "value": 0.995
               }
             ]
-          }
+          },
+          "noValue": "sin tráfico"
         },
         "overrides": []
       },
@@ -271,7 +274,8 @@
                 "value": 0.99
               }
             ]
-          }
+          },
+          "noValue": "sin tráfico"
         },
         "overrides": []
       },
@@ -336,7 +340,8 @@
                 "value": 0.5
               }
             ]
-          }
+          },
+          "noValue": "sin tráfico"
         },
         "overrides": []
       },
@@ -1615,7 +1620,7 @@
         "x": 0,
         "y": 50,
         "w": 24,
-        "h": 2
+        "h": 3
       },
       "targets": [],
       "fieldConfig": {

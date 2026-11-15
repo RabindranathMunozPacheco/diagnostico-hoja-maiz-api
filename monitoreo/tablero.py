@@ -73,6 +73,7 @@ def dato(titulo, x, y, w, h, consultas, descripcion="", unidad=None, umbral=None
                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": False}})
     if mapeos:
         p["fieldConfig"]["defaults"]["mappings"] = mapeos
+    p["fieldConfig"]["defaults"]["noValue"] = "sin tráfico"
     return p
 
 
@@ -197,7 +198,7 @@ def construir():
               datasource=LOKI),
     ]
     y += 7
-    paneles.append(panel("text", "Enlaces", 0, y, 24, 2, [], opciones={"mode": "markdown", "content": (
+    paneles.append(panel("text", "Enlaces", 0, y, 24, 3, [], opciones={"mode": "markdown", "content": (
         "[Trazas en Jaeger](http://localhost:16686/search?service=diagnostico-hoja-maiz) · "
         "[Alertmanager](http://localhost:9093) · [Reglas en Prometheus](http://localhost:9090/alerts) · "
         "[Bitácora de operaciones](http://localhost:9102/bitacora) · "
