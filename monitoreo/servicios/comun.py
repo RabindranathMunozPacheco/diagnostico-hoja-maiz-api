@@ -57,6 +57,9 @@ def escribir_registro(registro, dir_modelos=None):
                                      suffix=".tmp") as tmp:
         json.dump(registro, tmp, ensure_ascii=False, indent=2)
         tmp.write("\n")
+    # El temporal nace con permisos 0600: si lo escribe root (operaciones), la API (usuario servicio) ya no puede
+    # leer el registro. Lo encontró la simulación INC-04: el rollback movió el alias pero la recarga falló.
+    os.chmod(tmp.name, 0o644)
     os.replace(tmp.name, destino)
 
 
