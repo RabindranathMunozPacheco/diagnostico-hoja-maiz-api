@@ -1,0 +1,72 @@
+# GENERADO por monitoreo/slo.py (laboratorio). No editar a mano.
+route:
+  receiver: registro
+  group_by:
+  - alertname
+  - servicio
+  group_wait: 5s
+  group_interval: 30s
+  repeat_interval: 30m
+  routes:
+  - matchers:
+    - severidad=~"P1|P2"
+    receiver: pagina
+  - matchers:
+    - severidad="P3"
+    receiver: ticket
+  - matchers:
+    - severidad="info"
+    receiver: registro
+inhibit_rules:
+- source_matchers:
+  - alertname="ServicioCaido"
+  target_matchers:
+  - alertname!="ServicioCaido"
+  equal:
+  - servicio
+- source_matchers:
+  - severidad="P1"
+  target_matchers:
+  - severidad=~"P2|P3|info"
+  equal:
+  - servicio
+- source_matchers:
+  - alertname=~".*QuemaRapida"
+  target_matchers:
+  - alertname=~".*Quema(Media|Lenta)"
+  equal:
+  - slo
+- source_matchers:
+  - alertname=~".*QuemaMedia"
+  target_matchers:
+  - alertname=~".*QuemaLenta"
+  equal:
+  - slo
+- source_matchers:
+  - alertname="DriftDatosEntrada"
+  target_matchers:
+  - alertname=~"DriftDatosAdvertencia|DistribucionPrediccionesCambio"
+  equal:
+  - servicio
+- source_matchers:
+  - alertname="CalidadModeloDegradada"
+  target_matchers:
+  - alertname="DistribucionPrediccionesCambio"
+  equal:
+  - servicio
+receivers:
+- name: pagina
+  webhook_configs:
+  - url: http://operaciones:9102/alertas/pagina
+    send_resolved: true
+    max_alerts: 0
+- name: ticket
+  webhook_configs:
+  - url: http://operaciones:9102/alertas/ticket
+    send_resolved: true
+    max_alerts: 0
+- name: registro
+  webhook_configs:
+  - url: http://operaciones:9102/alertas/registro
+    send_resolved: true
+    max_alerts: 0

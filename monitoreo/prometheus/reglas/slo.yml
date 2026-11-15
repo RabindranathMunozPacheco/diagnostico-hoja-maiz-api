@@ -1,0 +1,311 @@
+# GENERADO por monitoreo/slo.py (laboratorio). No editar a mano.
+groups:
+- name: slo_registro
+  rules:
+  - record: slo:proporcion_errores:v5m
+    labels:
+      slo: disponibilidad
+      ventana_real: 25s
+    expr: (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[25s]))) / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[25s])))
+  - record: slo:solicitudes:v5m
+    labels:
+      slo: disponibilidad
+      ventana_real: 25s
+    expr: sum(increase(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[25s]))
+  - record: slo:proporcion_errores:v30m
+    labels:
+      slo: disponibilidad
+      ventana_real: 150s
+    expr: (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[150s]))) / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[150s])))
+  - record: slo:solicitudes:v30m
+    labels:
+      slo: disponibilidad
+      ventana_real: 150s
+    expr: sum(increase(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[150s]))
+  - record: slo:proporcion_errores:v1h
+    labels:
+      slo: disponibilidad
+      ventana_real: 5m
+    expr: (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[5m]))) / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[5m])))
+  - record: slo:solicitudes:v1h
+    labels:
+      slo: disponibilidad
+      ventana_real: 5m
+    expr: sum(increase(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[5m]))
+  - record: slo:proporcion_errores:v6h
+    labels:
+      slo: disponibilidad
+      ventana_real: 30m
+    expr: (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[30m]))) / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[30m])))
+  - record: slo:solicitudes:v6h
+    labels:
+      slo: disponibilidad
+      ventana_real: 30m
+    expr: sum(increase(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[30m]))
+  - record: slo:proporcion_errores:v3d
+    labels:
+      slo: disponibilidad
+      ventana_real: 6h
+    expr: (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[6h]))) / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[6h])))
+  - record: slo:solicitudes:v3d
+    labels:
+      slo: disponibilidad
+      ventana_real: 6h
+    expr: sum(increase(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[6h]))
+  - record: slo:proporcion_errores:v30d
+    labels:
+      slo: disponibilidad
+      ventana_real: 60h
+    expr: (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario",codigo=~"5.."}[60h]))) / (sum(rate(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[60h])))
+  - record: slo:solicitudes:v30d
+    labels:
+      slo: disponibilidad
+      ventana_real: 60h
+    expr: sum(increase(http_solicitudes_total{ruta="/api/diagnostico",origen="usuario"}[60h]))
+  - record: slo:presupuesto_restante
+    labels:
+      slo: disponibilidad
+    expr: clamp_min(1 - (slo:proporcion_errores:v30d{slo="disponibilidad"} / 0.005), -1)
+  - record: slo:objetivo
+    labels:
+      slo: disponibilidad
+    expr: vector(0.995)
+  - record: slo:proporcion_errores:v5m
+    labels:
+      slo: latencia
+      ventana_real: 25s
+    expr: ((sum(rate(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[25s])) - sum(rate(http_duracion_segundos_bucket{ruta="/api/diagnostico",origen="usuario",resultado="ok",le="0.5"}[25s]))))
+      / (sum(rate(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[25s])))
+  - record: slo:solicitudes:v5m
+    labels:
+      slo: latencia
+      ventana_real: 25s
+    expr: sum(increase(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[25s]))
+  - record: slo:proporcion_errores:v30m
+    labels:
+      slo: latencia
+      ventana_real: 150s
+    expr: ((sum(rate(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[150s])) - sum(rate(http_duracion_segundos_bucket{ruta="/api/diagnostico",origen="usuario",resultado="ok",le="0.5"}[150s]))))
+      / (sum(rate(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[150s])))
+  - record: slo:solicitudes:v30m
+    labels:
+      slo: latencia
+      ventana_real: 150s
+    expr: sum(increase(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[150s]))
+  - record: slo:proporcion_errores:v1h
+    labels:
+      slo: latencia
+      ventana_real: 5m
+    expr: ((sum(rate(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[5m])) - sum(rate(http_duracion_segundos_bucket{ruta="/api/diagnostico",origen="usuario",resultado="ok",le="0.5"}[5m]))))
+      / (sum(rate(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[5m])))
+  - record: slo:solicitudes:v1h
+    labels:
+      slo: latencia
+      ventana_real: 5m
+    expr: sum(increase(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[5m]))
+  - record: slo:proporcion_errores:v6h
+    labels:
+      slo: latencia
+      ventana_real: 30m
+    expr: ((sum(rate(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[30m])) - sum(rate(http_duracion_segundos_bucket{ruta="/api/diagnostico",origen="usuario",resultado="ok",le="0.5"}[30m]))))
+      / (sum(rate(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[30m])))
+  - record: slo:solicitudes:v6h
+    labels:
+      slo: latencia
+      ventana_real: 30m
+    expr: sum(increase(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[30m]))
+  - record: slo:proporcion_errores:v30d
+    labels:
+      slo: latencia
+      ventana_real: 60h
+    expr: ((sum(rate(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[60h])) - sum(rate(http_duracion_segundos_bucket{ruta="/api/diagnostico",origen="usuario",resultado="ok",le="0.5"}[60h]))))
+      / (sum(rate(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[60h])))
+  - record: slo:solicitudes:v30d
+    labels:
+      slo: latencia
+      ventana_real: 60h
+    expr: sum(increase(http_duracion_segundos_count{ruta="/api/diagnostico",origen="usuario",resultado="ok"}[60h]))
+  - record: slo:presupuesto_restante
+    labels:
+      slo: latencia
+    expr: clamp_min(1 - (slo:proporcion_errores:v30d{slo="latencia"} / 0.01), -1)
+  - record: slo:objetivo
+    labels:
+      slo: latencia
+    expr: vector(0.99)
+- name: alertas
+  rules:
+  - alert: PresupuestoErroresQuemaRapida
+    expr: slo:proporcion_errores:v1h{slo="disponibilidad"} > 0.072 and on(slo) slo:proporcion_errores:v5m{slo="disponibilidad"}
+      > 0.072 and on(slo) slo:solicitudes:v1h{slo="disponibilidad"} >= 20
+    for: 10s
+    labels:
+      severidad: P1
+      servicio: diagnostico
+      runbook: RB-03
+      accion: atender_errores
+      slo: disponibilidad
+    annotations:
+      summary: 'Disponibilidad del diagnóstico: el presupuesto de errores se quema 14.4 veces más rápido de lo permitido'
+      description: Proporción de eventos malos en 5m = {{ $value | humanizePercentage }} (el SLO permite 0.5%). Se gasta el
+        2 % del presupuesto de 30 días en 1 hora; a este ritmo el presupuesto se acaba en 2.1 días.
+      runbook_url: https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api/blob/main/monitoreo/runbooks.md#rb-03
+  - alert: PresupuestoErroresQuemaMedia
+    expr: slo:proporcion_errores:v6h{slo="disponibilidad"} > 0.03 and on(slo) slo:proporcion_errores:v30m{slo="disponibilidad"}
+      > 0.03 and on(slo) slo:solicitudes:v6h{slo="disponibilidad"} >= 20
+    for: 75s
+    labels:
+      severidad: P2
+      servicio: diagnostico
+      runbook: RB-03
+      accion: ninguna
+      slo: disponibilidad
+    annotations:
+      summary: 'Disponibilidad del diagnóstico: el presupuesto de errores se quema 6 veces más rápido de lo permitido'
+      description: Proporción de eventos malos en 30m = {{ $value | humanizePercentage }} (el SLO permite 0.5%). Se gasta
+        el 5 % del presupuesto en 6 horas; a este ritmo el presupuesto se acaba en 5.0 días.
+      runbook_url: https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api/blob/main/monitoreo/runbooks.md#rb-03
+  - alert: PresupuestoErroresQuemaLenta
+    expr: slo:proporcion_errores:v3d{slo="disponibilidad"} > 0.005 and on(slo) slo:proporcion_errores:v6h{slo="disponibilidad"}
+      > 0.005 and on(slo) slo:solicitudes:v3d{slo="disponibilidad"} >= 20
+    for: 5m
+    labels:
+      severidad: P3
+      servicio: diagnostico
+      runbook: RB-03
+      accion: ninguna
+      slo: disponibilidad
+    annotations:
+      summary: 'Disponibilidad del diagnóstico: el presupuesto de errores se quema 1 veces más rápido de lo permitido'
+      description: Proporción de eventos malos en 6h = {{ $value | humanizePercentage }} (el SLO permite 0.5%). Se gasta el
+        10 % del presupuesto en 3 días; a este ritmo el presupuesto se acaba en 30.0 días.
+      runbook_url: https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api/blob/main/monitoreo/runbooks.md#rb-03
+  - alert: LatenciaQuemaRapida
+    expr: slo:proporcion_errores:v1h{slo="latencia"} > 0.144 and on(slo) slo:proporcion_errores:v5m{slo="latencia"} > 0.144
+      and on(slo) slo:solicitudes:v1h{slo="latencia"} >= 20
+    for: 10s
+    labels:
+      severidad: P2
+      servicio: diagnostico
+      runbook: RB-02
+      accion: reconciliar_recursos
+      slo: latencia
+    annotations:
+      summary: 'Latencia del diagnóstico: el presupuesto de errores se quema 14.4 veces más rápido de lo permitido'
+      description: Proporción de eventos malos en 5m = {{ $value | humanizePercentage }} (el SLO permite 1.0%). Se gasta el
+        2 % del presupuesto de 30 días en 1 hora; a este ritmo el presupuesto se acaba en 2.1 días.
+      runbook_url: https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api/blob/main/monitoreo/runbooks.md#rb-02
+  - alert: LatenciaQuemaMedia
+    expr: slo:proporcion_errores:v6h{slo="latencia"} > 0.06 and on(slo) slo:proporcion_errores:v30m{slo="latencia"} > 0.06
+      and on(slo) slo:solicitudes:v6h{slo="latencia"} >= 20
+    for: 75s
+    labels:
+      severidad: P3
+      servicio: diagnostico
+      runbook: RB-02
+      accion: ninguna
+      slo: latencia
+    annotations:
+      summary: 'Latencia del diagnóstico: el presupuesto de errores se quema 6 veces más rápido de lo permitido'
+      description: Proporción de eventos malos en 30m = {{ $value | humanizePercentage }} (el SLO permite 1.0%). Se gasta
+        el 5 % del presupuesto en 6 horas; a este ritmo el presupuesto se acaba en 5.0 días.
+      runbook_url: https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api/blob/main/monitoreo/runbooks.md#rb-02
+  - alert: ServicioCaido
+    expr: up{job="api"} == 0
+    for: 15s
+    labels:
+      severidad: P1
+      servicio: diagnostico
+      runbook: RB-01
+      accion: reiniciar
+    annotations:
+      summary: La API de diagnóstico no responde a Prometheus
+      description: El objetivo api lleva caído al menos 15s. Nadie puede diagnosticar.
+      runbook_url: https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api/blob/main/monitoreo/runbooks.md#rb-01
+  - alert: CalidadModeloDegradada
+    expr: sonda_slo_cumplido{conjunto="golden"} == 0
+    for: 20s
+    labels:
+      severidad: P2
+      servicio: diagnostico
+      runbook: RB-04
+      accion: rollback
+    annotations:
+      summary: La sonda detecta que la calidad del modelo bajó del SLO
+      description: 'En el golden set: F1 macro < {{ with query "sonda_umbral{metrica=''f1_min''}" }}{{ . | first | value }}{{
+        end }} o enfermas reportadas como sanas por arriba del límite. Típico de un release malo del modelo.'
+      runbook_url: https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api/blob/main/monitoreo/runbooks.md#rb-04
+  - alert: DistribucionPrediccionesCambio
+    expr: drift_psi{variable="p_enferma"} > 0.25 and on() drift_muestras >= 50
+    for: 50s
+    labels:
+      severidad: P3
+      servicio: diagnostico
+      runbook: RB-04
+      accion: ninguna
+    annotations:
+      summary: Cambió la distribución de P(enferma) respecto a la línea base
+      description: PSI de P(enferma) = {{ $value }}. Sin etiquetas, es la primera señal de un cambio de modelo o de datos.
+      runbook_url: https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api/blob/main/monitoreo/runbooks.md#rb-04
+  - alert: DriftDatosEntrada
+    expr: max(drift_psi{variable=~"brillo|contraste|nitidez|verdor"}) > 0.25 and on() drift_muestras >= 50
+    for: 1m
+    labels:
+      severidad: P3
+      servicio: diagnostico
+      runbook: RB-05
+      accion: solicitar_reentrenamiento
+    annotations:
+      summary: Las fotos que llegan ya no se parecen a las del entrenamiento (data drift)
+      description: PSI máximo de las características de entrada = {{ $value }} (más de 0.25 es un cambio importante).
+      runbook_url: https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api/blob/main/monitoreo/runbooks.md#rb-05
+  - alert: DriftDatosAdvertencia
+    expr: max(drift_psi{variable=~"brillo|contraste|nitidez|verdor"}) > 0.2 and on() drift_muestras >= 50
+    for: 1m
+    labels:
+      severidad: info
+      servicio: diagnostico
+      runbook: RB-05
+      accion: ninguna
+    annotations:
+      summary: Las fotos empiezan a cambiar (PSI entre 0.2 y 0.25)
+      description: 'PSI máximo = {{ $value }}. Solo se registra. El umbral de 0.2 (y no el 0.1 de la regla general) sale de
+        la calibración con tráfico normal: entre sesiones de campo distintas el PSI ronda 0.1 y llega a 0.18 (p99).'
+      runbook_url: https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api/blob/main/monitoreo/runbooks.md#rb-05
+  - alert: FotosFueraDeDominio
+    expr: sum(rate(entrada_fuera_de_rango_total{variable="verdor",origen="usuario"}[5m])) / sum(rate(entrada_verdor_count{origen="usuario"}[5m]))
+      > 0.05
+    for: 1m
+    labels:
+      severidad: info
+      servicio: diagnostico
+      runbook: RB-05
+      accion: ninguna
+    annotations:
+      summary: Más del 5 % de las fotos no parecen hojas de maíz
+      description: Proporción = {{ $value | humanizePercentage }}.
+      runbook_url: https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api/blob/main/monitoreo/runbooks.md#rb-05
+  - alert: SaturacionMemoria
+    expr: process_resident_memory_bytes{job="api"} / 1073741824 > 0.85
+    for: 50s
+    labels:
+      severidad: P3
+      servicio: diagnostico
+      runbook: RB-02
+      accion: ninguna
+    annotations:
+      summary: La API usa más del 85 % de su límite de memoria
+      description: Uso = {{ $value | humanizePercentage }} de 1 GiB.
+      runbook_url: https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api/blob/main/monitoreo/runbooks.md#rb-02
+  - alert: MonitoreoSinDatos
+    expr: up{job=~"vigilante|operaciones"} == 0 or (time() - sonda_ultima_ejecucion_timestamp_segundos) > 120
+    for: 30s
+    labels:
+      severidad: P3
+      servicio: diagnostico
+      runbook: RB-06
+      accion: ninguna
+    annotations:
+      summary: El monitoreo mismo dejó de reportar (sonda u operaciones caídos)
+      description: Sin sonda no se detecta un release malo; sin operaciones no hay respuesta automática.
+      runbook_url: https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api/blob/main/monitoreo/runbooks.md#rb-06

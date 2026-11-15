@@ -1,0 +1,247 @@
+{
+  "descripcion": "Golden set de la sonda: 10 fotos por clase de la prueba de la Actividad 5, elegidas con semilla 42. Las fotos se generan con scripts/preparar_datos.py.",
+  "repositorio": "muAtarist/maize_foliar_diseases",
+  "revision": "448bec6c7abe18fe87917e443368c63ed3786119",
+  "fotos": [
+    {
+      "id": "m0289",
+      "clase": "Mancha gris",
+      "ruta": "train/GreyLeafSpot/1062_165_CIMG3901_1-134-1_GLS.jpg",
+      "sha256": "858715e16e0e5756fa0f50bd362f3b6dd26ca85dad55c3ad83a15cbd347fe63a"
+    },
+    {
+      "id": "m0292",
+      "clase": "Mancha gris",
+      "ruta": "train/GreyLeafSpot/1066_132_CIMG3868_1-95-2_GLS.jpg",
+      "sha256": "7848dd8d6c16e6b5166133ac7a6659e1c3f6118a33cfca0b2eb5631e35447e06"
+    },
+    {
+      "id": "m0300",
+      "clase": "Mancha gris",
+      "ruta": "train/GreyLeafSpot/1073_134_CIMG3870_1-113-2_GLS.jpg",
+      "sha256": "0f83974cad93cf8890d7ebb30cd56e1440cde9bcd29a49d427e4c1dc6bd10f21"
+    },
+    {
+      "id": "m0356",
+      "clase": "Mancha gris",
+      "ruta": "train/GreyLeafSpot/1139_40_CIMG3775_1-288-1_GLS.jpg",
+      "sha256": "950241f24e8069afdce259842b88b3072159a315aa5e1a19805746c05c1c523c"
+    },
+    {
+      "id": "m0495",
+      "clase": "Mancha gris",
+      "ruta": "train/GreyLeafSpot/1551_2012_03_DSC1922_maize_diverse-R-Pn-DK-28_GLS.jpg",
+      "sha256": "8b551c3e0716055c9a204fad7b8a91bf49dfe42b0eb5fc2d2441bc3a7540e6a6"
+    },
+    {
+      "id": "m0502",
+      "clase": "Mancha gris",
+      "ruta": "train/GreyLeafSpot/1588_2012_03_DSC1775_maize_diverse-C-AC-DK-273_GLS.jpg",
+      "sha256": "5168c6409a605530a13e2fb266934cf3576c5c61a831f4a6c86690d3fd1be5f9"
+    },
+    {
+      "id": "m0616",
+      "clase": "Mancha gris",
+      "ruta": "train/GreyLeafSpot/1879_2012_03_IMG_6299_maize_diverse_JM-C-Ac_GLS.jpg",
+      "sha256": "48f94ade199d2dabe47bb91c89ec9372965683944f033663ba36ef854454e9f4"
+    },
+    {
+      "id": "m0660",
+      "clase": "Mancha gris",
+      "ruta": "train/GreyLeafSpot/2014_20200309_090624_GLS.jpg",
+      "sha256": "d9daaeb40f349ed8c0867613ae328d9384c88c4f08143c680e75416bc8dd3956"
+    },
+    {
+      "id": "m0679",
+      "clase": "Mancha gris",
+      "ruta": "train/GreyLeafSpot/2136_20200309_090528_GLS.jpg",
+      "sha256": "dd0062fa6c006b95052ac97a6b33e0ed9c6be8dca9ce1d4e9bacb53245c4d5ab"
+    },
+    {
+      "id": "m0746",
+      "clase": "Mancha gris",
+      "ruta": "train/GreyLeafSpot/2328_IMG_20200226_135151_GLS.jpg",
+      "sha256": "23395865e54aa813e28209f0ad1332679118c05cef9dd799a8c85ad611f979d6"
+    },
+    {
+      "id": "m0008",
+      "clase": "Roya común",
+      "ruta": "train/CommonRust/164_2019-03-13--Cedara-DKB-DSC_0187_CR.jpg",
+      "sha256": "18d8bb4c39701d3f85f113d90ca000335a935a1679a592dd5d8e995e0342bf6e"
+    },
+    {
+      "id": "m0017",
+      "clase": "Roya común",
+      "ruta": "train/CommonRust/259_2019-03-13--Cedara-DKB-DSC_0315_CR.jpg",
+      "sha256": "f4015ab15b0ef26e5d23af3a2c1fd11ad83314d44247f3792a185ac244887be8"
+    },
+    {
+      "id": "m0027",
+      "clase": "Roya común",
+      "ruta": "train/CommonRust/332_IMG_20190316_091251_CR.jpg",
+      "sha256": "e3958b640267a9228abd932e8ccc94c5d07e5eba83b3e05690a1b0f52764cf81"
+    },
+    {
+      "id": "m0050",
+      "clase": "Roya común",
+      "ruta": "train/CommonRust/435_IMG_20190316_090913_CR.jpg",
+      "sha256": "3a725c45c8a605aee8b671c5e8ccad5c6db063e134ea81c44ad6399ea67bfdfe"
+    },
+    {
+      "id": "m0065",
+      "clase": "Roya común",
+      "ruta": "train/CommonRust/593_20190313_145528_CR.jpg",
+      "sha256": "4b5fd3057588203b2a47a0bf90ba1f66863c801fdc85b3510d2960f872716722"
+    },
+    {
+      "id": "m0069",
+      "clase": "Roya común",
+      "ruta": "train/CommonRust/694_20190313_153357_CR.jpg",
+      "sha256": "b851b1625e1f4f1f1eaff5a324c77830656ad82b8002c8f9ab5a40ec07bd9060"
+    },
+    {
+      "id": "m0075",
+      "clase": "Roya común",
+      "ruta": "train/CommonRust/814_IMG_20190316_093028_CR.jpg",
+      "sha256": "38dc997b1cb212dbb73509cf70b002085440dae741a43bc643afa921eaaf09a5"
+    },
+    {
+      "id": "m0078",
+      "clase": "Roya común",
+      "ruta": "train/CommonRust/819_IMG_20190316_090408_CR.jpg",
+      "sha256": "e22cc9be0ca07059bde150713d61a27a3483c4bed56f6a196360e53449570238"
+    },
+    {
+      "id": "m0096",
+      "clase": "Roya común",
+      "ruta": "train/CommonRust/900_IMG_20190316_080643_CR.jpg",
+      "sha256": "4c3c0a0cb97532e41fb01d1efd5daf06b4870782d5160ea8ee9b07b944250b30"
+    },
+    {
+      "id": "m0107",
+      "clase": "Roya común",
+      "ruta": "train/CommonRust/993_IMG_20190316_090810_CR.jpg",
+      "sha256": "3abe16b2c120f2f07745e4c4ae15bd0012f79b65b0a0191e6eba1d3f8216392f"
+    },
+    {
+      "id": "m0865",
+      "clase": "Sana",
+      "ruta": "train/NoFoliarSymptoms/1342_IMG_3846_NoFoliarSymptoms.jpg",
+      "sha256": "634f2e04792ccf0ce3e80f694b9944d4b091318db8313f699635e20d38d29ebc"
+    },
+    {
+      "id": "m0887",
+      "clase": "Sana",
+      "ruta": "train/NoFoliarSymptoms/1625_2012_03_DSC1744_maize_diverse-C-AC-DK-273_NoFoliarSymptoms.jpg",
+      "sha256": "c509bc4ba345309ae27d0a6b848f735a1a8e43609144e3c03223a701b53adeee"
+    },
+    {
+      "id": "m0897",
+      "clase": "Sana",
+      "ruta": "train/NoFoliarSymptoms/174_2019-03-13--Cedara-DKB-DSC_0262_NoFoliarSymptoms.jpg",
+      "sha256": "84523316fe66c16d825c2d8efce1121be06aa8355689ef4676815ebe2372aa80"
+    },
+    {
+      "id": "m0921",
+      "clase": "Sana",
+      "ruta": "train/NoFoliarSymptoms/193_2019-03-13--Cedara-DKB-DSC_0159_NoFoliarSymptoms.jpg",
+      "sha256": "756ef4420140d333ddc2d0a2d79f74bc9a6110d526e45645d1dec82e1d307ca1"
+    },
+    {
+      "id": "m0948",
+      "clase": "Sana",
+      "ruta": "train/NoFoliarSymptoms/2032_20200309_093018_NoFoliarSymptoms.jpg",
+      "sha256": "7a2ac611e0fcb1eb803adfb571c10dd3d765ae353ff25dabcf36d32a710831f6"
+    },
+    {
+      "id": "m0969",
+      "clase": "Sana",
+      "ruta": "train/NoFoliarSymptoms/2117_20200309_093537_NoFoliarSymptoms.jpg",
+      "sha256": "eb2675542310552f26f020704529d4c97d27ce0bd14ff2563bf4874983c2db9e"
+    },
+    {
+      "id": "m0994",
+      "clase": "Sana",
+      "ruta": "train/NoFoliarSymptoms/229_2019-03-13--Cedara-DKB-DSC_0261_NoFoliarSymptoms.jpg",
+      "sha256": "0009d1da0b619c38c7d2b2dba70cadf9c47cc89d746ddd133ea920facc3b71b9"
+    },
+    {
+      "id": "m0999",
+      "clase": "Sana",
+      "ruta": "train/NoFoliarSymptoms/269_2019-03-13--Cedara-DKB-DSC_0041_NoFoliarSymptoms.jpg",
+      "sha256": "3ab2222512055e30ea045617b69f168f02bec7e1bc757f430473df2530b0d455"
+    },
+    {
+      "id": "m1054",
+      "clase": "Sana",
+      "ruta": "train/NoFoliarSymptoms/647_20190313_122307_NoFoliarSymptoms.jpg",
+      "sha256": "ea09fee0456147e170ff90178b7b4ec906b2e03d9dd9c609be7b9cc8b574c4f7"
+    },
+    {
+      "id": "m1061",
+      "clase": "Sana",
+      "ruta": "train/NoFoliarSymptoms/704_20190313_121959_NoFoliarSymptoms.jpg",
+      "sha256": "7ede047a007fc5c0702a3c678b917b149ccb9bc8d588ab2f482bc4843f1e3966"
+    },
+    {
+      "id": "m0117",
+      "clase": "Tizón",
+      "ruta": "train/CornLeafBlight/1280_IMG_3798_NCLB.jpg",
+      "sha256": "222bbaa3b3087b47fe04fe956eaa21513dd82416198b025dfe45b8407a3e9195"
+    },
+    {
+      "id": "m0137",
+      "clase": "Tizón",
+      "ruta": "train/CornLeafBlight/1502_IMG_20190227_112759_NCLB.jpg",
+      "sha256": "b24181538c48a401bc38a4b59757ae1b4d52e7ccb4c07f57a104fec4b2b67e72"
+    },
+    {
+      "id": "m0147",
+      "clase": "Tizón",
+      "ruta": "train/CornLeafBlight/1982_20200309_091753_NCLB.jpg",
+      "sha256": "a73f607f0c2f3d648bbf597341de84d5653f127e479040f719cf0f8bf896b6a0"
+    },
+    {
+      "id": "m0167",
+      "clase": "Tizón",
+      "ruta": "train/CornLeafBlight/2283_IMG_20200226_084625_NCLB.jpg",
+      "sha256": "f84af9d1eea6ac4466e82951d62eeeffccaeec2bde040dcb002084ffc872ebd3"
+    },
+    {
+      "id": "m0174",
+      "clase": "Tizón",
+      "ruta": "train/CornLeafBlight/2317_IMG_20200226_084347_NCLB.jpg",
+      "sha256": "71aad2bb296813000cc17c6ef23e3e787859bd627d7ec5137e180a7346f6b79c"
+    },
+    {
+      "id": "m0183",
+      "clase": "Tizón",
+      "ruta": "train/CornLeafBlight/2366_IMG_20200302_111634_NCLB.jpg",
+      "sha256": "cb5ffd812bb031a8fe445f258bd0196ebd9300f191a8d74cba052d01250bca6b"
+    },
+    {
+      "id": "m0202",
+      "clase": "Tizón",
+      "ruta": "train/CornLeafBlight/391_IMG_20190316_084349_NCLB.jpg",
+      "sha256": "2858490c621dd2223ea6688a4cc227c030c4e7559cc7a02b8fc13cc387da19e7"
+    },
+    {
+      "id": "m0222",
+      "clase": "Tizón",
+      "ruta": "train/CornLeafBlight/702_20190313_142258_NCLB.jpg",
+      "sha256": "b2b8e81ed3af34265809e0a633ee496885a1fc6ea8174ce3bc7a9bcbcfd7066b"
+    },
+    {
+      "id": "m0227",
+      "clase": "Tizón",
+      "ruta": "train/CornLeafBlight/811_IMG_20190316_081751_NCLB.jpg",
+      "sha256": "eaa80d8528a3d3e180391cae97a090b2cc815780b7786133943df8ce9fa695fc"
+    },
+    {
+      "id": "m0232",
+      "clase": "Tizón",
+      "ruta": "train/CornLeafBlight/893_IMG_20190316_091233_NCLB.jpg",
+      "sha256": "53db83b12f5f33d2e5904d81a0b21c3fcac93b6695f7c2bb56a218a3bbbad94d"
+    }
+  ]
+}

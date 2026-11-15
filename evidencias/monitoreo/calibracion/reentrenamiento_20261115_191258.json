@@ -1,0 +1,20 @@
+{
+  "fecha": "2026-11-15T19:12:58.392+00:00",
+  "incidente": "DriftDatosEntrada@2026-11-15T19:12:48",
+  "estado": "pendiente de aprobación humana",
+  "version_en_servicio": "1",
+  "psi_por_variable": {
+    "brillo": 0.077,
+    "contraste": 0.086,
+    "nitidez": 0.087,
+    "verdor": 0.269,
+    "p_enferma": 0.017
+  },
+  "muestras_en_ventana": 372.3174231260639,
+  "f1_sonda": {
+    "golden": 0.73,
+    "adverso": 0.25
+  },
+  "decision_automatica": "Sin rollback: la versión anterior tampoco fue entrenada con estas condiciones. Se pide reentrenar con fotos de las condiciones nuevas.",
+  "siguiente_paso": "Validar que no es un error del pipeline de datos (RB-05 paso 2) y aprobar scripts/reentrenar.py"
+}

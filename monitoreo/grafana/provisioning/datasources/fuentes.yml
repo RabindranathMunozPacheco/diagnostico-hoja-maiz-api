@@ -1,0 +1,33 @@
+# Fuentes de datos de Grafana: las tres señales y las alertas en un mismo lugar.
+# Desde un log de Loki se salta a su traza en Jaeger con el trace_id.
+apiVersion: 1
+datasources:
+  - name: Prometheus
+    uid: prometheus
+    type: prometheus
+    url: http://prometheus:9090
+    isDefault: true
+    jsonData:
+      timeInterval: 5s
+  - name: Loki
+    uid: loki
+    type: loki
+    url: http://loki:3100
+    jsonData:
+      derivedFields:
+        - name: trace_id
+          matcherType: label
+          matcherRegex: trace_id
+          datasourceUid: jaeger
+          url: "$${__value.raw}"
+          urlDisplayLabel: Ver la traza en Jaeger
+  - name: Jaeger
+    uid: jaeger
+    type: jaeger
+    url: http://jaeger:16686
+  - name: Alertmanager
+    uid: alertmanager
+    type: alertmanager
+    url: http://alertmanager:9093
+    jsonData:
+      implementation: prometheus

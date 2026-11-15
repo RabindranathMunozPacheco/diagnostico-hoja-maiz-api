@@ -1,0 +1,7 @@
+# Dependencias del vigilante y de operaciones (versiones fijas, las mismas que usa la API donde coinciden)
+fastapi==0.146.0
+uvicorn==0.54.0
+httpx==0.28.1
+prometheus-client==0.26.0
+numpy==2.2.6
+docker==7.2.0
