@@ -18,66 +18,66 @@
   "lluvia": {
     "bins_finos": {
       "10%": {
-        "brillo": 0.242,
-        "contraste": 0.148,
-        "nitidez": 0.751,
-        "verdor": 0.158
+        "brillo": 0.243,
+        "contraste": 0.152,
+        "nitidez": 0.495,
+        "verdor": 0.159
       },
       "20%": {
-        "brillo": 0.525,
-        "contraste": 0.33,
-        "nitidez": 1.583,
-        "verdor": 0.147
+        "brillo": 0.51,
+        "contraste": 0.338,
+        "nitidez": 1.069,
+        "verdor": 0.148
       },
       "30%": {
-        "brillo": 0.887,
-        "contraste": 0.588,
-        "nitidez": 2.549,
-        "verdor": 0.141
+        "brillo": 0.844,
+        "contraste": 0.579,
+        "nitidez": 1.725,
+        "verdor": 0.146
       },
       "50%": {
-        "brillo": 1.804,
-        "contraste": 1.23,
-        "nitidez": 4.587,
-        "verdor": 0.132
+        "brillo": 1.671,
+        "contraste": 1.168,
+        "nitidez": 3.183,
+        "verdor": 0.14
       },
       "100%": {
-        "brillo": 9.344,
-        "contraste": 6.078,
-        "nitidez": 16.14,
-        "verdor": 0.125
+        "brillo": 6.563,
+        "contraste": 4.877,
+        "nitidez": 10.109,
+        "verdor": 0.132
       }
     },
     "bins_agrupados_5pc": {
       "10%": {
-        "brillo": 0.106,
-        "contraste": 0.092,
-        "nitidez": 0.147,
+        "brillo": 0.094,
+        "contraste": 0.084,
+        "nitidez": 0.138,
         "verdor": 0.103
       },
       "20%": {
-        "brillo": 0.273,
-        "contraste": 0.213,
-        "nitidez": 0.355,
-        "verdor": 0.102
+        "brillo": 0.229,
+        "contraste": 0.186,
+        "nitidez": 0.322,
+        "verdor": 0.104
       },
       "30%": {
-        "brillo": 0.484,
-        "contraste": 0.397,
-        "nitidez": 0.619,
-        "verdor": 0.101
+        "brillo": 0.407,
+        "contraste": 0.344,
+        "nitidez": 0.568,
+        "verdor": 0.103
       },
       "50%": {
-        "brillo": 1.087,
-        "contraste": 0.892,
-        "nitidez": 1.362,
-        "verdor": 0.097
+        "brillo": 0.901,
+        "contraste": 0.766,
+        "nitidez": 1.241,
+        "verdor": 0.099
       },
       "100%": {
-        "brillo": 8.006,
-        "contraste": 5.49,
-        "nitidez": 9.432,
-        "verdor": 0.093
+        "brillo": 5.126,
+        "contraste": 4.158,
+        "nitidez": 6.391,
+        "verdor": 0.099
       }
     }
   }

@@ -98,3 +98,18 @@ def recargar_api(token, url=None):
     r = httpx.post(f"{url or API}/api/admin/recargar", headers={"X-Token-Admin": token}, timeout=120)
     r.raise_for_status()
     return r.json()
+
+
+def registrar_version(version, carpeta, descripcion, estado="candidata", autor="", dir_modelos=None):
+    """Agrega una versión al registro sin moverle ningún alias (queda como candidata)."""
+    with _candado_registro:
+        registro = leer_registro(dir_modelos)
+        registro["versiones"][str(version)] = {"carpeta": carpeta, "registrada": ahora()[:10],
+                                               "descripcion": descripcion, "estado": estado}
+        registro["historial"].append({"fecha": ahora(), "evento": "registro", "alias": None, "de": None,
+                                      "a": str(version), "motivo": descripcion, "autor": autor})
+        escribir_registro(registro, dir_modelos)
+
+
+def siguiente_version(dir_modelos=None):
+    return str(max(int(v) for v in leer_registro(dir_modelos)["versiones"]) + 1)

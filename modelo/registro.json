@@ -10,6 +10,12 @@
       "registrada": "2026-11-01",
       "descripcion": "Regresión logística de la Actividad 5 (MLflow run 89185e00) con el umbral de la Actividad 6.",
       "estado": "produccion"
+    },
+    "2": {
+      "carpeta": "versiones/2",
+      "registrada": "2026-11-15",
+      "descripcion": "DEFECTUOSA a propósito (simulación INC-04): etiquetas Sana y Mancha gris cruzadas al reentrenar",
+      "estado": "candidata"
     }
   },
   "historial": [
@@ -21,6 +27,15 @@
       "a": "1",
       "motivo": "Versión inicial desplegada en la Fase II (v0.3.0)",
       "autor": "Rabindranath Muñoz"
+    },
+    {
+      "fecha": "2026-11-15T19:25:03.076+00:00",
+      "evento": "registro",
+      "alias": null,
+      "de": null,
+      "a": "2",
+      "motivo": "DEFECTUOSA a propósito (simulación INC-04): etiquetas Sana y Mancha gris cruzadas al reentrenar",
+      "autor": "Rabin Muñoz"
     }
   ]
 }

@@ -1,0 +1,43 @@
+{
+  "nombre": "clasificador-hoja-maiz",
+  "version_registrada": 2,
+  "algoritmo": "StandardScaler + LogisticRegression(C=0.1)",
+  "archivo": "model.skops",
+  "sha256": "8e24abe8a2e53dc144b7129a6a2537e597f999cbe1052c502f04dd47d3ed0636",
+  "clases": [
+    "Mancha gris",
+    "Roya común",
+    "Sana",
+    "Tizón"
+  ],
+  "extractor": {
+    "repositorio": "linkanjarad/mobilenet_v2_1.0_224-plant-disease-identification",
+    "revision": "c1861579a670fb6232258805b801cd4137cb7176",
+    "salida": "pooler_output (1,280 características)",
+    "tamano_entrada": "224x224 RGB"
+  },
+  "umbral_enferma": {
+    "valor": 0.2494,
+    "origen": "el mismo de la versión 1",
+    "criterio": "sin recalibrar"
+  },
+  "origen": {
+    "tipo": "reentrenamiento con etiquetas cruzadas (defecto simulado)",
+    "semilla": 42,
+    "datos": "857 fotos de entrenamiento de la Actividad 5 con Sana <-> Mancha gris"
+  },
+  "metricas_prueba": {
+    "n": 221,
+    "f1_macro": 0.4523,
+    "exactitud": 0.2986,
+    "enferma_como_sana": 0.5739,
+    "sana_como_enferma": 0.8
+  },
+  "metricas_golden": {
+    "n": 40,
+    "f1_macro": 0.4521,
+    "exactitud": 0.425,
+    "enferma_como_sana": 0.3,
+    "sana_como_enferma": 0.9
+  }
+}

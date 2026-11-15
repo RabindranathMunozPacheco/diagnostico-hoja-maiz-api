@@ -1,0 +1,65 @@
+{
+  "fecha": "2026-11-15T19:28:27.924+00:00",
+  "de": "1",
+  "a": "2",
+  "motivo": "prueba de compuerta",
+  "sin_compuerta": false,
+  "metricas": {
+    "v1": {
+      "golden": {
+        "n": 40,
+        "f1_macro": 0.7295,
+        "exactitud": 0.725,
+        "enferma_como_sana": 0.0667,
+        "sana_como_enferma": 0.6
+      },
+      "adverso": {
+        "n": 40,
+        "f1_macro": 0.25,
+        "exactitud": 0.325,
+        "enferma_como_sana": 0.3,
+        "sana_como_enferma": 0.3
+      }
+    },
+    "v2": {
+      "golden": {
+        "n": 40,
+        "f1_macro": 0.4521,
+        "exactitud": 0.425,
+        "enferma_como_sana": 0.3,
+        "sana_como_enferma": 0.9
+      },
+      "adverso": {
+        "n": 40,
+        "f1_macro": 0.1364,
+        "exactitud": 0.175,
+        "enferma_como_sana": 0.4667,
+        "sana_como_enferma": 1.0
+      }
+    }
+  },
+  "compuerta": {
+    "aprobada": false,
+    "razones": [
+      "no cumple el SLO en el golden set (F1 0.4521, enfermas como sanas 30.0%)",
+      "con 0% de fotos de lluvia empeora (F1 esperado 0.4521 contra 0.7295; enfermas como sanas 30.0% contra 6.7%)",
+      "pierde más de 0.05 de F1 en alguna condición {'golden': 0.2774, 'adverso': 0.1136}: es un intercambio que debe aprobar una persona (--aprobado-por)"
+    ],
+    "mezcla_lluvia": 0.0,
+    "esperado_en_servicio": {
+      "f1_macro": 0.7295,
+      "enferma_como_sana": 0.0667
+    },
+    "esperado_candidata": {
+      "f1_macro": 0.4521,
+      "enferma_como_sana": 0.3
+    },
+    "perdida_f1_por_condicion": {
+      "golden": 0.2774,
+      "adverso": 0.1136
+    },
+    "requiere_aprobacion": true,
+    "aprobado_por": null
+  },
+  "resultado": "rechazado por la compuerta"
+}

@@ -9,8 +9,9 @@ Partes del dataset (las mismas de la Actividad 5 y la Fase II):
     entrenamiento  las 857 restantes, con las que se entrenó la versión 1
 
 Condiciones de foto que se usan para simular el data drift (temporada de lluvias: nublado y gotas en la lente):
-    lluvia        brillo al 55 % y desenfoque gaussiano de radio 1.5 (lo que manda el tráfico simulado)
-    lluvia_azar   brillo entre 35 y 80 % y desenfoque de 0 a 2.5 al azar (aumento de datos del reentrenamiento)
+    lluvia        brillo al 55 % y desenfoque gaussiano de radio 1.5 (conjunto adverso fijo de la sonda y de la prueba)
+    lluvia_azar   brillo entre 35 y 80 % y desenfoque de 0 a 2.5 al azar (tráfico simulado con semilla 7 y aumento de
+                  datos del reentrenamiento con semilla 42)
 """
 import hashlib
 import io

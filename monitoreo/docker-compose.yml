@@ -103,6 +103,8 @@ services:
   vigilante:
     <<: *servicios
     command: ["python", "vigilante.py"]
+    ports:
+      - "9101:9101"                               # para que scripts/desplegar.py pueda pedir una ronda de la sonda
     environment:
       <<: *entorno-servicios
       PERIODO_DRIFT: "15"
