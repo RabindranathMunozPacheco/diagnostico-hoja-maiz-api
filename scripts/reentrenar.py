@@ -106,7 +106,10 @@ def main():
          "metricas_prueba": comparacion["candidata"]["prueba"],
          "metricas_prueba_lluvia": comparacion["candidata"]["prueba_lluvia"]},
         f"Entrada: {len(ent)} fotos de entrenamiento y sus {len(copias)} copias con lluvia. Predicciones: "
-        f"{len(prueba)} fotos de prueba normales y {len(prueba)} con lluvia.")
+        f"{len(prueba)} fotos de prueba normales y {len(prueba)} con lluvia.",
+        metricas=comparacion["candidata"], parametros={"aumento": "lluvia_azar (brillo 0.35-0.8, radio 0-2.5)",
+                                                       "copias": len(copias), "semilla": SEMILLA,
+                                                       "version_base": actual})
 
     args.salida.mkdir(parents=True, exist_ok=True)
     resumen = {"version_candidata": nueva, "version_en_servicio": actual, "umbral": umbral,
@@ -123,7 +126,15 @@ def main():
             lineas.append(f"| {nombre} | {conjunto} ({v['n']}) | {v['f1_macro']:.3f} | {v['exactitud']:.3f} | "
                           f"{v['enferma_como_sana']:.1%} | {v['sana_como_enferma']:.1%} |")
     (args.salida / f"reentrenamiento_v{nueva}.md").write_text("\n".join(lineas) + "\n", encoding="utf-8", newline="\n")
-    print(f"5. Candidata registrada: v{nueva} en {carpeta.relative_to(datos.RAIZ)}")
+    versiones.espejo_mlflow.registrar_evento(
+        "reentrenamiento", f"v{actual} -> candidata v{nueva}",
+        parametros={"version_base": actual, "version_candidata": nueva, "umbral": umbral["valor"],
+                    "solicitud": solicitud.get("incidente", "manual"), "semilla": SEMILLA},
+        metricas={f"{quien}_{conjunto}_{k}": v for quien, m in (("actual", comparacion[f"v{actual} (en servicio)"]),
+                                                                 ("candidata", comparacion["candidata"]))
+                  for conjunto, met in m.items() for k, v in met.items() if k in ("f1_macro", "enferma_como_sana")},
+        artefactos=[args.salida / f"reentrenamiento_v{nueva}.md", args.salida / f"reentrenamiento_v{nueva}.json"])
+    print(f"5. Candidata registrada: v{nueva} en {carpeta.relative_to(datos.RAIZ)} (también en MLflow)")
 
 
 if __name__ == "__main__":

@@ -11,6 +11,7 @@ Laboratorio de observabilidad de la API de diagnóstico (Actividad 8). Levanta l
 | Jaeger | Guarda las trazas (un span por etapa del diagnóstico) | http://localhost:16686 |
 | vigilante | Monitor de data drift (PSI y KS) y sonda de calidad con el golden set | http://localhost:9101/metrics (dentro de la red) |
 | operaciones | Recibe las alertas y ejecuta la parte automática de los runbooks | http://localhost:9102/bitacora |
+| MLflow | Model Registry (versiones y alias champion) y experimentos de monitoreo, reentrenamiento, despliegues y respuesta a incidentes | http://localhost:5000 |
 
 ## Arrancar
 
@@ -19,6 +20,7 @@ python scripts/preparar_datos.py          # fotos del golden set y del tráfico 
 python monitoreo/slo.py                   # genera las reglas de Prometheus y la configuración de Alertmanager
 python monitoreo/tablero.py               # genera el tablero de Grafana
 docker compose -f monitoreo/docker-compose.yml up -d --build
+python scripts/sincronizar_mlflow.py      # copia las versiones del registro a MLflow (una vez)
 python simulacion/trafico.py --tasa 2 --minutos 5     # tráfico de usuarios simulado
 ```
 
@@ -31,6 +33,7 @@ python simulacion/trafico.py --tasa 2 --minutos 5     # tráfico de usuarios sim
 | `runbooks.md` | Procedimientos de respuesta (RB-01 a RB-06) |
 | `servicios/vigilante.py` | Drift (PSI con bins agrupados al 5 %, KS) y sonda de calidad (F1 y enfermas como sanas) |
 | `servicios/operaciones.py` | Respuesta automatizada: reiniciar, reconciliar recursos, rollback del modelo, solicitud de reentrenamiento |
+| `servicios/espejo_mlflow.py` | MLflow: registro de versiones con alias, monitoreo por versión en servicio y bitácora de eventos |
 | `golden_set.json` | Las 40 fotos de la sonda (10 por clase) |
 | `docker-compose.yml` | El laboratorio completo, con el estado deseado de la API (1 CPU, 1 GiB) |
 

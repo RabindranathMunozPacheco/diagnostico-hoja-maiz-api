@@ -50,7 +50,8 @@ def main():
         {"origen": {"tipo": "reentrenamiento con etiquetas cruzadas (defecto simulado)", "semilla": 42,
                     "datos": "857 fotos de entrenamiento de la Actividad 5 con Sana <-> Mancha gris"},
          "metricas_prueba": metricas["prueba"], "metricas_golden": metricas["golden"]},
-        "Entrada: las mismas 857 fotos de entrenamiento de la v1. Predicciones: 221 fotos de prueba.")
+        "Entrada: las mismas 857 fotos de entrenamiento de la v1. Predicciones: 221 fotos de prueba.",
+        metricas=metricas, parametros={"defecto": "etiquetas Sana y Mancha gris cruzadas"})
     print(f"Versión defectuosa guardada en {carpeta.relative_to(RAIZ)} (candidata)")
 
 

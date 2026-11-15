@@ -201,6 +201,7 @@ def construir():
         "[Trazas en Jaeger](http://localhost:16686/search?service=diagnostico-hoja-maiz) · "
         "[Alertmanager](http://localhost:9093) · [Reglas en Prometheus](http://localhost:9090/alerts) · "
         "[Bitácora de operaciones](http://localhost:9102/bitacora) · "
+        "[MLflow: versiones y monitoreo del modelo](http://localhost:5000) · "
         "[Runbooks](https://github.com/RabindranathMunozPacheco/diagnostico-hoja-maiz-api/blob/main/monitoreo/runbooks.md)")}))
 
     anotaciones = [

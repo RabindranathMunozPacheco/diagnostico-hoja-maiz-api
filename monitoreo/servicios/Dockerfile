@@ -10,7 +10,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /servicios
 COPY requirements.txt .
 RUN pip install -r requirements.txt
-COPY comun.py vigilante.py operaciones.py ./
+COPY comun.py espejo_mlflow.py vigilante.py operaciones.py ./
 
 # Corre como root solo porque operaciones usa el socket de Docker para reiniciar y reconfigurar el contenedor de
 # la API (en producción eso lo haría el orquestador, p. ej. Kubernetes, con permisos acotados).

@@ -19,8 +19,9 @@ Sonda de calidad (cada PERIODO_SONDA segundos)
     compita con los usuarios por la CPU. Si más del 20 % de las solicitudes de la sonda fallan, la calidad no se
     evalúa (eso es un problema de disponibilidad y ya lo cubre otra alerta).
 
-Publica todo en /metrics (puerto 9101). POST /sondear corre la sonda en ese momento (operaciones la usa para
-verificar un rollback).
+Publica todo en /metrics (puerto 9101) y, además, en MLflow (experimento "monitoreo-produccion", una corrida por
+versión en servicio), donde queda la historia de la calidad y del drift de cada versión. POST /sondear corre la
+sonda en ese momento (operaciones la usa para verificar un rollback).
 """
 import csv
 import logging
@@ -38,6 +39,7 @@ from fastapi.responses import Response
 from prometheus_client import CONTENT_TYPE_LATEST, Gauge, generate_latest
 
 import comun
+import espejo_mlflow
 
 PERIODO_DRIFT = float(os.environ.get("PERIODO_DRIFT", 15))
 PERIODO_SONDA = float(os.environ.get("PERIODO_SONDA", 30))
@@ -79,6 +81,7 @@ SONDA_UMBRALES.labels(metrica="enferma_como_sana_max").set(FNR_MAX)
 app = FastAPI(title="Vigilante")
 _candado_sonda = threading.Lock()
 _version_publicada = {}
+_mlflow = espejo_mlflow.MonitoreoMLflow()
 
 
 # ------------------------------------------------------------------------------------------------- drift
@@ -117,7 +120,7 @@ def evaluar_drift():
     LINEA_BASE.clear()
     LINEA_BASE.labels(version=version).set(1)
     if linea is None:
-        return
+        return version, {}
     filtro = 'origen="usuario"'
     n = comun.escalar(f'sum(increase(entrada_brillo_count{{{filtro}}}[{VENTANA_DRIFT}]))') or 0.0
     MUESTRAS.set(n)
@@ -126,7 +129,8 @@ def evaluar_drift():
         for variable in VARIABLES:                      # sin suficientes fotos no hay evaluación
             PSI.labels(variable=variable).set(math.nan)
             KS.labels(variable=variable).set(math.nan)
-        return
+        return version, {"drift_muestras": n}
+    resultado = {"drift_muestras": n}
     for variable, metrica in VARIABLES.items():
         esperadas = (linea["predicciones"]["probabilidad_enferma"] if variable == "p_enferma"
                      else linea["variables"][variable])["proporciones"]
@@ -136,6 +140,7 @@ def evaluar_drift():
         psi, ks = psi_y_ks(conteos, esperadas)
         PSI.labels(variable=variable).set(round(psi, 4))
         KS.labels(variable=variable).set(round(ks, 4))
+        resultado[f"psi_{variable}"], resultado[f"ks_{variable}"] = round(psi, 4), round(ks, 4)
     por_diagnostico = comun.consulta(
         f'sum by (diagnostico) (increase(modelo_predicciones_total{{{filtro}}}[{VENTANA_DRIFT}]))')
     total = sum(float(r["value"][1]) for r in por_diagnostico) or 1.0
@@ -143,6 +148,8 @@ def evaluar_drift():
         valor = next((float(r["value"][1]) for r in por_diagnostico if r["metric"].get("diagnostico") == clase), 0.0)
         PROPORCION.labels(diagnostico=clase).set(round(valor / total, 4))
         PROPORCION_BASE.labels(diagnostico=clase).set(linea["predicciones"]["proporcion_por_diagnostico"][clase])
+        resultado[f"proporcion_{clase.lower().replace(' ', '_').replace('ó', 'o').replace('í', 'i')}"] = round(valor / total, 4)
+    return version, resultado
 
 
 # ------------------------------------------------------------------------------------------------- sonda
@@ -221,11 +228,16 @@ def ciclo():
         try:
             if ahora >= proximo_drift:
                 proximo_drift = ahora + PERIODO_DRIFT
-                evaluar_drift()
+                version, metricas = evaluar_drift()
+                _mlflow.registrar(version, metricas)
             if ahora >= proxima_sonda:
                 proxima_sonda = ahora + PERIODO_SONDA
                 r = correr_sonda(con_adverso=ronda % ADVERSO_CADA == 0)
                 ronda += 1
+                _mlflow.registrar(comun.leer_registro()["alias"]["champion"],
+                                  {f"sonda_{c}_{k}": v for c, m in r.items() if m.get("evaluada")
+                                   for k, v in m.items() if k in ("f1_macro", "enferma_como_sana",
+                                                                   "sana_como_enferma", "exactitud")})
                 log.info("sonda: %s", {k: v.get("f1_macro", "sin evaluar") for k, v in r.items()})
         except Exception as e:                          # noqa: BLE001 - el vigilante no debe caerse por un error
             log.warning("ciclo con error: %s", e)

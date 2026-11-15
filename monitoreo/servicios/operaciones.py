@@ -15,7 +15,9 @@ Cada alerta trae en sus etiquetas el runbook y la acción automática que le toc
     solicitar_reentrenamiento  RB-05 data drift: no hace rollback (la versión anterior tampoco conoce esos datos);
                             arma una solicitud de reentrenamiento con la evidencia para que una persona la apruebe.
     ninguna                 solo se registra y se notifica.
-Todo queda en la bitácora (bitacora/bitacora.jsonl) con marca de tiempo, y en /metrics (puerto 9102).
+Todo queda en la bitácora (bitacora/bitacora.jsonl) con marca de tiempo, en /metrics (puerto 9102) y en MLflow:
+cada acción es una corrida del experimento "respuesta-a-incidentes" y el rollback mueve también el alias champion
+del Model Registry de MLflow.
 """
 import json
 import logging
@@ -34,6 +36,7 @@ from fastapi.responses import Response
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, Histogram, generate_latest
 
 import comun
+import espejo_mlflow
 
 TOKEN = os.environ.get("TOKEN_ADMIN", "")
 CONTENEDOR = os.environ.get("CONTENEDOR_API", "diagnostico-hoja-maiz")
@@ -62,11 +65,16 @@ app = FastAPI(title="Operaciones")
 ejecutor = ThreadPoolExecutor(1)               # una acción a la vez: nunca un rollback y un reinicio juntos
 _atendidos = set()
 _reinicios, _rollbacks = [], []
+_resultado = {}                                # incidente -> resultado de la última verificación o escalamiento
 _candado = threading.Lock()
 
 
 def anotar(incidente, evento, **datos):
     entrada = {"ts": comun.ahora(), "incidente": incidente, "evento": evento, **datos}
+    if evento == "verificacion":
+        _resultado[incidente] = datos.get("resultado")
+    elif evento == "escalamiento":
+        _resultado[incidente] = "escalado"
     DIR_BITACORA.mkdir(parents=True, exist_ok=True)
     with _candado, open(DIR_BITACORA / "bitacora.jsonl", "a", encoding="utf-8") as f:
         f.write(json.dumps(entrada, ensure_ascii=False) + "\n")
@@ -213,8 +221,10 @@ def rollback(incidente, runbook, alerta):
         return escalar(incidente, runbook, "no hay versión anterior a la cual regresar")
     if _rollbacks:
         return escalar(incidente, runbook, "ya hubo un rollback en los últimos 15 minutos: evitar ciclos")
-    comun.mover_alias(previa, motivo=f"Rollback automático por la alerta {alerta['labels']['alertname']}",
-                      autor="operaciones (automático)", evento="rollback", estado_anterior="rechazada")
+    motivo = f"Rollback automático por la alerta {alerta['labels']['alertname']}"
+    comun.mover_alias(previa, motivo=motivo, autor="operaciones (automático)", evento="rollback",
+                      estado_anterior="rechazada")
+    espejo_mlflow.mover_alias(previa, motivo, estado_anterior="rechazada", anterior=actual)
     _rollbacks.append(ahora)
     recarga = comun.recargar_api(TOKEN)
     anotar(incidente, "accion", runbook=runbook, accion=f"rollback del alias champion v{actual} -> v{previa}",
@@ -264,7 +274,15 @@ def ejecutar(nombre, incidente, runbook, alerta):
         ACCIONES.labels(runbook=runbook, accion=nombre, resultado="error").inc()
         escalar(incidente, runbook, f"la acción automática {nombre} falló: {e}")
     finally:
-        DURACION.labels(accion=nombre).observe(time.time() - inicio)
+        duracion = time.time() - inicio
+        DURACION.labels(accion=nombre).observe(duracion)
+        resultado = _resultado.pop(incidente, "ok" if nombre == "solicitar_reentrenamiento" else "sin verificar")
+        espejo_mlflow.registrar_evento(
+            "respuesta-a-incidentes", f"{runbook} {nombre}",
+            parametros={"incidente": incidente, "alerta": alerta["labels"].get("alertname"), "runbook": runbook,
+                        "accion": nombre, "severidad": alerta["labels"].get("severidad"), "resultado": resultado},
+            metricas={"duracion_accion_s": round(duracion, 1), "exito": 1.0 if resultado == "ok" else 0.0},
+            etiquetas={"resultado": resultado})
 
 
 # ------------------------------------------------------------------------------------------------- HTTP

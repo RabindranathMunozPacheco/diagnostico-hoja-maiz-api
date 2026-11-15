@@ -6,6 +6,7 @@
 #   API y página web  http://localhost:8000        Grafana (tablero)  http://localhost:3000
 #   Prometheus        http://localhost:9090        Jaeger (trazas)    http://localhost:16686
 #   Alertmanager      http://localhost:9093        Operaciones        http://localhost:9102/bitacora
+#   MLflow            http://localhost:5000        (registro de versiones y monitoreo del modelo)
 #
 # El "estado deseado" de la API (1 CPU, 1 GiB, OMP_NUM_THREADS=1) es el que operaciones restaura si alguien lo
 # cambia (RB-02), igual que haría un agente de GitOps.
@@ -19,6 +20,7 @@ x-servicios: &servicios
     PROMETHEUS_URL: http://prometheus:9090
     API_URL: http://api:8000
     DIR_MODELOS: /datos/modelo
+    MLFLOW_TRACKING_URI: http://mlflow:5000
 
 services:
   api:
@@ -100,6 +102,24 @@ services:
       - "16686:16686"
     restart: unless-stopped
 
+  mlflow:
+    # Model Registry y experimentos de monitoreo; base de datos y artefactos en un volumen
+    image: ghcr.io/mlflow/mlflow:v3.17.1
+    command:
+      - mlflow
+      - server
+      - --host=0.0.0.0
+      - --port=5000
+      - --backend-store-uri=sqlite:////mlflow/mlflow.db
+      - --artifacts-destination=/mlflow/artefactos
+      - --serve-artifacts
+      - --allowed-hosts=localhost:5000,127.0.0.1:5000,mlflow:5000,localhost,mlflow
+    volumes:
+      - mlflow-datos:/mlflow
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+
   vigilante:
     <<: *servicios
     command: ["python", "vigilante.py"]
@@ -142,3 +162,4 @@ volumes:
   alertmanager-datos:
   grafana-datos:
   loki-datos:
+  mlflow-datos:

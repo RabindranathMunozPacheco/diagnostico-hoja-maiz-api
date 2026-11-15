@@ -15,6 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "monitoreo" / "servicios"))
 import comun  # noqa: E402
 import datos  # noqa: E402
+import espejo_mlflow  # noqa: E402
 import linea_base  # noqa: E402
 
 DIR_MODELOS = datos.RAIZ / "modelo"
@@ -29,7 +30,7 @@ def autor_git():
 
 
 def guardar_version(modelo, version, umbral, imagenes_entrenamiento, proba_validacion, descripcion, ficha_extra,
-                    descripcion_linea_base, estado="candidata"):
+                    descripcion_linea_base, estado="candidata", metricas=None, parametros=None):
     carpeta = DIR_MODELOS / "versiones" / str(version)
     carpeta.mkdir(parents=True, exist_ok=False)
     sio.dump(modelo, carpeta / "model.skops")
@@ -47,4 +48,5 @@ def guardar_version(modelo, version, umbral, imagenes_entrenamiento, proba_valid
     (carpeta / "linea_base.json").write_text(json.dumps(linea, ensure_ascii=False, indent=2) + "\n",
                                              encoding="utf-8", newline="\n")
     comun.registrar_version(version, f"versiones/{version}", descripcion, estado, autor_git(), DIR_MODELOS)
+    espejo_mlflow.registrar_version(version, carpeta, ficha, metricas or {}, descripcion, estado, parametros)
     return carpeta

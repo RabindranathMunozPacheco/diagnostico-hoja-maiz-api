@@ -115,12 +115,14 @@ def main():
         print(f"  esperado con la mezcla: v{actual} {resultado['esperado_en_servicio']}  v{nueva} {resultado['esperado_candidata']}")
         if not resultado["aprobada"]:
             guardar(registro_despliegue | {"resultado": "rechazado por la compuerta"})
+            evento_mlflow(actual, nueva, args, "rechazada", resultado)
             sys.exit("Compuerta NO aprobada:\n  - " + "\n  - ".join(resultado["razones"]))
         aprobacion = f"; aprobado por {args.aprobado_por}" if args.aprobado_por else ""
         motivo = f"{args.motivo} [compuerta aprobada, lluvia {mezcla:.0%}{aprobacion}]"
 
     comun.mover_alias(nueva, motivo=motivo, autor=versiones.autor_git(), evento="promocion",
                       dir_modelos=versiones.DIR_MODELOS)
+    versiones.espejo_mlflow.mover_alias(nueva, motivo, anterior=actual, estado_anterior="archivada")
     recarga = comun.recargar_api(args.token, args.api)
     print(f"Alias champion: v{actual} -> v{nueva}; la API recargó: {recarga}")
     try:
@@ -129,6 +131,25 @@ def main():
     except httpx.HTTPError as e:
         sonda = f"no se pudo correr la sonda: {e}"
     guardar(registro_despliegue | {"resultado": "promovida", "recarga": recarga, "sonda_posterior": sonda})
+    evento_mlflow(actual, nueva, args, "promovida", registro_despliegue.get("compuerta"), sonda)
+
+
+def evento_mlflow(actual, nueva, args, resultado, compuerta=None, sonda=None):
+    metricas = {}
+    if compuerta:
+        metricas.update({"mezcla_lluvia": compuerta["mezcla_lluvia"],
+                         "f1_esperado_actual": compuerta["esperado_en_servicio"]["f1_macro"],
+                         "f1_esperado_candidata": compuerta["esperado_candidata"]["f1_macro"],
+                         "enferma_como_sana_esperada_actual": compuerta["esperado_en_servicio"]["enferma_como_sana"],
+                         "enferma_como_sana_esperada_candidata": compuerta["esperado_candidata"]["enferma_como_sana"]})
+    if isinstance(sonda, dict) and sonda.get("evaluada"):
+        metricas.update({"sonda_f1_despues": sonda["f1_macro"], "sonda_enferma_como_sana_despues": sonda["enferma_como_sana"]})
+    versiones.espejo_mlflow.registrar_evento(
+        "despliegues", f"v{actual} -> v{nueva} ({resultado})", metricas=metricas,
+        parametros={"de": actual, "a": nueva, "motivo": args.motivo, "sin_compuerta": args.sin_compuerta,
+                    "aprobado_por": args.aprobado_por or "", "resultado": resultado,
+                    "razones": "; ".join((compuerta or {}).get("razones", []))},
+        etiquetas={"resultado": resultado, "sin_compuerta": str(args.sin_compuerta)})
 
 
 def guardar(datos_despliegue):
