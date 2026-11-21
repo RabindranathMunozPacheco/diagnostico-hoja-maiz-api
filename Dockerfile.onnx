@@ -1,0 +1,40 @@
+# Imagen ligera del servicio (Actividad 9): la misma API y el mismo clasificador, pero el extractor MobileNetV2 corre
+# en ONNX Runtime cuantizado a int8 (estático), sin PyTorch ni transformers. Pesa mucho menos y arranca más rápido,
+# lo que importa cuando la plataforma apaga las instancias sin tráfico (escala a cero) y las vuelve a crear.
+#
+# Antes de construir hay que generar el extractor (no se sube al repositorio, ver escalamiento/exportar_onnx.py):
+#   python escalamiento/exportar_onnx.py
+# Construir:  docker build -f Dockerfile.onnx -t diagnostico-hoja-maiz-api:0.6.0-onnx .
+# Ejecutar:   docker run --rm -p 8000:8000 diagnostico-hoja-maiz-api:0.6.0-onnx
+FROM python:3.10-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+WORKDIR /app
+
+COPY requirements-onnx.txt constraints.txt ./
+RUN pip install -r requirements-onnx.txt -c constraints.txt
+
+RUN useradd --create-home --uid 1000 servicio
+USER servicio
+
+# Registro de versiones y extractor ONNX (la API comprueba el sha256 del .onnx contra extractores.json al cargar)
+COPY modelo/ modelo/
+COPY app/ app/
+COPY frontend/ frontend/
+
+ENV TAMANO_MAX_MB=10 \
+    ALIAS_MODELO=champion \
+    ENTORNO=contenedor \
+    OMP_NUM_THREADS=1 \
+    MOTOR_EXTRACTOR=onnx \
+    EXTRACTOR_ONNX=mobilenet_v2_int8_estatico.onnx
+
+EXPOSE 8000
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/salud', timeout=4)"
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

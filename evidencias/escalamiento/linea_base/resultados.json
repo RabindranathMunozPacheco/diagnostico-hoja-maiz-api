@@ -1,0 +1,201 @@
+{
+  "fecha": "2026-11-20 23:22:09",
+  "contenedores": {
+    "monitoreo-maiz-operaciones-1": "monitoreo-maiz-servicios:0.4.1",
+    "monitoreo-maiz-vigilante-1": "monitoreo-maiz-servicios:0.4.1",
+    "monitoreo-maiz-prometheus-1": "prom/prometheus:v3.15.1",
+    "monitoreo-maiz-mlflow-1": "ghcr.io/mlflow/mlflow:v3.17.1",
+    "monitoreo-maiz-jaeger-1": "jaegertracing/jaeger:2.20.0",
+    "diagnostico-hoja-maiz": "diagnostico-hoja-maiz-api:0.4.0",
+    "monitoreo-maiz-alertmanager-1": "prom/alertmanager:v0.34.2",
+    "monitoreo-maiz-loki-1": "grafana/loki:3.7.10",
+    "monitoreo-maiz-grafana-1": "grafana/grafana:12.4.15"
+  },
+  "imagenes_mib": {
+    "diagnostico-hoja-maiz-api:0.4.0": 1923.0,
+    "ghcr.io/mlflow/mlflow:v3.17.1": 1237.4,
+    "grafana/grafana:12.4.15": 1130.1,
+    "grafana/loki:3.7.10": 209.7,
+    "jaegertracing/jaeger:2.20.0": 154.8,
+    "monitoreo-maiz-servicios:0.4.1": 390.1,
+    "prom/alertmanager:v0.34.2": 118.9,
+    "prom/prometheus:v3.15.1": 363.7
+  },
+  "reposo": {
+    "diagnostico-hoja-maiz": {
+      "lecturas": 12,
+      "cpu_prom": 0.003,
+      "cpu_max": 0.009,
+      "mem_prom_mib": 438.9,
+      "mem_max_mib": 442.0
+    },
+    "monitoreo-maiz-alertmanager-1": {
+      "lecturas": 12,
+      "cpu_prom": 0.002,
+      "cpu_max": 0.003,
+      "mem_prom_mib": 24.7,
+      "mem_max_mib": 25.9
+    },
+    "monitoreo-maiz-grafana-1": {
+      "lecturas": 12,
+      "cpu_prom": 0.006,
+      "cpu_max": 0.012,
+      "mem_prom_mib": 100.5,
+      "mem_max_mib": 100.9
+    },
+    "monitoreo-maiz-jaeger-1": {
+      "lecturas": 12,
+      "cpu_prom": 0.002,
+      "cpu_max": 0.003,
+      "mem_prom_mib": 18.5,
+      "mem_max_mib": 18.9
+    },
+    "monitoreo-maiz-loki-1": {
+      "lecturas": 12,
+      "cpu_prom": 0.021,
+      "cpu_max": 0.042,
+      "mem_prom_mib": 83.6,
+      "mem_max_mib": 84.1
+    },
+    "monitoreo-maiz-mlflow-1": {
+      "lecturas": 12,
+      "cpu_prom": 0.021,
+      "cpu_max": 0.046,
+      "mem_prom_mib": 2258.3,
+      "mem_max_mib": 2258.9
+    },
+    "monitoreo-maiz-operaciones-1": {
+      "lecturas": 12,
+      "cpu_prom": 0.003,
+      "cpu_max": 0.005,
+      "mem_prom_mib": 47.5,
+      "mem_max_mib": 47.8
+    },
+    "monitoreo-maiz-prometheus-1": {
+      "lecturas": 12,
+      "cpu_prom": 0.013,
+      "cpu_max": 0.023,
+      "mem_prom_mib": 64.1,
+      "mem_max_mib": 64.4
+    },
+    "monitoreo-maiz-vigilante-1": {
+      "lecturas": 12,
+      "cpu_prom": 0.009,
+      "cpu_max": 0.04,
+      "mem_prom_mib": 101.9,
+      "mem_max_mib": 102.4
+    }
+  },
+  "con_trafico": {
+    "diagnostico-hoja-maiz": {
+      "lecturas": 36,
+      "cpu_prom": 0.163,
+      "cpu_max": 0.946,
+      "mem_prom_mib": 483.3,
+      "mem_max_mib": 551.4
+    },
+    "monitoreo-maiz-alertmanager-1": {
+      "lecturas": 36,
+      "cpu_prom": 0.002,
+      "cpu_max": 0.003,
+      "mem_prom_mib": 25.2,
+      "mem_max_mib": 26.4
+    },
+    "monitoreo-maiz-grafana-1": {
+      "lecturas": 36,
+      "cpu_prom": 0.008,
+      "cpu_max": 0.013,
+      "mem_prom_mib": 100.4,
+      "mem_max_mib": 101.8
+    },
+    "monitoreo-maiz-jaeger-1": {
+      "lecturas": 36,
+      "cpu_prom": 0.003,
+      "cpu_max": 0.031,
+      "mem_prom_mib": 20.9,
+      "mem_max_mib": 24.0
+    },
+    "monitoreo-maiz-loki-1": {
+      "lecturas": 36,
+      "cpu_prom": 0.024,
+      "cpu_max": 0.108,
+      "mem_prom_mib": 92.3,
+      "mem_max_mib": 97.7
+    },
+    "monitoreo-maiz-mlflow-1": {
+      "lecturas": 36,
+      "cpu_prom": 0.023,
+      "cpu_max": 0.046,
+      "mem_prom_mib": 2258.9,
+      "mem_max_mib": 2260.0
+    },
+    "monitoreo-maiz-operaciones-1": {
+      "lecturas": 36,
+      "cpu_prom": 0.003,
+      "cpu_max": 0.008,
+      "mem_prom_mib": 65.8,
+      "mem_max_mib": 89.7
+    },
+    "monitoreo-maiz-prometheus-1": {
+      "lecturas": 36,
+      "cpu_prom": 0.017,
+      "cpu_max": 0.113,
+      "mem_prom_mib": 62.4,
+      "mem_max_mib": 66.2
+    },
+    "monitoreo-maiz-vigilante-1": {
+      "lecturas": 36,
+      "cpu_prom": 0.011,
+      "cpu_max": 0.064,
+      "mem_prom_mib": 109.0,
+      "mem_max_mib": 117.4
+    }
+  },
+  "trafico": {
+    "solicitudes": 370,
+    "fallidas": 0,
+    "proporcion_fallidas": 0.0,
+    "latencia_p50_s": 0.0746,
+    "latencia_p95_s": 0.1281,
+    "latencia_p99_s": 0.3694,
+    "lentas_mas_de_0_5_s": 0.0
+  },
+  "total_reposo": {
+    "cpu_prom_nucleos": 0.08,
+    "cpu_max_suma_nucleos": 0.183,
+    "mem_prom_mib": 3138.0,
+    "mem_max_suma_mib": 3145.3
+  },
+  "total_con_trafico": {
+    "cpu_prom_nucleos": 0.254,
+    "cpu_max_suma_nucleos": 1.332,
+    "mem_prom_mib": 3218.2,
+    "mem_max_suma_mib": 3334.6
+  },
+  "diagnostico_en_serie": {
+    "foto_224_png": {
+      "bytes": 47815,
+      "veces": 20,
+      "cliente_p50_s": 0.065,
+      "cliente_p95_s": 0.0972,
+      "servidor_p50_s": 0.0398,
+      "servidor_p95_s": 0.0874
+    },
+    "foto_celular_12mp_jpeg": {
+      "bytes": 471948,
+      "veces": 20,
+      "cliente_p50_s": 0.1781,
+      "cliente_p95_s": 0.2206,
+      "servidor_p50_s": 0.1717,
+      "servidor_p95_s": 0.1781
+    }
+  },
+  "arranque_frio_s": {
+    "intentos": [
+      4.57,
+      4.85,
+      4.56
+    ],
+    "promedio": 4.66
+  }
+}

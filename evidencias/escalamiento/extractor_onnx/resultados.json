@@ -1,0 +1,282 @@
+{
+  "fecha": "2026-11-20 23:29:30",
+  "n_fotos": 221,
+  "extractores": {
+    "pytorch": {
+      "archivo_mib": 8.48,
+      "latencia_1_hilo": {
+        "p50_ms": 23.98,
+        "p95_ms": 34.46
+      },
+      "conjuntos": {
+        "prueba": {
+          "dif_max": 0.0,
+          "coseno_prom": 1.0,
+          "coseno_min": 1.0,
+          "v1": {
+            "n": 221,
+            "f1_macro": 0.7212,
+            "exactitud": 0.7511,
+            "enferma_como_sana": 0.0795,
+            "sana_como_enferma": 0.5556,
+            "acuerdo_con_pytorch": 1.0,
+            "dif_max_p_enferma": 0.0
+          },
+          "v3": {
+            "n": 221,
+            "f1_macro": 0.6582,
+            "exactitud": 0.7104,
+            "enferma_como_sana": 0.0568,
+            "sana_como_enferma": 0.6667,
+            "acuerdo_con_pytorch": 1.0,
+            "dif_max_p_enferma": 0.0
+          }
+        },
+        "prueba_lluvia": {
+          "dif_max": 0.0,
+          "coseno_prom": 1.0,
+          "coseno_min": 1.0,
+          "v1": {
+            "n": 221,
+            "f1_macro": 0.364,
+            "exactitud": 0.4525,
+            "enferma_como_sana": 0.3182,
+            "sana_como_enferma": 0.3111,
+            "acuerdo_con_pytorch": 1.0,
+            "dif_max_p_enferma": 0.0
+          },
+          "v3": {
+            "n": 221,
+            "f1_macro": 0.539,
+            "exactitud": 0.6425,
+            "enferma_como_sana": 0.0455,
+            "sana_como_enferma": 0.7333,
+            "acuerdo_con_pytorch": 1.0,
+            "dif_max_p_enferma": 0.0
+          }
+        }
+      }
+    },
+    "mobilenet_v2_fp32.onnx": {
+      "archivo_mib": 8.6,
+      "latencia_1_hilo": {
+        "p50_ms": 7.29,
+        "p95_ms": 7.88
+      },
+      "conjuntos": {
+        "prueba": {
+          "dif_max": 2.5e-05,
+          "coseno_prom": 1.0,
+          "coseno_min": 1.0,
+          "v1": {
+            "n": 221,
+            "f1_macro": 0.7212,
+            "exactitud": 0.7511,
+            "enferma_como_sana": 0.0795,
+            "sana_como_enferma": 0.5556,
+            "acuerdo_con_pytorch": 1.0,
+            "dif_max_p_enferma": 0.0
+          },
+          "v3": {
+            "n": 221,
+            "f1_macro": 0.6582,
+            "exactitud": 0.7104,
+            "enferma_como_sana": 0.0568,
+            "sana_como_enferma": 0.6667,
+            "acuerdo_con_pytorch": 1.0,
+            "dif_max_p_enferma": 0.0
+          }
+        },
+        "prueba_lluvia": {
+          "dif_max": 3.7e-05,
+          "coseno_prom": 1.0,
+          "coseno_min": 1.0,
+          "v1": {
+            "n": 221,
+            "f1_macro": 0.364,
+            "exactitud": 0.4525,
+            "enferma_como_sana": 0.3182,
+            "sana_como_enferma": 0.3111,
+            "acuerdo_con_pytorch": 1.0,
+            "dif_max_p_enferma": 0.0
+          },
+          "v3": {
+            "n": 221,
+            "f1_macro": 0.539,
+            "exactitud": 0.6425,
+            "enferma_como_sana": 0.0455,
+            "sana_como_enferma": 0.7333,
+            "acuerdo_con_pytorch": 1.0,
+            "dif_max_p_enferma": 0.0
+          }
+        }
+      }
+    },
+    "mobilenet_v2_int8_dinamico.onnx": {
+      "archivo_mib": 2.34,
+      "latencia_1_hilo": {
+        "p50_ms": 22.94,
+        "p95_ms": 42.22
+      },
+      "conjuntos": {
+        "prueba": {
+          "dif_max": 5.873277,
+          "coseno_prom": 0.443523,
+          "coseno_min": 0.248291,
+          "v1": {
+            "n": 221,
+            "f1_macro": 0.2715,
+            "exactitud": 0.3937,
+            "enferma_como_sana": 0.1136,
+            "sana_como_enferma": 0.6222,
+            "acuerdo_con_pytorch": 0.4751,
+            "dif_max_p_enferma": 0.9761
+          },
+          "v3": {
+            "n": 221,
+            "f1_macro": 0.2457,
+            "exactitud": 0.5475,
+            "enferma_como_sana": 0.0114,
+            "sana_como_enferma": 0.9778,
+            "acuerdo_con_pytorch": 0.6833,
+            "dif_max_p_enferma": 0.999
+          }
+        },
+        "prueba_lluvia": {
+          "dif_max": 5.518155,
+          "coseno_prom": 0.338688,
+          "coseno_min": 0.106826,
+          "v1": {
+            "n": 221,
+            "f1_macro": 0.0888,
+            "exactitud": 0.1991,
+            "enferma_como_sana": 0.8239,
+            "sana_como_enferma": 0.2889,
+            "acuerdo_con_pytorch": 0.3891,
+            "dif_max_p_enferma": 0.9954
+          },
+          "v3": {
+            "n": 221,
+            "f1_macro": 0.1773,
+            "exactitud": 0.3122,
+            "enferma_como_sana": 0.3352,
+            "sana_como_enferma": 0.8444,
+            "acuerdo_con_pytorch": 0.5113,
+            "dif_max_p_enferma": 0.9991
+          }
+        }
+      }
+    },
+    "mobilenet_v2_int8_estatico.onnx": {
+      "archivo_mib": 2.53,
+      "latencia_1_hilo": {
+        "p50_ms": 4.64,
+        "p95_ms": 5.37
+      },
+      "conjuntos": {
+        "prueba": {
+          "dif_max": 1.355757,
+          "coseno_prom": 0.991484,
+          "coseno_min": 0.978413,
+          "v1": {
+            "n": 221,
+            "f1_macro": 0.7125,
+            "exactitud": 0.7466,
+            "enferma_como_sana": 0.0625,
+            "sana_como_enferma": 0.5556,
+            "acuerdo_con_pytorch": 0.9367,
+            "dif_max_p_enferma": 0.3683
+          },
+          "v3": {
+            "n": 221,
+            "f1_macro": 0.6596,
+            "exactitud": 0.7195,
+            "enferma_como_sana": 0.0568,
+            "sana_como_enferma": 0.6,
+            "acuerdo_con_pytorch": 0.9502,
+            "dif_max_p_enferma": 0.373
+          }
+        },
+        "prueba_lluvia": {
+          "dif_max": 2.388084,
+          "coseno_prom": 0.966643,
+          "coseno_min": 0.923715,
+          "v1": {
+            "n": 221,
+            "f1_macro": 0.3256,
+            "exactitud": 0.4706,
+            "enferma_como_sana": 0.2557,
+            "sana_como_enferma": 0.3333,
+            "acuerdo_con_pytorch": 0.7964,
+            "dif_max_p_enferma": 0.7776
+          },
+          "v3": {
+            "n": 221,
+            "f1_macro": 0.5123,
+            "exactitud": 0.638,
+            "enferma_como_sana": 0.0455,
+            "sana_como_enferma": 0.7333,
+            "acuerdo_con_pytorch": 0.8959,
+            "dif_max_p_enferma": 0.592
+          }
+        }
+      }
+    },
+    "mobilenet_v2_int8_estatico_lluvia.onnx": {
+      "archivo_mib": 2.53,
+      "latencia_1_hilo": {
+        "p50_ms": 4.63,
+        "p95_ms": 5.37
+      },
+      "conjuntos": {
+        "prueba": {
+          "dif_max": 1.311424,
+          "coseno_prom": 0.99141,
+          "coseno_min": 0.977909,
+          "v1": {
+            "n": 221,
+            "f1_macro": 0.7473,
+            "exactitud": 0.7692,
+            "enferma_como_sana": 0.0682,
+            "sana_como_enferma": 0.5778,
+            "acuerdo_con_pytorch": 0.9321,
+            "dif_max_p_enferma": 0.4133
+          },
+          "v3": {
+            "n": 221,
+            "f1_macro": 0.6725,
+            "exactitud": 0.724,
+            "enferma_como_sana": 0.0625,
+            "sana_como_enferma": 0.6444,
+            "acuerdo_con_pytorch": 0.9548,
+            "dif_max_p_enferma": 0.386
+          }
+        },
+        "prueba_lluvia": {
+          "dif_max": 2.245843,
+          "coseno_prom": 0.966609,
+          "coseno_min": 0.9252,
+          "v1": {
+            "n": 221,
+            "f1_macro": 0.3206,
+            "exactitud": 0.4615,
+            "enferma_como_sana": 0.2784,
+            "sana_como_enferma": 0.3333,
+            "acuerdo_con_pytorch": 0.7873,
+            "dif_max_p_enferma": 0.6129
+          },
+          "v3": {
+            "n": 221,
+            "f1_macro": 0.4868,
+            "exactitud": 0.6335,
+            "enferma_como_sana": 0.0511,
+            "sana_como_enferma": 0.6889,
+            "acuerdo_con_pytorch": 0.8824,
+            "dif_max_p_enferma": 0.6934
+          }
+        }
+      }
+    }
+  },
+  "preprocesado_dif_max": 1.1920928955078125e-07
+}

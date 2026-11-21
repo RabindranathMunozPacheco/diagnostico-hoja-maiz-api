@@ -13,20 +13,30 @@ etiqueta, así que para ellas no cambia nada.
 
 Cada etapa es un span de la traza (app/observabilidad.py) y en cada una se puede inyectar una falla para
 simular incidentes (app/caos.py). Recargar el modelo reutiliza el extractor si la versión nueva usa el mismo.
+
+Motor del extractor (Actividad 9): MOTOR_EXTRACTOR=pytorch (por defecto) usa MobileNetV2 de PyTorch;
+MOTOR_EXTRACTOR=onnx usa la misma red exportada a ONNX (EXTRACTOR_ONNX elige el archivo de modelo/extractores/,
+por defecto la versión int8 estática) y no carga PyTorch ni transformers. Antes de usar el archivo ONNX se comprueba
+que venga del mismo MobileNetV2 que pide la ficha de la versión y que su sha256 coincida con extractores.json.
 """
 import hashlib
 import io
+import json
+import os
 import time
 
 import numpy as np
 import pandas as pd
 import skops.io as sio
-import torch
 from PIL import Image, ImageOps
-from transformers import MobileNetV2ImageProcessorPil, MobileNetV2Model
 
 from app.calidad import calidad, fuera_de_rango
 from app.observabilidad import etapa
+
+MOTOR = (os.environ.get("MOTOR_EXTRACTOR", "") or "pytorch").strip().lower()
+ARCHIVO_ONNX = (os.environ.get("EXTRACTOR_ONNX", "") or "mobilenet_v2_int8_estatico.onnx").strip()
+if MOTOR not in ("pytorch", "onnx"):
+    raise ValueError(f"MOTOR_EXTRACTOR debe ser 'pytorch' u 'onnx' (se recibió '{MOTOR}')")
 
 TAMANO = (224, 224)
 LIMITE_PIXELES = 50_000_000                  # más de 50 megapíxeles se rechaza (protege la memoria)
@@ -76,13 +86,38 @@ class Extractor:
     """MobileNetV2 congelado. Procesador con backend PIL, el mismo del entrenamiento."""
 
     def __init__(self, repositorio, revision):
-        self.clave = (repositorio, revision)
+        import torch                                  # solo el motor PyTorch los necesita
+        from transformers import MobileNetV2ImageProcessorPil, MobileNetV2Model
+        self._torch = torch
+        self.clave = ("pytorch", repositorio, revision)
         self.procesador = MobileNetV2ImageProcessorPil.from_pretrained(repositorio, revision=revision)
         self.modelo = MobileNetV2Model.from_pretrained(repositorio, revision=revision).eval()
 
     def __call__(self, imagen):
-        with torch.no_grad():
+        with self._torch.no_grad():
             return self.modelo(**self.procesador([imagen], return_tensors="pt")).pooler_output.numpy()
+
+
+def clave_extractor(version):
+    return ("onnx", *version.extractor, ARCHIVO_ONNX) if MOTOR == "onnx" else ("pytorch", *version.extractor)
+
+
+def crear_extractor(version):
+    """Extractor del motor configurado para la versión; con ONNX verifica origen y huella del archivo."""
+    if MOTOR == "pytorch":
+        return Extractor(*version.extractor)
+    from app.extractor_onnx import ExtractorOnnx
+    carpeta = version.carpeta.parents[1] / "extractores"
+    ficha = json.loads((carpeta / "extractores.json").read_text(encoding="utf-8"))
+    if (ficha["origen"]["repositorio"], ficha["origen"]["revision"]) != tuple(version.extractor):
+        raise RuntimeError(f"{carpeta / 'extractores.json'} no viene del extractor de la versión {version.version}")
+    if ARCHIVO_ONNX not in ficha["archivos"]:
+        raise RuntimeError(f"{ARCHIVO_ONNX} no está en {carpeta / 'extractores.json'}")
+    extractor = ExtractorOnnx(carpeta / ARCHIVO_ONNX)
+    if extractor.huella != ficha["archivos"][ARCHIVO_ONNX]["sha256"]:
+        raise RuntimeError(f"{ARCHIVO_ONNX} no coincide con la huella de extractores.json")
+    extractor.clave = clave_extractor(version)
+    return extractor
 
 
 class Diagnosticador:
@@ -94,8 +129,8 @@ class Diagnosticador:
         self.clasificador = sio.load(version.ruta_clasificador)
         self.clases = [str(c) for c in self.clasificador.classes_]
         self.columnas = [f"f{i:04d}" for i in range(self.clasificador.n_features_in_)]
-        reutilizable = extractor is not None and extractor.clave == version.extractor
-        self.extractor = extractor if reutilizable else Extractor(*version.extractor)
+        reutilizable = extractor is not None and extractor.clave == clave_extractor(version)
+        self.extractor = extractor if reutilizable else crear_extractor(version)
         self.cargado = time.time()
 
     def advertencias(self, medidas):

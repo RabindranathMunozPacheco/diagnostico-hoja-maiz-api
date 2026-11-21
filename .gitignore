@@ -3,3 +3,6 @@ __pycache__/
 .pytest_cache/
 .venv/
 .env
+
+# Extractores ONNX: pesos derivados de un modelo con licencia "other"; se regeneran con escalamiento/exportar_onnx.py
+modelo/extractores/*.onnx

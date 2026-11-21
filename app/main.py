@@ -78,7 +78,9 @@ def modelo(request: Request):
     d = request.app.state.diagnosticador
     return {**d.version.ficha, "version_en_servicio": d.version.version, "alias": d.alias,
             "umbral_en_uso": d.umbral, "tamano_max_mb": config.tamano_max_mb,
-            "linea_base": bool(d.version.linea_base)}
+            "linea_base": bool(d.version.linea_base),
+            # Motor del extractor en uso (Actividad 9): ("pytorch", repo, revisión) u ("onnx", repo, revisión, archivo)
+            "extractor_en_uso": list(d.extractor.clave)}
 
 
 @app.post("/api/diagnostico", response_model=Diagnostico, tags=["diagnóstico"],

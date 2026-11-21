@@ -16,3 +16,9 @@ requirements-dev.txt
 scripts/exportar_modelo.py
 monitoreo
 simulacion
+
+# Imagen ligera: solo el extractor ONNX que se usa
+modelo/extractores/mobilenet_v2_fp32.onnx
+modelo/extractores/mobilenet_v2_int8_dinamico.onnx
+modelo/extractores/mobilenet_v2_int8_estatico_lluvia.onnx
+escalamiento

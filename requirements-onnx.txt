@@ -1,0 +1,23 @@
+# Dependencias de la imagen ligera (Dockerfile.onnx, Actividad 9): la misma API, pero el extractor corre en
+# ONNX Runtime, así que no hacen falta PyTorch, transformers ni huggingface-hub.
+
+# Modelo: extractor en ONNX y clasificador
+onnxruntime==1.23.2
+scikit-learn==1.7.2
+skops==0.16.0
+numpy==2.2.6
+pandas==2.3.3
+scipy==1.15.3
+Pillow==12.3.0
+
+# API
+fastapi==0.146.0
+starlette==1.7.0
+pydantic==2.13.4
+uvicorn==0.54.0
+python-multipart==0.0.32
+
+# Observabilidad
+prometheus-client==0.26.0
+opentelemetry-sdk==1.45.2
+opentelemetry-exporter-otlp-proto-http==1.45.2

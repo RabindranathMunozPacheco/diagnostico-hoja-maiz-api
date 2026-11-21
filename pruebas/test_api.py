@@ -163,12 +163,14 @@ def test_falla_inyectada_responde_500_y_se_cuenta(cliente):
 
 
 def test_recargar_cambia_de_version_y_regresa(cliente, tmp_path, monkeypatch):
-    # Registro temporal con una "versión 9" (copia de la 1): promover y luego regresar, sin reiniciar la API
+    # Registro temporal con una "versión 9" (copia de la que está en servicio): promover y luego regresar, sin
+    # reiniciar la API. La versión en servicio se lee del registro (era la 1 hasta la Actividad 8; ahora es la 3)
     copia = tmp_path / "modelo"
     shutil.copytree(RAIZ / "modelo", copia)
     registro = json.loads((copia / "registro.json").read_text(encoding="utf-8"))
-    shutil.copytree(copia / "versiones" / "1", copia / "versiones" / "9")
-    registro["versiones"]["9"] = {**registro["versiones"]["1"], "carpeta": "versiones/9"}
+    actual = registro["alias"]["champion"]
+    shutil.copytree(copia / "versiones" / actual, copia / "versiones" / "9")
+    registro["versiones"]["9"] = {**registro["versiones"][actual], "carpeta": "versiones/9"}
     monkeypatch.setattr(main, "config", main.config.__class__(**{**main.config.__dict__, "dir_modelos": copia}))
 
     def mover_alias(version):
@@ -177,18 +179,19 @@ def test_recargar_cambia_de_version_y_regresa(cliente, tmp_path, monkeypatch):
 
     mover_alias("9")
     r = cliente.post("/api/admin/recargar", headers=TOKEN)
-    assert r.status_code == 200 and r.json() == {**r.json(), "version_anterior": "1", "version_actual": "9"}
+    assert r.status_code == 200 and r.json() == {**r.json(), "version_anterior": actual, "version_actual": "9"}
     assert cliente.get("/api/salud").json()["modelo_version"] == "9"
-    mover_alias("1")
-    assert cliente.post("/api/admin/recargar", headers=TOKEN).json()["version_actual"] == "1"
+    mover_alias(actual)
+    assert cliente.post("/api/admin/recargar", headers=TOKEN).json()["version_actual"] == actual
 
 
 def test_recarga_con_modelo_danado_conserva_la_version(cliente, tmp_path, monkeypatch):
     copia = tmp_path / "modelo"
     shutil.copytree(RAIZ / "modelo", copia)
-    (copia / "versiones" / "1" / "model.skops").write_bytes(b"archivo danado")
+    actual = json.loads((copia / "registro.json").read_text(encoding="utf-8"))["alias"]["champion"]
+    (copia / "versiones" / actual / "model.skops").write_bytes(b"archivo danado")
     monkeypatch.setattr(main, "config", main.config.__class__(**{**main.config.__dict__, "dir_modelos": copia}))
     r = cliente.post("/api/admin/recargar", headers=TOKEN)
     assert r.status_code == 500
-    assert cliente.get("/api/salud").json()["modelo_version"] == "1"
+    assert cliente.get("/api/salud").json()["modelo_version"] == actual
     assert cliente.post("/api/diagnostico", files={"foto": ("hoja.jpg", imagen(), "image/jpeg")}).status_code == 200
