@@ -6,39 +6,65 @@
     "fuente": "https://cloud.google.com/run/pricing",
     "facturacion_por_solicitud": {
       "nota": "Se cobra el tiempo de instancia mientras atiende al menos una solicitud (redondeado a 100 ms). Las instancias mínimas en espera se cobran a la tarifa idle.",
-      "cpu_vcpu_segundo_activo": 0.000024,
-      "cpu_vcpu_segundo_idle_min_instancia": 0.0000025,
-      "memoria_gib_segundo_activo": 0.0000025,
-      "memoria_gib_segundo_idle_min_instancia": 0.0000025,
-      "solicitudes_por_millon": 0.40,
-      "gratis_mes": {"vcpu_segundos": 180000, "gib_segundos": 360000, "solicitudes": 2000000}
+      "cpu_vcpu_segundo_activo": 2.4e-05,
+      "cpu_vcpu_segundo_idle_min_instancia": 2.5e-06,
+      "memoria_gib_segundo_activo": 2.5e-06,
+      "memoria_gib_segundo_idle_min_instancia": 2.5e-06,
+      "solicitudes_por_millon": 0.4,
+      "gratis_mes": {
+        "vcpu_segundos": 180000,
+        "gib_segundos": 360000,
+        "solicitudes": 2000000
+      }
     },
     "facturacion_por_instancia": {
       "nota": "CPU siempre asignada: se cobra todo el tiempo que la instancia existe.",
-      "cpu_vcpu_segundo": 0.000018,
-      "memoria_gib_segundo": 0.000002,
-      "gratis_mes": {"vcpu_segundos": 240000, "gib_segundos": 450000}
+      "cpu_vcpu_segundo": 1.8e-05,
+      "memoria_gib_segundo": 2e-06,
+      "gratis_mes": {
+        "vcpu_segundos": 240000,
+        "gib_segundos": 450000
+      }
     },
     "descuento_cud_1_anio_cloud_run": 0.17,
     "reglas": {
       "fuente": "https://cloud.google.com/run/docs/configuring/services/cpu , https://cloud.google.com/run/docs/configuring/services/memory-limits , https://cloud.google.com/run/docs/about-concurrency",
       "cpu_minima": 0.08,
       "menos_de_1_vcpu": "concurrencia máxima 1, facturación por solicitud, más de 512 MiB pide 0.5 vCPU y más de 1 GiB pide 1 vCPU",
-      "memoria_maxima_por_cpu": {"0.08": "512 MiB", "0.5": "1 GiB", "1": "4 GiB", "2": "8 GiB", "4": "2-16 GiB"},
+      "memoria_maxima_por_cpu": {
+        "0.08": "512 MiB",
+        "0.5": "1 GiB",
+        "1": "4 GiB",
+        "2": "8 GiB",
+        "4": "2-16 GiB"
+      },
       "concurrencia_por_defecto": "80 por vCPU, máximo 1,000"
     },
     "red": "Salida a internet con 1 GiB gratis al mes dentro de Norteamérica"
   },
   "compute_engine": {
     "fuente": "https://cloud.google.com/products/compute/pricing/general-purpose",
-    "por_hora_bajo_demanda": {"e2-medium (2 vCPU compartidas, 4 GiB)": 0.03350571, "e2-standard-2 (2 vCPU, 8 GiB)": 0.06701142, "e2-standard-4 (4 vCPU, 16 GiB)": 0.13402284},
-    "por_hora_cud_1_anio_recursos": {"e2-medium (2 vCPU compartidas, 4 GiB)": 0.021108598, "e2-standard-2 (2 vCPU, 8 GiB)": 0.042217196, "e2-standard-4 (4 vCPU, 16 GiB)": 0.084434392},
+    "por_hora_bajo_demanda": {
+      "e2-medium (2 vCPU compartidas, 4 GiB)": 0.03350571,
+      "e2-standard-2 (2 vCPU, 8 GiB)": 0.06701142,
+      "e2-standard-4 (4 vCPU, 16 GiB)": 0.13402284
+    },
+    "por_hora_cud_1_anio_recursos": {
+      "e2-medium (2 vCPU compartidas, 4 GiB)": 0.021108598,
+      "e2-standard-2 (2 vCPU, 8 GiB)": 0.042217196,
+      "e2-standard-4 (4 vCPU, 16 GiB)": 0.084434392
+    },
     "disco_balanceado_gib_hora": 0.000136986,
     "fuente_disco": "https://cloud.google.com/compute/disks-image-pricing"
   },
   "cloud_storage": {
     "fuente": "https://cloud.google.com/storage/pricing",
-    "gib_hora": {"standard": 0.000027397, "nearline": 0.000013699, "coldline": 0.000005479, "archive": 0.000001644}
+    "gib_hora": {
+      "standard": 2.7397e-05,
+      "nearline": 1.3699e-05,
+      "coldline": 5.479e-06,
+      "archive": 1.644e-06
+    }
   },
   "artifact_registry": {
     "fuente": "https://cloud.google.com/artifact-registry/pricing",
@@ -47,15 +73,22 @@
   },
   "observabilidad": {
     "fuente": "https://cloud.google.com/stackdriver/pricing",
-    "logging_ingesta_gib": 0.50,
+    "logging_ingesta_gib": 0.5,
     "logging_gratis_gib_mes_por_proyecto": 50,
     "prometheus_administrado_millon_muestras": 0.06,
-    "trace_millon_spans": 0.20,
+    "trace_millon_spans": 0.2,
     "trace_gratis_millones_spans_mes": 2.5,
     "alertas_por_referencia_de_metrica_mes": 0.35,
-    "alertas_por_millon_de_puntos": 0.50,
+    "alertas_por_millon_de_puntos": 0.5,
     "alertas_nota": "Cloud Monitoring empieza a cobrar las alertas no antes del 1 de septiembre de 2027; antes son gratis",
-    "uptime_checks_por_mil": 0.30,
+    "uptime_checks_por_mil": 0.3,
     "uptime_checks_gratis_por_proyecto": 1000000
+  },
+  "sla": {
+    "fuente": "https://cloud.google.com/run/sla , https://cloud.google.com/compute/sla",
+    "cloud_run_servicio": 0.9995,
+    "compute_engine_una_instancia": 0.999,
+    "compute_engine_varias_zonas": 0.9999,
+    "nota": "Porcentaje mensual de disponibilidad comprometido por Google (regiones excepto Estocolmo). Cubre la infraestructura, no la aplicación."
   }
 }
