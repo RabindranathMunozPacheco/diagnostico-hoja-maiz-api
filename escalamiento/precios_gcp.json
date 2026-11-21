@@ -51,6 +51,11 @@
     "logging_gratis_gib_mes_por_proyecto": 50,
     "prometheus_administrado_millon_muestras": 0.06,
     "trace_millon_spans": 0.20,
-    "trace_gratis_millones_spans_mes": 2.5
+    "trace_gratis_millones_spans_mes": 2.5,
+    "alertas_por_referencia_de_metrica_mes": 0.35,
+    "alertas_por_millon_de_puntos": 0.50,
+    "alertas_nota": "Cloud Monitoring empieza a cobrar las alertas no antes del 1 de septiembre de 2027; antes son gratis",
+    "uptime_checks_por_mil": 0.30,
+    "uptime_checks_gratis_por_proyecto": 1000000
   }
 }
