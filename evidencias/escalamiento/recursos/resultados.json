@@ -1,0 +1,128 @@
+{
+  "fecha": "2026-11-21 00:24:06",
+  "segundos_por_carga": 60,
+  "configuraciones": [
+    {
+      "nombre": "actual",
+      "imagen": "diagnostico-hoja-maiz-api:0.6.0",
+      "vcpu": 1.0,
+      "memoria": "1g",
+      "arranque_s": 5.32,
+      "cargas": [
+        {
+          "tasa_pedida": 2,
+          "tasa_lograda": 2.17,
+          "solicitudes": 130,
+          "fallidas": 0,
+          "p50_s": 0.0579,
+          "p95_s": 0.1261,
+          "p99_s": 0.1607,
+          "sobre_slo": 0.0,
+          "cpu_prom": 0.116,
+          "cpu_max": 0.331,
+          "mem_prom_mib": 372.5,
+          "mem_max_mib": 403.0,
+          "cpu_ms_por_diagnostico": 53.5
+        },
+        {
+          "tasa_pedida": 10,
+          "tasa_lograda": 9.58,
+          "solicitudes": 575,
+          "fallidas": 0,
+          "p50_s": 0.1492,
+          "p95_s": 1.4808,
+          "p99_s": 1.6371,
+          "sobre_slo": 0.3809,
+          "cpu_prom": 0.657,
+          "cpu_max": 1.068,
+          "mem_prom_mib": 530.9,
+          "mem_max_mib": 582.3,
+          "cpu_ms_por_diagnostico": 68.6
+        },
+        {
+          "tasa_pedida": 18,
+          "tasa_lograda": 8.7,
+          "solicitudes": 522,
+          "fallidas": 0,
+          "p50_s": 1.3847,
+          "p95_s": 1.8917,
+          "p99_s": 2.0976,
+          "sobre_slo": 1.0,
+          "cpu_prom": 0.986,
+          "cpu_max": 1.052,
+          "mem_prom_mib": 588.1,
+          "mem_max_mib": 614.3,
+          "cpu_ms_por_diagnostico": 113.3
+        }
+      ],
+      "reposo": {
+        "lecturas": 15,
+        "cpu_prom": 0.003,
+        "cpu_max": 0.004,
+        "mem_prom_mib": 335.7,
+        "mem_max_mib": 336.6
+      }
+    },
+    {
+      "nombre": "rediseño",
+      "imagen": "diagnostico-hoja-maiz-api:0.6.0-onnx",
+      "vcpu": 1.0,
+      "memoria": "512m",
+      "arranque_s": 2.21,
+      "cargas": [
+        {
+          "tasa_pedida": 2,
+          "tasa_lograda": 2.17,
+          "solicitudes": 130,
+          "fallidas": 0,
+          "p50_s": 0.0599,
+          "p95_s": 0.0856,
+          "p99_s": 0.1044,
+          "sobre_slo": 0.0,
+          "cpu_prom": 0.053,
+          "cpu_max": 0.13,
+          "mem_prom_mib": 146.4,
+          "mem_max_mib": 147.0,
+          "cpu_ms_por_diagnostico": 24.5
+        },
+        {
+          "tasa_pedida": 10,
+          "tasa_lograda": 9.58,
+          "solicitudes": 575,
+          "fallidas": 0,
+          "p50_s": 0.061,
+          "p95_s": 0.0943,
+          "p99_s": 0.1313,
+          "sobre_slo": 0.0,
+          "cpu_prom": 0.203,
+          "cpu_max": 0.295,
+          "mem_prom_mib": 160.2,
+          "mem_max_mib": 169.2,
+          "cpu_ms_por_diagnostico": 21.2
+        },
+        {
+          "tasa_pedida": 18,
+          "tasa_lograda": 17.66,
+          "solicitudes": 1060,
+          "fallidas": 0,
+          "p50_s": 0.0615,
+          "p95_s": 0.1231,
+          "p99_s": 0.1815,
+          "sobre_slo": 0.0,
+          "cpu_prom": 0.402,
+          "cpu_max": 0.632,
+          "mem_prom_mib": 175.8,
+          "mem_max_mib": 178.9,
+          "cpu_ms_por_diagnostico": 22.8
+        }
+      ],
+      "reposo": {
+        "lecturas": 15,
+        "cpu_prom": 0.015,
+        "cpu_max": 0.184,
+        "mem_prom_mib": 131.6,
+        "mem_max_mib": 132.1
+      }
+    }
+  ]
+}

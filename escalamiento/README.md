@@ -10,6 +10,7 @@ máquina virtual) y se sustentó el rediseño en Cloud Run. Los resultados queda
 | `comparar_extractores.py` | PyTorch contra ONNX en las 221 fotos de prueba: diferencia de características, acuerdo del diagnóstico, F1, FNR, tamaño y latencia | `extractor_onnx/` |
 | `dimensionar.py` | Right-sizing: imagen PyTorch y ONNX con 0.5, 1 y 2 vCPU y varias concurrencias; costo por 1,000 diagnósticos en Cloud Run | `dimensionamiento/` |
 | `horizontal.py` | 1, 2 y 3 réplicas detrás de nginx: capacidad, falla de una réplica y versiones mezcladas al hacer rollback | `horizontal/` |
+| `recursos.py` | La imagen actual y la del rediseño con la misma carga (tráfico de Poisson a 2, 10 y 18 diagnósticos/s): CPU, memoria, latencia y ms de CPU por diagnóstico | `recursos/` |
 | `auditoria_fairness.py` | FNR, FPR y PPV por condición de captura y por dispositivo para v1, v3 y v3 int8, con intervalos de Wilson; prueba fuera de dominio | `fairness/` |
 
 `comun.py` tiene las herramientas compartidas (docker stats, contenedores desechables con límites, prueba de carga en
@@ -26,6 +27,7 @@ python escalamiento/linea_base.py              # con el laboratorio de monitoreo
 python escalamiento/comparar_extractores.py
 python escalamiento/dimensionar.py
 python escalamiento/horizontal.py
+python escalamiento/recursos.py
 python escalamiento/auditoria_fairness.py
 ```
 
